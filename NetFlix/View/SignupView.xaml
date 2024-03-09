@@ -1,0 +1,297 @@
+﻿<Window x:Class="NetFlix.View.Signup"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:NetFlix.View" xmlns:customcontrols="clr-namespace:NetFlix.CustomControls"
+      xmlns:viewModel="clr-namespace:NetFlix.ViewModel"
+        mc:Ignorable="d" 
+        Height="570" Width="800" 
+        Title="Signup"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        MouseDown="Window_MouseDown"
+        Background="Transparent"
+        AllowsTransparency="True"
+        >
+
+    <Window.DataContext>
+        <viewModel:SignupVM/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <customcontrols:RadioButtonCheckedConverter x:Key="RadioButtonCheckedConverter"/>
+    </Window.Resources>
+
+    <!--<Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+    </Window.Resources>-->
+
+    <!--<Window.Visibility>
+        <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}"/>
+    </Window.Visibility>-->
+
+    <Border 
+        CornerRadius="20">
+        <Border.Background>
+            <ImageBrush ImageSource="/Images/loginBG.jpg"/>
+        </Border.Background>
+
+        <Border CornerRadius="12" 
+                BorderThickness="1"
+                Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#462AD8" Offset="0"/>
+                    <GradientStop Color="#DA34AE" Offset="0.75"/>
+                    <GradientStop Color="#8A16C1" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="#FF303034" Offset="0"/>
+                    <GradientStop Color="#FF100D1F" Offset="0.75"/>
+                    <GradientStop Color="#FF050312" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Grid ShowGridLines="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock 
+                    Text="Sign up"
+                    Foreground="DarkGray"
+                    FontSize="10"
+                    FontFamily="Montserrat" 
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Margin="10,0,0,0"
+                    />
+
+                <Button x:Name="btnMinimize"
+                        BorderThickness="0"
+                        Content="-"
+                        Foreground="White"
+                        FontSize="14"
+                        FontFamily="Montserrat"
+                        Cursor="Hand"
+                        Grid.Column="1"
+                        Click="btnMinimize_Click"
+                        >
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#28AEED"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FF529FED" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="18" Height="18" 
+                                    CornerRadius="9" 
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button x:Name="btnClose"
+                        BorderThickness="0"
+                        Content="X"
+                        Foreground="White"
+                        FontSize="12"
+                        FontFamily="Montserrat"
+                        Cursor="Hand"
+                        Grid.Column="2"
+                        Click="btnClose_Click"
+                        >
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#e50914"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FFEE4D55" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="18" Height="20" 
+                                    CornerRadius="9" 
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <StackPanel Grid.Row="1" Margin="259,0,207,0">
+                    <Image Source="/Images/app-icon.png" Width="160"/>
+                    <TextBlock Text="Username"
+                               Foreground="DarkGray" 
+                               FontSize="12"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat" 
+                               Margin="0,20,0,0"/>
+                    <TextBox x:Name="txtUser" 
+                            Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                            FontSize="13"
+                            FontWeight="Medium"
+                            FontFamily="Montserrat" 
+                            Foreground="White" 
+                            Height="28"
+                            VerticalAlignment="Bottom"
+                            Margin="0,5,0,0"
+                            Padding="25,0,0,0"
+                            CaretBrush="LightGray"
+                            BorderBrush="DarkGray"
+                            BorderThickness="0,0,0,1"
+                            >
+                        <TextBox.Background>
+                            <ImageBrush ImageSource="/Images/user-icon.png" Stretch="None"
+                                        AlignmentX="Left"
+                                        />
+                        </TextBox.Background>
+                    </TextBox>
+
+                    <TextBlock Text="Password"
+                               Foreground="DarkGray" 
+                               FontSize="12"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat" 
+                               Margin="0,20,0,0"/>
+
+                    <customcontrols:BindalePasswordBox 
+                        Password="{Binding Password,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Margin="0,5,0,0" 
+                        Height="28">
+                    </customcontrols:BindalePasswordBox>
+
+                    <TextBlock Text="Confirm Password"
+                               Foreground="DarkGray" 
+                               FontSize="12"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat" 
+                               Margin="0,20,0,0"/>
+                    <customcontrols:BindalePasswordBox 
+                        Password="{Binding Confirm_password,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Margin="0,5,0,0" 
+                        Height="28">
+                    </customcontrols:BindalePasswordBox>
+                    <TextBlock Text="Gender"
+                               Foreground="DarkGray" 
+                               FontSize="12"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat" 
+                               Margin="0,20,0,0"/>
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,5,0,0">
+                        <RadioButton Content="Male" GroupName="Gender" Foreground="#fdfcf0" Margin="0,0,12,0" FontSize="14" VerticalAlignment="Center"
+                         IsChecked="{Binding Gender, Mode=TwoWay, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter=Male}"/>
+                        <RadioButton Content="Female" GroupName="Gender" Foreground="#fdfcf0" Margin="0,0,12,0" FontSize="14"
+                         IsChecked="{Binding Gender, Mode=TwoWay, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter=Female}"/>
+                        <RadioButton Content="Others" GroupName="Gender" Foreground="#fdfcf0" Margin="0,0,12,0" FontSize="14"
+                         IsChecked="{Binding Gender, Mode=TwoWay, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter=Other}"/>
+                    </StackPanel>
+
+                    <TextBlock Text="Day of Birth"
+                               Foreground="DarkGray" 
+                               FontSize="12"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat" 
+                               Margin="0,20,0,0"/>
+                    <DatePicker x:Name="birthdayDatePicker" 
+                                HorizontalAlignment="Left" 
+                                Margin="0,5,0,0"
+                                Width="182" Height="40" 
+                                SelectedDate="{Binding Dob ,Mode=TwoWay, TargetNullValue=''}"
+                                >
+                        <DatePicker.Resources>
+                            <!-- Define your custom DatePicker style -->
+                            <Style TargetType="{x:Type DatePickerTextBox}">
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="Padding" Value="0,4,0,0"/>
+                                <Setter Property="Height" Value="30"/>
+                                <Setter Property="VerticalAlignment" Value="Bottom"/>
+                            </Style>
+                            <Style TargetType="DatePicker">
+                                <Setter Property="BorderBrush" Value="Gray" />
+                                <Setter Property="Padding" Value="0,5,0,0"/>
+                                <Setter Property="BorderThickness" Value="1" />
+                                <Setter Property="VerticalAlignment" Value="Bottom"/>
+                            </Style>
+                        </DatePicker.Resources>
+
+                    </DatePicker>
+
+                    <TextBlock Text="{Binding ErrorMessage}"
+                               HorizontalAlignment="Center"
+                               Foreground="#D7596D" 
+                               FontSize="12"
+                               FontWeight="Medium"
+                               TextWrapping="Wrap"
+                               FontFamily="Montserrat" 
+                               Margin="0,20,0,0"/>
+                    <Button x:Name="btnSignup"
+                        Content="Sign up"
+                        Foreground="White"
+                        Background="#e50914"
+                        FontSize="16"
+                        FontFamily="Montserrat"
+                        Cursor="Hand"
+                        Command="{Binding SignupCommand}"
+                        Width="200"
+                        Height="40" 
+                        Margin="0,8,0,0"
+                            >
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border 
+                                    CornerRadius="4" 
+                                    Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <!--Log in Button -->
+                </StackPanel>
+                <Button Margin="5" Content="Back to Login" Cursor="Hand" Grid.Row="2" Click="BacktoLoginButton">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <TextBlock TextDecorations="Underline">
+                <ContentPresenter />
+                            </TextBlock>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Foreground" Value="DarkGray" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Foreground" Value="LightGray" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
+
+        </Border>
+    </Border>
+</Window>

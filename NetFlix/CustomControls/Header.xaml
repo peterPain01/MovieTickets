@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="NetFlix.CustomControls.Header"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetFlix.CustomControls"
+             mc:Ignorable="d" 
+             >
+
+    <WrapPanel Orientation="Horizontal">
+        <!-- App Logo  -->
+        <Image Source="/Netflix;component/Images/app-icon.png" Width="120" Height="60"/>
+
+        <!-- Navigation Links -->
+        <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Movie" Background="Transparent" VerticalAlignment="Center" Cursor="Hand" 
+         />
+        <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Now Showing" Background="Transparent" VerticalAlignment="Center" Cursor="Hand"/>
+        <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Account" Background="Transparent" VerticalAlignment="Center" Cursor="Hand"/>
+        <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Voucher" Background="Transparent" VerticalAlignment="Center" Cursor="Hand"/>
+        <!-- Search Bar -->
+        <TextBox x:Name="txtMovieName" 
+                        FontSize="14"
+                        FontWeight="Medium"
+                        FontFamily="Montserrat" 
+                        Foreground="#fdfcf0" 
+                        Height="28"
+                        Margin="300,5,0,0"
+                        Padding="40,0,0,0"
+                        CaretBrush="#fdfcf0"
+                        BorderBrush="DarkGray"
+                        BorderThickness="0,0,0,1"
+                        Width="200px"
+                        HorizontalAlignment="Right"
+                 >
+            <TextBox.Background>
+                <ImageBrush ImageSource="/Netflix;component/Images/search-icon-white.png" Stretch="None"
+                    AlignmentX="Left" AlignmentY="Top"
+                    />
+            </TextBox.Background>
+        </TextBox>
+    </WrapPanel>
+</UserControl>
