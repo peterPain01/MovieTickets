@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 namespace NetFlix.View
 {
 
-    public partial class MoviePage : Window
+    public partial class MoviePage : UserControl
     {
         public MoviePage()
         {

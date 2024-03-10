@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Netflix.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,17 @@ namespace NetFlix.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
-        public ViewModelBase CurrentViewModel { get; }
-        public MainViewModel()
+        private readonly NavigationStore _navigationStore;
+        public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
+        public MainViewModel(NavigationStore navigationStore)
         {
-            CurrentViewModel = new LoginViewModel();
+            _navigationStore = navigationStore; 
+            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+        }
+
+        private void OnCurrentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
         }
     }
 }

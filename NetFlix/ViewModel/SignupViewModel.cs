@@ -1,4 +1,5 @@
-﻿using NetFlix.CustomControls;
+﻿using Netflix.Utils;
+using NetFlix.CustomControls;
 using NetFlix.Model;
 using NetFlix.Repository;
 using NetFlix.Utils;
@@ -79,14 +80,24 @@ namespace NetFlix.ViewModel
             } }
 
         public ICommand SignupCommand { get; }
-        public SignupVM()
+
+        public ICommand NavigateToLoginCommand { get; }
+        private  NavigationStore _navigationStore; 
+        public SignupVM(NavigationStore navigationStore)
         {
             _vm = new ToastViewModel();
             _dob = DateTime.Today; 
             userRepository = new UserRepository(); 
-            SignupCommand = new ViewModelCommand(ExecuteSignupCommand, CanExecuteSignupCommand); 
+            SignupCommand = new ViewModelCommand(ExecuteSignupCommand, CanExecuteSignupCommand);
+
+            this._navigationStore = navigationStore; 
+            NavigateToLoginCommand = new ViewModelCommand(ExecuteNavigateToLoginCommand); 
         }
 
+        private void ExecuteNavigateToLoginCommand(object parameter)
+        {
+            this._navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore); 
+        }
         private void ExecuteSignupCommand(object obj)
         {
             if (helper.CompareSecureStrings(Password, Confirm_password) == false)

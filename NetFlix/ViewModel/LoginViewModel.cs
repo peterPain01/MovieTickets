@@ -1,4 +1,5 @@
-﻿using NetFlix.Model;
+﻿using Netflix.Utils;
+using NetFlix.Model;
 using NetFlix.Repository;
 using NetFlix.View;
 using System;
@@ -68,13 +69,23 @@ namespace NetFlix.ViewModel
         public ICommand ShowPasswordCommand { get; set; }
         public ICommand RememberPasswordCommand { get; set; }
 
+        public ICommand NavigateSignupCommand { get;  }
         // Constructor 
-        public LoginViewModel()
+
+        private NavigationStore _navigationStore; 
+        public LoginViewModel(NavigationStore navigationStore)
         {
             this.userRepository = new UserRepository();
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
-            RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPassCommand("", "")); 
-            
+            RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPassCommand("", ""));
+
+            this._navigationStore = navigationStore;
+            NavigateSignupCommand = new ViewModelCommand(ExecuteNavigateSignupCommand); 
+        }
+
+        private void ExecuteNavigateSignupCommand(object obj)
+        {
+            _navigationStore.CurrentViewModel = new SignupVM(_navigationStore); 
         }
         private void ExecuteLoginCommand(object obj)
         {
@@ -86,9 +97,11 @@ namespace NetFlix.ViewModel
                 //    new GenericIdentity(Username), null
                 //    );
                 this.IsViewVisible = false;
-                var mainViewUser = new LandingUser();
-                mainViewUser.Show(); 
+
+                // open Lading User Page 
+                _navigationStore.CurrentViewModel = new LandingViewModel(_navigationStore); 
             }
+
             else
             {
                 this.ErrorMessage = "* Invalid username or password"; 

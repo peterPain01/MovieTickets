@@ -1,5 +1,7 @@
-﻿using Netflix.Model;
-using NetFlix.ViewModel;
+﻿using Netflix.Utils;
+using NetFlix.Model;
+using NetFlix.Repository;
+using NetFlix.View;
 using Org.BouncyCastle.Utilities;
 using System;
 using System.Collections.Generic;
@@ -11,16 +13,12 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Collections.ObjectModel;
-using static NetFlix.View.LandingUser;
 using System.Windows.Threading;
-using System.Xml.Linq;
-using NetFlix;
-using NetFlix.View;
 using System.Diagnostics;
 
-namespace Netflix.ViewModel
+namespace NetFlix.ViewModel
 {
-    class LandingViewModel : ViewModelBase
+    public class LandingViewModel : ViewModelBase
     {
         private ObservableCollection<Movie> _carouselItems;
         private bool _isHovering = false;
@@ -66,8 +64,11 @@ namespace Netflix.ViewModel
         public ICommand GridLeaveCommand { get; set; }
         public ICommand GridEnterCommand { get; set; }
 
+        public ICommand NavigateToMoviePage { get; set; }
 
-        public LandingViewModel()
+
+        private NavigationStore _navigationStore; 
+        public LandingViewModel(NavigationStore navigationStore)
         {
             _carouselItems = new ObservableCollection<Movie>
             {
@@ -88,12 +89,19 @@ namespace Netflix.ViewModel
             GridLeaveCommand = new ViewModelCommand(Grid_MouseLeave);
             GridEnterCommand = new ViewModelCommand(Grid_MouseEnter);
 
+            this._navigationStore = navigationStore; 
+            NavigateToMoviePage = new ViewModelCommand(ExecuteNavigatetoMoviePage); 
+
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromSeconds(2);
             _timer.Tick += Timer_Tick;
 
         }
- 
+            
+        private void ExecuteNavigatetoMoviePage(object parameter)
+        {
+            _navigationStore.CurrentViewModel = new MovieViewModel(_navigationStore, "OpenHeimer"); 
+        }
         private void NextButton_Click(object obj)
         {
 

@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace NetFlix.View
 {
-    public partial class Signup : Window
+    public partial class Signup : UserControl
     {
         public Signup()
         {
@@ -23,36 +23,20 @@ namespace NetFlix.View
             txtUser.Focus(); 
         }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
+            txtUser.Focus();
         }
 
         private void btnMinimize_Click(object sender, RoutedEventArgs e)
         {
-            WindowState = WindowState.Minimized;
+            //WindowState = WindowState.Minimized;
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
-
      
-
-        private void btnSignup_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void BacktoLoginButton(object sender, RoutedEventArgs e)
-        {
-            var loginView = new LoginView();
-            this.Close(); 
-            loginView.Show(); 
-        }
     }
 }

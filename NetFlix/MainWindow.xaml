@@ -7,12 +7,28 @@
         xmlns:viewmodels="clr-namespace:NetFlix.ViewModel" 
         xmlns:view="clr-namespace:NetFlix.View" 
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <ContentControl Content="{Binding CurrentViewModel}">
-        <ContentControl.Resources>
-            <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
-                <view:LoginView/>
-            </DataTemplate>
+        Title="MainWindow" Height="570" Width="800"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        SizeToContent="WidthAndHeight"
+        >
+        <ContentControl Content="{Binding CurrentViewModel}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
+                    <view:LoginView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:SignupVM}">
+                    <view:Signup/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:LandingViewModel}">
+                    <view:LandingUser/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:MovieViewModel}">
+                    <view:MoviePage/>
+                </DataTemplate>
         </ContentControl.Resources>
-    </ContentControl>
+        </ContentControl>
 </Window>

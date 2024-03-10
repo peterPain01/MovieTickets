@@ -14,26 +14,22 @@ using System.Windows.Shapes;
 
 namespace NetFlix.View
 {
-    public partial class LoginView : Window
+    public partial class LoginView : UserControl
     {
         public LoginView()
         {
             InitializeComponent();
+        }
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Set focus to the TextBox when the UserControl is loaded
             txtUser.Focus();
         }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if(e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove(); 
-            }
-        }
-
-        private void btnMinimize_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
+        //private void btnMinimize_Click(object sender, RoutedEventArgs e)
+        //{
+        //    WindowState = WindowState.Minimized;
+        //}
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
@@ -47,8 +43,8 @@ namespace NetFlix.View
         private void MovetoSignupButton(object sender, RoutedEventArgs e)
         {
             var signupView = new Signup();
-            signupView.Show();
-            this.Close();
+            //signupView.Visibility = Visibility.;
+            //this.Visibility = Visibility.Hidden; 
         }
     }
 }
