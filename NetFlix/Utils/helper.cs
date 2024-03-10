@@ -13,7 +13,6 @@ namespace NetFlix.Utils
     {
         public static bool CompareSecureStrings(SecureString s1, SecureString s2)
         {
-            // If lengths are different, the strings can't be equal
             if (s1.Length != s2.Length)
                 return false;
 

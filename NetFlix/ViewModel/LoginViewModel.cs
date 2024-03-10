@@ -86,7 +86,7 @@ namespace NetFlix.ViewModel
                 //    new GenericIdentity(Username), null
                 //    );
                 this.IsViewVisible = false;
-                var mainViewUser = new MainViewUser();
+                var mainViewUser = new LandingUser();
                 mainViewUser.Show(); 
             }
             else

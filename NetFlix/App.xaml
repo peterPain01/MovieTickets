@@ -2,12 +2,13 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:NetFlix"
-             StartupUri="View/MainViewUser.xaml">
+             StartupUri="View/LandingUser.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <FontFamily x:Key="RobotoRegular">./Fonts/Roboto-Regular.ttf#Roboto</FontFamily>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

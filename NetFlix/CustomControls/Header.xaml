@@ -6,7 +6,6 @@
              xmlns:local="clr-namespace:NetFlix.CustomControls"
              mc:Ignorable="d" 
              >
-
     <WrapPanel Orientation="Horizontal">
         <!-- App Logo  -->
         <Image Source="/Netflix;component/Images/app-icon.png" Width="120" Height="60"/>
@@ -15,7 +14,7 @@
         <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Movie" Background="Transparent" VerticalAlignment="Center" Cursor="Hand" 
          />
         <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Now Showing" Background="Transparent" VerticalAlignment="Center" Cursor="Hand"/>
-        <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Account" Background="Transparent" VerticalAlignment="Center" Cursor="Hand"/>
+        <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Account" Background="Transparent" VerticalAlignment="Center" Cursor="Hand" />
         <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Voucher" Background="Transparent" VerticalAlignment="Center" Cursor="Hand"/>
         <!-- Search Bar -->
         <TextBox x:Name="txtMovieName" 
