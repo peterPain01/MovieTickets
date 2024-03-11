@@ -89,7 +89,7 @@ namespace NetFlix.ViewModel
         }
         private void ExecuteLoginCommand(object obj)
         {
-            var isValidUser = userRepository.AuthenticatedUser(new System.Net.NetworkCredential(Username, Password));
+            var isValidUser = userRepository.AuthenticatedUser(new System.Net.NetworkCredential(Username, Password), connection);
             
             if(isValidUser)
             {

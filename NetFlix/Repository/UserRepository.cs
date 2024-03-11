@@ -49,7 +49,7 @@ namespace NetFlix.Repository
             }
             return success;
         }
-        public bool AuthenticatedUser(NetworkCredential credential)
+        public bool AuthenticatedUser(NetworkCredential credential, SqlConnection connection)
         {
             bool validUser;
 
