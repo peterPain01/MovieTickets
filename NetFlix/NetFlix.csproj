@@ -35,7 +35,12 @@
     <None Remove="Images\search-icon-black.png" />
     <None Remove="Images\search-icon-white.png" />
     <None Remove="Images\search-icon.svg" />
+    <None Remove="Images\slider-boidem.jpg" />
+    <None Remove="Images\slider-dao-pho-piano.jpg" />
+    <None Remove="Images\slider-dune.jpg" />
     <None Remove="Images\slider-kungfu.jpg" />
+    <None Remove="Images\slider-Mai.jpg" />
+    <None Remove="Images\slider-spy.png" />
     <None Remove="Images\star-icon.png" />
     <None Remove="Images\trailer-dune.mp4" />
     <None Remove="Images\user-icon.png" />
@@ -63,6 +68,15 @@
     <Content Include="Images\mv-madamweb.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\slider-boidem.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\slider-dao-pho-piano.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\slider-dune.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\mv-mai.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -96,6 +110,12 @@
     <Resource Include="Fonts\Roboto-Thin.ttf" />
     <Resource Include="Fonts\Roboto-ThinItalic.ttf" />
     <Resource Include="Images\slider-kungfu.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\slider-mai.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\slider-spy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\trailer-dune.mp4">

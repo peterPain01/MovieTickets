@@ -4,17 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NetFlix.View" xmlns:customcontrols="clr-namespace:NetFlix.CustomControls"
-        mc:Ignorable="d"
-        Background="Transparent"
+            mc:Ignorable="d"
         >
     <Border CornerRadius="20">
         <Border.Background>
-            <ImageBrush ImageSource="/Images/loginBG.jpg"/>
+            <ImageBrush ImageSource="/Images/loginBG.jpg" Opacity="0.5" 
+             />
         </Border.Background>
 
         <Border CornerRadius="14" 
                 BorderThickness="3"
-                Opacity="0.8">
+                Opacity="0.82" Height="568">
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="#FF504F54" Offset="0"/>
@@ -33,19 +33,21 @@
             </Border.Background>
             
             <!--Header-->
-            <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Vertical" >
                 <customcontrols:Header Margin="20,0,20,0" />
-                <Grid>
+                <Grid Margin="0,30,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                        <!--Poster-->
-                    <Image Source="/Images/mv-openheimer.jpg" Grid.Column="0" Height="448" 
-                            Stretch="Uniform" StretchDirection="DownOnly"/>
+                    <!--Poster-->
+                    <Image Source="{Binding Movie.Poster_url}" Grid.Column="0" Height="348"
+                            Width="400"
+                            Stretch="Uniform" StretchDirection="DownOnly"
+                           />
                     <StackPanel Orientation="Vertical" Grid.Column="1">
-                    <TextBlock Text="OpenHeimer" FontSize="24" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="SmallCaps" Typography.CapitalSpacing="True"/>
+                        <TextBlock Text="{Binding Movie.Title}" FontSize="24" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="SmallCaps" Typography.CapitalSpacing="True"/>
                         
                     <!--Genres-->
                     <StackPanel Orientation="Horizontal" Margin="0,20,0,0">

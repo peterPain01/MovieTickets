@@ -31,7 +31,7 @@ CREATE TABLE Stars (
 
 CREATE TABLE Movies (
     movie_id INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
-    title VARCHAR(255) NOT NULL,
+    title NVARCHAR(255) NOT NULL,
     genre_id INT,
     duration_minutes INT,
     release_date DATE,
@@ -94,7 +94,7 @@ CREATE TABLE Bookings (
 INSERT INTO Users (username, email, password, full_name, birth_date, gender)
 VALUES
 ('huypeter', 'john@example.com', '123', 'Huy Pham', '2003-01-01', 'Male'),
-('bachTX', 'jane@example.com', '456', 'Bach Xuan', '1985-08-2', 'Female'),
+('txb', 'jane@example.com', '123', 'Bach Xuan', '1985-08-2', 'Female'),
 ('alex_jones', 'alex@example.com', '789', 'Alex Jones', '1978-12-10', 'Other');
 
 -- Genres
@@ -163,3 +163,6 @@ VALUES
 (1, 1, '2023-01-01 14:00:00', 0),
 (2, 2, '2023-02-01 15:00:00', 0),
 (1, 3, '2023-03-01 16:00:00', 0);
+
+
+

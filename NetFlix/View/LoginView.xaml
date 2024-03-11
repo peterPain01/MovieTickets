@@ -165,6 +165,7 @@
                     <customcontrols:BindalePasswordBox 
                         Password="{Binding Password,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Margin="0,5,0,0" 
+                        KeyDown="BindalePasswordBox_KeyDown"
                         Height="28"> 
                     </customcontrols:BindalePasswordBox>
 

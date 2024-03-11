@@ -41,7 +41,7 @@ namespace NetFlix.Repository
                 int rowsAffected = command.ExecuteNonQuery();
                 if (rowsAffected > 0)
                 {
-                    success = true;
+                    success = true; 
                    
 
                 }

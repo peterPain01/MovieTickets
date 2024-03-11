@@ -15,31 +15,20 @@ using System.Windows.Media.Animation;
 using System.Collections.ObjectModel;
 using System.Windows.Threading;
 using System.Diagnostics;
+using Netflix.Repository;
+using Netflix.Model;
 
 namespace NetFlix.ViewModel
 {
     public class LandingViewModel : ViewModelBase
     {
-        private ObservableCollection<Movie> _carouselItems;
+        private ObservableCollection<MovieModel> _carouselItems;
         private bool _isHovering = false;
         private DispatcherTimer _timer;
         private int _currentIndex = 0;
         
-        public class Movie
-        {
-            private string _name;
-            private string _poster_url;
-            private bool is_Selected;
-            public Movie(string name, string poster_url)
-            {
-                _name = name;
-                _poster_url = poster_url;
-            }
-            public bool Is_Selected { get => is_Selected; set => is_Selected = value; }
-            public string Name { get => _name; set => _name = value; }
-            public string Poster_url { get => _poster_url; set => _poster_url = value; }
-        }
-        public ObservableCollection<Movie> Items
+     
+        public ObservableCollection<MovieModel> Items
         {
             get { return _carouselItems; }
             set
@@ -67,21 +56,13 @@ namespace NetFlix.ViewModel
         public ICommand NavigateToMoviePage { get; set; }
 
 
-        private NavigationStore _navigationStore; 
+        private NavigationStore _navigationStore;
+
+        private MovieRepository movieRepo; 
         public LandingViewModel(NavigationStore navigationStore)
         {
-            _carouselItems = new ObservableCollection<Movie>
-            {
-                new Movie("Movie 1","/Images/slider-kungfu.jpg"),
-                new Movie("Movie 2","/Images/mv-mai.jpg"),
-                new Movie("Movie 3","/Images/mv-dune.jpg"),
-                new Movie("Movie 4","/Images/mv-demonslayer.jpg"),
-                new Movie("Movie 5", "/Images/mv-madamweb.jpg"),
-                new Movie("Movie 1","/Images/slider-kungfu.jpg"),
-                new Movie("Movie 1","/Images/slider-kungfu.jpg"),
-                new Movie("Movie 1","/Images/slider-kungfu.jpg"),
-                new Movie("Movie 1","/Images/slider-kungfu.jpg")
-            };
+            movieRepo = new MovieRepository();
+            _carouselItems = movieRepo.GetTrendingMovie(); 
 
             NextCommand = new ViewModelCommand(NextButton_Click);
             PreviousCommand = new ViewModelCommand(PreviousButton_Click);
@@ -100,7 +81,8 @@ namespace NetFlix.ViewModel
             
         private void ExecuteNavigatetoMoviePage(object parameter)
         {
-            _navigationStore.CurrentViewModel = new MovieViewModel(_navigationStore, "OpenHeimer"); 
+            int id = (int)parameter; 
+            _navigationStore.CurrentViewModel = new MovieViewModel(_navigationStore, id); 
         }
         private void NextButton_Click(object obj)
         {
@@ -113,6 +95,10 @@ namespace NetFlix.ViewModel
 
             ItemsControl itemControl = obj as ItemsControl;
             Canvas.SetLeft(itemControl, -400 * _currentIndex);
+            if(_currentIndex == 1)
+            {
+                Canvas.SetLeft(itemControl, 0);
+            }
 
             var animation = new DoubleAnimation
             {

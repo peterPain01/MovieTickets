@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Netflix.Model
 {
-    class MovieModel
+    public class MovieModel
     {
         private int _id; 
         private string _title;
         private int _genre_id;
         private int _duration_minutes;
-        private DateOnly _release_date;
+        private DateTime _release_date;
         private double _rating;
         private int _certification;
         private string _plot_summary; 
@@ -20,8 +20,10 @@ namespace Netflix.Model
         private string _trailer_url; 
         private int _director_id;
 
+        public MovieModel() { }
+
         public MovieModel(int id, string title, int genre_id,
-            int duration_minutes, DateOnly release_date, double rating, 
+            int duration_minutes, DateTime release_date, double rating, 
             int certification, string plot_summary, string poster_url, 
             string trailer_url, int director_id)
         {
@@ -42,7 +44,7 @@ namespace Netflix.Model
         public string Title { get => _title; set => _title = value; }
         public int Genre_id { get => _genre_id; set => _genre_id = value; }
         public int Duration_minutes { get => _duration_minutes; set => _duration_minutes = value; }
-        public DateOnly Release_date { get => _release_date; set => _release_date = value; }
+        public DateTime Release_date { get => _release_date; set => _release_date = value; }
         public double Rating { get => _rating; set => _rating = value; }
         public int Certification { get => _certification; set => _certification = value; }
         public string Plot_summary { get => _plot_summary; set => _plot_summary = value; }

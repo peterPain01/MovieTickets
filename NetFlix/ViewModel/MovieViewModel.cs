@@ -1,27 +1,37 @@
-﻿using Netflix.Utils;
+﻿using Netflix.Model;
+using Netflix.Repository;
+using Netflix.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace NetFlix.ViewModel
 {
     public class MovieViewModel : ViewModelBase
     {
         // Navigation 
-        private NavigationStore _navigationStore; 
-        private string title; 
+        private NavigationStore _navigationStore;
+        private int id;
+        private MovieModel movie;
 
-        public string Title
+        public int Id
         {
-            get { return title; } set { title = value; OnPropertyChanged(nameof(Title)); }
+            get { return id; }
+            set { id = value; OnPropertyChanged(nameof(Id)); }
         }
 
-        public MovieViewModel(NavigationStore navigationStore, string title)
+        public MovieModel Movie { get => movie; set { movie = value; OnPropertyChanged(nameof(Movie)); } }
+
+        private MovieRepository movieRepo;
+        public MovieViewModel(NavigationStore navigationStore, int id)
         {
-            this._navigationStore = navigationStore; 
-            Title = title;
+            this._navigationStore = navigationStore;
+            Id = id;
+            movieRepo = new MovieRepository();
+            Movie = movieRepo.GetMovieById(id);
         }
     }
 }

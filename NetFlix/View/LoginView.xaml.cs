@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetFlix.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,6 @@ namespace NetFlix.View
         }
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            // Set focus to the TextBox when the UserControl is loaded
             txtUser.Focus();
         }
 
@@ -36,15 +36,12 @@ namespace NetFlix.View
             Application.Current.Shutdown();
         }
 
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        private void BindalePasswordBox_KeyDown(object sender, KeyEventArgs e)
         {
-
-        }
-        private void MovetoSignupButton(object sender, RoutedEventArgs e)
-        {
-            var signupView = new Signup();
-            //signupView.Visibility = Visibility.;
-            //this.Visibility = Visibility.Hidden; 
+            if(e.Key == Key.Enter)
+            {
+               ((LoginViewModel)DataContext).LoginCommand.Execute(null);
+            }
         }
     }
 }

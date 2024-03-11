@@ -134,7 +134,7 @@
                                                         <i:EventTrigger EventName="MouseDown">
                                                             <i:InvokeCommandAction 
                                                                  Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}, 
-                                                                 Path=DataContext.NavigateToMoviePage}"/>
+                                                                 Path=DataContext.NavigateToMoviePage}" CommandParameter="{Binding Id}"/>
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
                                                 </Image>
@@ -160,13 +160,22 @@
                                                                 <GradientStop Color="#414142" Offset="1"/>
                                                         </LinearGradientBrush>
                                                     </StackPanel.Background>
-                                                    
-                                                    <Label Foreground="WhiteSmoke" Content="{Binding Name}" Margin="6,0,0,10" 
+
+                                                    <Label Foreground="WhiteSmoke" Content="{Binding Title}" Margin="6,0,0,10" 
                                                                FontSize="22" FontWeight="Bold" FontFamily="{StaticResource RobotoRegular}"></Label>
                                                     
                                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,10">
                                                         <Border BorderBrush="DarkGray" BorderThickness="1" Width="30" HorizontalAlignment="Left">
-                                                            <TextBlock Foreground="WhiteSmoke" Text="16+" FontSize="14" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                            <TextBlock FontSize="14" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                                <TextBlock.Foreground>
+                                                                    <SolidColorBrush Color="WhiteSmoke"/>
+                                                                </TextBlock.Foreground>
+                                                                <TextBlock.Text>
+                                                                    <MultiBinding StringFormat="{}{0}+">
+                                                                        <Binding Path="Certification"/>
+                                                                    </MultiBinding>
+                                                                </TextBlock.Text>
+                                                            </TextBlock>
                                                         </Border>
                                                         <TextBlock Foreground="WhiteSmoke" Text="2 seasons" 
                                                                    Margin="4,0,0,0"
