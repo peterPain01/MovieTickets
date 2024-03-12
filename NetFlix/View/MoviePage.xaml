@@ -4,17 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NetFlix.View" xmlns:customcontrols="clr-namespace:NetFlix.CustomControls"
-            mc:Ignorable="d"
+           mc:Ignorable="d"
         >
     <Border CornerRadius="20">
         <Border.Background>
-            <ImageBrush ImageSource="/Images/loginBG.jpg" Opacity="0.5" 
+            <ImageBrush ImageSource="/Images/loginBG.jpg" 
              />
         </Border.Background>
 
         <Border CornerRadius="14" 
                 BorderThickness="3"
-                Opacity="0.82" Height="568">
+                Height="568">
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="#FF504F54" Offset="0"/>
@@ -23,18 +23,29 @@
                 </LinearGradientBrush>
             </Border.BorderBrush>
 
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+            <Border.Background >
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0" Opacity="0.82">
                     <GradientStop Color="#FF1D1D22" Offset="0"/>
                     <GradientStop Color="#FF20202E" Offset="0.5"/>
                     <GradientStop Color="#FF100D1F" Offset="0.75"/>
                     <GradientStop Color="#FF050312" Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
-            
+
             <!--Header-->
             <StackPanel Orientation="Vertical" >
-                <customcontrols:Header Margin="20,0,20,0" />
+                <Grid Margin="20,0,20,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="/Images/arrow-left.png" RenderOptions.BitmapScalingMode="HighQuality"
+                      Margin="0,0,10,0"
+                      Cursor="Hand"
+                      />
+                    <customcontrols:Header Margin="0,0,20,0" Grid.Column="1"/>
+                </Grid>
+
                 <Grid Margin="0,30,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -48,59 +59,59 @@
                            />
                     <StackPanel Orientation="Vertical" Grid.Column="1">
                         <TextBlock Text="{Binding Movie.Title}" FontSize="24" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="SmallCaps" Typography.CapitalSpacing="True"/>
-                        
-                    <!--Genres-->
-                    <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                        <TextBlock Text="Genres: " FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="AllSmallCaps"/>
-                        <TextBlock Text="Historucal Drama, Horror" FontSize="12" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"/>
-                    </StackPanel>
 
-                    <!--Duration-->
-                    <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                        <TextBlock Text="Duration: " FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="AllSmallCaps"/>
-                        <TextBlock Text="210 mins" FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"/>
-                    </StackPanel>
-
-                    <!--Release, Imdb-->
-                    <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                        <TextBlock Text="Release: " FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center"  Typography.Capitals="AllSmallCaps"/>
-                        <TextBlock Text="2021" FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"/>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Imdb: " FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" VerticalAlignment="Center" Padding="10,0,0,0"/>
-                            <TextBlock Text="9.2" FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" VerticalAlignment="Center" TextDecorations="Underline" Margin="0,0,6,0"/>
-                            <Image Source="/Images/star-icon.png" VerticalAlignment="Center"/>
+                        <!--Genres-->
+                        <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                            <TextBlock Text="Genres: " FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="AllSmallCaps"/>
+                            <TextBlock Text="Historucal Drama, Horror" FontSize="12" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"/>
                         </StackPanel>
-                    </StackPanel>
+
+                        <!--Duration-->
+                        <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                            <TextBlock Text="Duration: " FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="AllSmallCaps"/>
+                            <TextBlock Text="210 mins" FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"/>
+                        </StackPanel>
+
+                        <!--Release, Imdb-->
+                        <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                            <TextBlock Text="Release: " FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center"  Typography.Capitals="AllSmallCaps"/>
+                            <TextBlock Text="2021" FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Imdb: " FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" VerticalAlignment="Center" Padding="10,0,0,0"/>
+                                <TextBlock Text="9.2" FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" VerticalAlignment="Center" TextDecorations="Underline" Margin="0,0,6,0"/>
+                                <Image Source="/Images/star-icon.png" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </StackPanel>
 
 
-                    <!--Stars-->
-                    <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                        <TextBlock Text="Stars: " FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="AllSmallCaps"/>
-                        <TextBlock Text="Cillian Murphy, Florence Pugh, Emily Blunt" FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"/>
-                    </StackPanel>
+                        <!--Stars-->
+                        <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                            <TextBlock Text="Stars: " FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="AllSmallCaps"/>
+                            <TextBlock Text="Cillian Murphy, Florence Pugh, Emily Blunt" FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"/>
+                        </StackPanel>
 
-                    <!--Director-->
-                    <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                        <TextBlock Text="Director: " FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="AllSmallCaps"/>
-                        <TextBlock Text="Christopher Nolan, Gary Oldman" FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"/>
-                    </StackPanel>
+                        <!--Director-->
+                        <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                            <TextBlock Text="Director: " FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="AllSmallCaps"/>
+                            <TextBlock Text="Christopher Nolan, Gary Oldman" FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"/>
+                        </StackPanel>
 
-                    <!--Certification-->
-                    <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                        <TextBlock Text="Certification: " FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="AllSmallCaps"/>
-                        <TextBlock Text="16+" FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"/>
-                    </StackPanel>
+                        <!--Certification-->
+                        <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                            <TextBlock Text="Certification: " FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="AllSmallCaps"/>
+                            <TextBlock Text="16+" FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"/>
+                        </StackPanel>
 
-                    <Button
+                        <Button
                         Margin="0,20,0,0" FontSize="14"
                         FontWeight="Bold" Foreground="White"
                         Background="#e71a0f"
                         Cursor="Hand"    
                 >
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <Image Source="/Images/dial-phone-icon.png" Width="20" Height="20"/>
-                            <TextBlock Text="Booking Now" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                        </StackPanel>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Image Source="/Images/dial-phone-icon.png" Width="20" Height="20"/>
+                                <TextBlock Text="Booking Now" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                            </StackPanel>
 
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">

@@ -21,6 +21,7 @@
     <None Remove="Fonts\Roboto-Thin.ttf" />
     <None Remove="Fonts\Roboto-ThinItalic.ttf" />
     <None Remove="Images\app-icon.png" />
+    <None Remove="Images\arrow-left.png" />
     <None Remove="Images\dial-phone-icon.png" />
     <None Remove="Images\key-icon.png" />
     <None Remove="Images\loginBG.jpg" />
@@ -68,6 +69,9 @@
     <Content Include="Images\mv-madamweb.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\arrow-left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\slider-boidem.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
