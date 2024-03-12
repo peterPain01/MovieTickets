@@ -95,25 +95,26 @@ namespace NetFlix.ViewModel
         {
             string valid_user = valid_Username(Username);
             string valid_password = valid_Password(Password);
-            if (valid_user != "")
-            {
-                _vm.ShowWarning(valid_user, new MessageOptions
-                {
-                    FontSize = 14,
-                    FreezeOnMouseEnter = true
-                });
-                return;
-            };
+            // Validation
+            //if (valid_user != "")
+            //{
+            //    _vm.ShowWarning(valid_user, new MessageOptions
+            //    {
+            //        FontSize = 14,
+            //        FreezeOnMouseEnter = true
+            //    });
+            //    return;
+            //};
 
-            if (valid_password != "")
-            {
-                _vm.ShowWarning(valid_user, new MessageOptions
-                {
-                    FontSize = 14,
-                    FreezeOnMouseEnter = true
-                });
-                return;
-            };
+            //if (valid_password != "")
+            //{
+            //    _vm.ShowWarning(valid_user, new MessageOptions
+            //    {
+            //        FontSize = 14,
+            //        FreezeOnMouseEnter = true
+            //    });
+            //    return;
+            //};
 
 
             var isValidUser = userRepository.AuthenticatedUser(new System.Net.NetworkCredential(Username, Password));
@@ -155,7 +156,7 @@ namespace NetFlix.ViewModel
         {
             if (username.Length < 6)
             {
-                return "Username mst have at least 6 characters";
+                return "Username must have at least 6 characters";
             }
             if (username.Length > 20)
             {
