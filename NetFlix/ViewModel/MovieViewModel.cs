@@ -13,7 +13,6 @@ namespace NetFlix.ViewModel
     public class MovieViewModel : ViewModelBase
     {
         // Navigation 
-        private NavigationStore _navigationStore;
         private int id;
         private MovieModel movie;
 
@@ -26,9 +25,8 @@ namespace NetFlix.ViewModel
         public MovieModel Movie { get => movie; set { movie = value; OnPropertyChanged(nameof(Movie)); } }
 
         private MovieRepository movieRepo;
-        public MovieViewModel(NavigationStore navigationStore, int id)
+        public MovieViewModel(int id)
         {
-            this._navigationStore = navigationStore;
             Id = id;
             movieRepo = new MovieRepository();
             Movie = movieRepo.GetMovieById(id);

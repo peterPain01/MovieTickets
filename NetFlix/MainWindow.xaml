@@ -15,20 +15,23 @@
         WindowStartupLocation="CenterScreen"
         SizeToContent="WidthAndHeight"
         >
-        <ContentControl Content="{Binding CurrentViewModel}">
-            <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
-                    <view:LoginView/>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:SignupVM}">
-                    <view:Signup/>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:LandingViewModel}">
-                    <view:LandingUser/>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:MovieViewModel}">
-                    <view:MoviePage/>
-                </DataTemplate>
+    <ContentControl Content="{Binding CurrentViewModel}">
+        <ContentControl.Resources>
+            <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
+                <view:LoginView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:SignupVM}">
+                <view:Signup/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:LandingViewModel}">
+                <view:LandingUser/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:MovieViewModel}">
+                <view:MoviePage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:SearchViewModel}">
+                <view:SearchPage/>
+            </DataTemplate>
         </ContentControl.Resources>
-        </ContentControl>
+    </ContentControl>
 </Window>

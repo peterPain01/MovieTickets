@@ -1,4 +1,7 @@
-﻿using NetFlix.View;
+﻿using Netflix.Utils;
+using Netflix.ViewModel;
+using NetFlix.View;
+using NetFlix.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,15 +19,33 @@ using System.Windows.Shapes;
 
 namespace NetFlix.CustomControls
 {
-    /// <summary>
-    /// Interaction logic for Header.xaml
-    /// </summary>
     public partial class Header : UserControl
     {
+
         public Header()
         {
             InitializeComponent();
+            var dataContext = new HeaderViewModel();
+            this.DataContext = dataContext;
         }
 
+        private void txtMovieName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                string searchText = txtMovieName.Text;
+                ((HeaderViewModel)DataContext).SearchCommand.Execute(searchText);
+            }
+        }
+
+        private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ((HeaderViewModel)DataContext).NavigateToLanding.Execute(null);
+        }
+
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ((HeaderViewModel)DataContext).NavigateToLanding.Execute(null);
+        }
     }
 }

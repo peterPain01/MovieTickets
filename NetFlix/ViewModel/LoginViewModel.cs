@@ -75,21 +75,20 @@ namespace NetFlix.ViewModel
         public ICommand NavigateSignupCommand { get; }
         // Constructor 
 
-        private NavigationStore _navigationStore;
-        public LoginViewModel(NavigationStore navigationStore)
+
+        public LoginViewModel()
         {
             this.userRepository = new UserRepository();
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
             RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPassCommand("", ""));
 
             this._vm = new ToastViewModel();
-            this._navigationStore = navigationStore;
             NavigateSignupCommand = new ViewModelCommand(ExecuteNavigateSignupCommand);
         }
 
         private void ExecuteNavigateSignupCommand(object obj)
         {
-            _navigationStore.CurrentViewModel = new SignupVM(_navigationStore);
+            NavigationStore._navigationStore.CurrentViewModel = new SignupVM();
         }
         private void ExecuteLoginCommand(object obj)
         {
@@ -124,7 +123,7 @@ namespace NetFlix.ViewModel
                 //    new GenericIdentity(Username), null
                 //    );
                 this.IsViewVisible = false;
-                _navigationStore.CurrentViewModel = new LandingViewModel(_navigationStore);
+                NavigationStore._navigationStore.CurrentViewModel = new LandingViewModel();
             }
 
             else

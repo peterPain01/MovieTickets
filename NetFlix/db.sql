@@ -39,6 +39,7 @@ CREATE TABLE Movies (
 	Certification int, 
     plot_summary TEXT,
     poster_url VARCHAR(255),
+    poster_url_horizon VARCHAR(255),
     trailer_url VARCHAR(255), 
 	director_id INT,
     FOREIGN KEY (director_id) REFERENCES Directors(director_id),

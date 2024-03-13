@@ -11,6 +11,7 @@ namespace Netflix.Utils
     {
         public ViewModelBase _currentViewModel;
 
+        public static NavigationStore _navigationStore { get;  set; }
         public event Action CurrentViewModelChanged; 
         public ViewModelBase CurrentViewModel
         {

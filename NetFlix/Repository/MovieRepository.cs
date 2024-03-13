@@ -6,10 +6,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
+using static NetFlix.View.SearchPage;
 using static NetFlix.ViewModel.LandingViewModel;
 
 namespace Netflix.Repository
@@ -49,9 +51,27 @@ namespace Netflix.Repository
 
         }
 
-        public void GetMovieByName(string name)
+        public ObservableCollection<MovieModel> GetMovieByName(string title)
         {
+            ObservableCollection<MovieModel> movies = new ObservableCollection<MovieModel>();
 
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT * FROM Movies WHERE UPPER(title) LIKE UPPER('%' + @title + '%')";
+                command.Parameters.AddWithValue("@title", title);
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        MovieModel movie = ProcessMovie(reader);
+                        movies.Add(movie);
+                    }
+                }
+            }
+            return movies;
         }
         public MovieModel GetMovieById(int id) 
         {

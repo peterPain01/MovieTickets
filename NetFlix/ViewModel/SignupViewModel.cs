@@ -82,21 +82,19 @@ namespace NetFlix.ViewModel
         public ICommand SignupCommand { get; }
 
         public ICommand NavigateToLoginCommand { get; }
-        private  NavigationStore _navigationStore; 
-        public SignupVM(NavigationStore navigationStore)
+        public SignupVM()
         {
             _vm = new ToastViewModel();
             _dob = DateTime.Today; 
             userRepository = new UserRepository(); 
             SignupCommand = new ViewModelCommand(ExecuteSignupCommand, CanExecuteSignupCommand);
 
-            this._navigationStore = navigationStore; 
             NavigateToLoginCommand = new ViewModelCommand(ExecuteNavigateToLoginCommand); 
         }
 
         private void ExecuteNavigateToLoginCommand(object parameter)
         {
-            this._navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore); 
+            NavigationStore._navigationStore.CurrentViewModel = new LoginViewModel(); 
         }
         private void ExecuteSignupCommand(object obj)
         {

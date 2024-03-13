@@ -20,7 +20,6 @@
         <ScrollViewer.Style>
             <Style TargetType="ScrollViewer">
                 <Setter Property="Template">
-                    
                     <Setter.Value>
                         <ControlTemplate TargetType="ScrollViewer">
                             <Border Background="{TemplateBinding Background}"
@@ -44,7 +43,8 @@
                 </Button>
 
                 <!--Header-->
-                <customcontrols:Header Margin="20,0,20,0" Height="81" Width="952" />
+                 <customcontrols:Header Margin="20,0,20,0" Height="81" Width="952" 
+                                       />
 
                 <TextBlock Text="Movie Selection" FontSize="26px" Foreground="#fdfcf0" HorizontalAlignment="Center" Margin="0,20,0,20"/>
 
@@ -224,6 +224,7 @@
                 <!--Footer-->
                 <!--<TextBlock Text="21127011 - Trinh Xuan Bach" FontSize="12" FontFamily="Montserrat" Foreground="White" HorizontalAlignment="Center"/>
                 <TextBlock Text="21127617 - Pham Hoang Gia Huy" FontSize="12" FontFamily="Montserrat" Foreground="White" HorizontalAlignment="Center" Margin="0,0,0,10"/>-->
+               
             </StackPanel>
         </Border>
     </ScrollViewer>

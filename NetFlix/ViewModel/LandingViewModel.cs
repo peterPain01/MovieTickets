@@ -17,6 +17,7 @@ using System.Windows.Threading;
 using System.Diagnostics;
 using Netflix.Repository;
 using Netflix.Model;
+using NetFlix.ViewModel;
 
 namespace NetFlix.ViewModel
 {
@@ -55,11 +56,9 @@ namespace NetFlix.ViewModel
 
         public ICommand NavigateToMoviePage { get; set; }
 
-
-        private NavigationStore _navigationStore;
-
         private MovieRepository movieRepo; 
-        public LandingViewModel(NavigationStore navigationStore)
+
+        public LandingViewModel()
         {
             movieRepo = new MovieRepository();
             _carouselItems = movieRepo.GetTrendingMovie(); 
@@ -70,7 +69,6 @@ namespace NetFlix.ViewModel
             GridLeaveCommand = new ViewModelCommand(Grid_MouseLeave);
             GridEnterCommand = new ViewModelCommand(Grid_MouseEnter);
 
-            this._navigationStore = navigationStore; 
             NavigateToMoviePage = new ViewModelCommand(ExecuteNavigatetoMoviePage); 
 
             _timer = new DispatcherTimer();
@@ -78,11 +76,11 @@ namespace NetFlix.ViewModel
             _timer.Tick += Timer_Tick;
 
         }
-            
+        
         private void ExecuteNavigatetoMoviePage(object parameter)
         {
-            int id = (int)parameter; 
-            _navigationStore.CurrentViewModel = new MovieViewModel(_navigationStore, id); 
+            int id = (int)parameter;
+            NavigationStore._navigationStore.CurrentViewModel = new MovieViewModel(id); 
         }
         private void NextButton_Click(object obj)
         {

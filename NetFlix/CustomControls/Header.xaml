@@ -8,10 +8,14 @@
              >
     <WrapPanel Orientation="Horizontal">
         <!-- App Logo  -->
-        <Image Source="/Netflix;component/Images/app-icon.png" Width="120" Height="60"/>
+        <Image Source="/Netflix;component/Images/app-icon.png" Width="120" Height="60"
+               MouseDown="Image_MouseDown"
+               Cursor="Hand"
+               />
 
         <!-- Navigation Links -->
         <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Movie" Background="Transparent" VerticalAlignment="Center" Cursor="Hand" 
+          MouseDown="TextBlock_MouseDown"
          />
         <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Now Showing" Background="Transparent" VerticalAlignment="Center" Cursor="Hand"/>
         <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Account" Background="Transparent" VerticalAlignment="Center" Cursor="Hand" />
@@ -30,6 +34,7 @@
                         BorderThickness="0,0,0,1"
                         Width="200px"
                         HorizontalAlignment="Right"
+                        KeyDown="txtMovieName_KeyDown"
                  >
             <TextBox.Background>
                 <ImageBrush ImageSource="/Netflix;component/Images/search-icon-white.png" Stretch="None"
