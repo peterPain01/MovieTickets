@@ -31,15 +31,20 @@
     <None Remove="Images\mv-bhead.jpg" />
     <None Remove="Images\mv-demonslayer.jpg" />
     <None Remove="Images\mv-dune.jpg" />
+    <None Remove="Images\mv-faf.jpg" />
     <None Remove="Images\mv-madamweb.jpg" />
     <None Remove="Images\mv-mai.jpg" />
+    <None Remove="Images\mv-nightswim.jpg" />
     <None Remove="Images\mv-openheimer.jpg" />
+    <None Remove="Images\mv-panda.jpg" />
+    <None Remove="Images\mv-spy.jpg" />
     <None Remove="Images\search-icon-black.png" />
     <None Remove="Images\search-icon-white.png" />
     <None Remove="Images\search-icon.svg" />
     <None Remove="Images\slider-boidem.jpg" />
     <None Remove="Images\slider-dao-pho-piano.jpg" />
     <None Remove="Images\slider-dune.jpg" />
+    <None Remove="Images\slider-faf.jpg" />
     <None Remove="Images\slider-kungfu.jpg" />
     <None Remove="Images\slider-Mai.jpg" />
     <None Remove="Images\slider-spy.png" />
@@ -74,6 +79,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\arrow-right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\mv-faf.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\mv-nightswim.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\mv-panda.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\mv-spy.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\slider-boidem.jpg">
@@ -117,6 +134,9 @@
     </Content>
     <Resource Include="Fonts\Roboto-Thin.ttf" />
     <Resource Include="Fonts\Roboto-ThinItalic.ttf" />
+    <Resource Include="Images\slider-faf.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\slider-kungfu.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

@@ -39,7 +39,7 @@ CREATE TABLE Movies (
 	Certification int, 
     plot_summary TEXT,
     poster_url VARCHAR(255),
-    poster_url_horizon VARCHAR(255),
+    poster_vertical_url VARCHAR(255),
     trailer_url VARCHAR(255), 
 	director_id INT,
     FOREIGN KEY (director_id) REFERENCES Directors(director_id),
@@ -124,8 +124,8 @@ INSERT INTO Movies (title, genre_id, duration_minutes, release_date, rating, Cer
 VALUES
 ('Movie 1', 1, 120, '2023-01-01', 8.5, 1, 'Plot summary for Movie 1', 'poster1.jpg', 'trailer1.mp4', 1),
 ('Movie 2', 2, 110, '2023-02-01', 7.8, 2, 'Plot summary for Movie 2', 'poster2.jpg', 'trailer2.mp4', 2),
-('Movie 3', 3, 130, '2023-03-01', 6.9, 3, 'Plot summary for Movie 3', 'poster3.jpg', 'trailer3.mp4', 3);
-
+('Movie 3', 3, 130, '2023-03-01', 6.9, 3, 'Plot summary for Movie 3', 'poster3.jpg', 'trailer3.mp4', 3),
+('Fast and Furious 11', 1, 120, '2023-01-01', 8.5, 1, 'Plot summary for Movie 1', '/Images/slider-faf.jpg','/Images/mv-faf.jpg', 'trailer1.mp4', 1);
 -- MovieStars
 INSERT INTO MovieStars (movie_id, star_id)
 VALUES

@@ -17,6 +17,7 @@ namespace Netflix.Model
         private int _certification;
         private string _plot_summary; 
         private string _poster_url; 
+        private string _poster_vertical_url;
         private string _trailer_url; 
         private int _director_id;
 
@@ -24,7 +25,7 @@ namespace Netflix.Model
 
         public MovieModel(int id, string title, int genre_id,
             int duration_minutes, DateTime release_date, double rating, 
-            int certification, string plot_summary, string poster_url, 
+            int certification, string plot_summary, string poster_url, string poster_vertical_url,
             string trailer_url, int director_id)
         {
             _id = id;
@@ -36,6 +37,7 @@ namespace Netflix.Model
             _certification = certification;
             _plot_summary = plot_summary;
             _poster_url = poster_url;
+            _poster_vertical_url = poster_vertical_url;
             _trailer_url = trailer_url;
             _director_id = director_id;
         }
@@ -49,6 +51,7 @@ namespace Netflix.Model
         public int Certification { get => _certification; set => _certification = value; }
         public string Plot_summary { get => _plot_summary; set => _plot_summary = value; }
         public string Poster_url { get => _poster_url; set => _poster_url = value; }
+        public string Poster_vertical_url { get => _poster_vertical_url; set => _poster_vertical_url = value; }
         public string Trailer_url { get => _trailer_url; set => _trailer_url = value; }
         public int Director_id { get => _director_id; set => _director_id = value; }
     }

@@ -11,6 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
+using System.Windows.Input;
+using XAct;
 using static NetFlix.View.SearchPage;
 using static NetFlix.ViewModel.LandingViewModel;
 
@@ -51,17 +53,48 @@ namespace Netflix.Repository
 
         }
 
-        public ObservableCollection<MovieModel> GetMovieByName(string title)
+        public (ObservableCollection<MovieModel>, int) GetMovieByName(string title, int page = 1, string filter = "", string sort = "", string sort_type = "")
         {
             ObservableCollection<MovieModel> movies = new ObservableCollection<MovieModel>();
-
+            int PAGE_SIZE = 3;
+            int totalRecords = 0;
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT * FROM Movies WHERE UPPER(title) LIKE UPPER('%' + @title + '%')";
+                command.CommandText = @"
+                            SELECT COUNT(*) FROM Movies
+                            WHERE UPPER(title) LIKE UPPER('%' + @title + '%')
+                            ";
                 command.Parameters.AddWithValue("@title", title);
+                totalRecords = (int)command.ExecuteScalar();
+
+                // SORT 
+                string sort_query = "movie_id";
+                if (!string.IsNullOrEmpty(sort))
+                {
+                    sort_query = $"{sort} {sort_type}";
+                }
+
+                // FILTER 
+                string filter_query = ""; 
+                if (!string.IsNullOrEmpty(filter))
+                {
+                    filter_query = $" AND genre_id = {filter}"; 
+                }
+                command.CommandText = @"
+                                        SELECT * FROM Movies
+                                        WHERE UPPER(title) LIKE UPPER('%' + @title + '%')" 
+                                        + filter_query + @"
+                                        ORDER BY " + sort_query + @"
+                                        OFFSET @page_from ROWS 
+                                        FETCH NEXT @PAGE_SIZE ROWS ONLY 
+                                        ";
+                command.Parameters.Clear();
+                command.Parameters.AddWithValue("@title", title);
+                command.Parameters.AddWithValue("@page_from", (page - 1) * PAGE_SIZE);
+                command.Parameters.AddWithValue("@PAGE_SIZE", PAGE_SIZE);
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -71,9 +104,9 @@ namespace Netflix.Repository
                     }
                 }
             }
-            return movies;
+            return (movies, totalRecords);
         }
-        public MovieModel GetMovieById(int id) 
+        public MovieModel GetMovieById(int id)
         {
             MovieModel movie = new MovieModel();
 
@@ -95,11 +128,43 @@ namespace Netflix.Repository
             return movie;
         }
 
+        public ObservableCollection<Genre> GetAllGenre()
+        {
+            ObservableCollection<Genre> genres = new ObservableCollection<Genre>();
+
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT * FROM Genres";
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Genre genre = new Genre
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("genre_id")),
+                            Name = reader.GetString(reader.GetOrdinal("name")) // Assuming "name" is the correct column for genre name
+                        };
+                        genres.Add(genre);
+                    }
+                }
+            }
+            return genres;
+        }
+
         public void GetMovieByCategory(string categorie) { }
 
         public void GetMovieByRating(int rating) { }
         public void GetMovieByCertficate(int certificate) { }
 
+
+        // handle Null Value
+        // handle Null Value
+        // handle Null Value
+        // handle Null Value
+        // handle Null Value
         public MovieModel ProcessMovie(SqlDataReader reader)
         {
             MovieModel movie = new MovieModel();
@@ -111,6 +176,7 @@ namespace Netflix.Repository
             movie.Certification = reader.GetInt32(reader.GetOrdinal("Certification"));
             movie.Plot_summary = reader.GetString(reader.GetOrdinal("plot_summary"));
             movie.Poster_url = reader.GetString(reader.GetOrdinal("poster_url"));
+            movie.Poster_vertical_url = reader.GetString(reader.GetOrdinal("poster_vertical_url"));
             movie.Trailer_url = reader.GetString(reader.GetOrdinal("trailer_url"));
             movie.Director_id = reader.GetInt32(reader.GetOrdinal("director_id"));
             //movie.Release_date = reader.GetDateTime(reader.GetOrdinal("realease_date"));

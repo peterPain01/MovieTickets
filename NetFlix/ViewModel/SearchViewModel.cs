@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,10 +19,16 @@ namespace NetFlix.ViewModel
     {
         private NavigationStore _navigateStore;
         private ObservableCollection<MovieModel> movies;
+        private ObservableCollection<Genre> genres;
         private MovieRepository movieRepo;
-
+        private int _totalRecords;
+        private int _page = 1;
+        private string _searchPattern;
+        private string _sortColumns;
+        private string _sortMode;
 
         private object _selectedItem;
+        private object _selectedGenreItem;
         public object SelectedItem
         {
             get { return _selectedItem; }
@@ -36,42 +43,121 @@ namespace NetFlix.ViewModel
 
             }
         }
+        public object SelectedGenreItem
+        {
+            get { return _selectedGenreItem; }
+            set
+            {
+                if (_selectedGenreItem != value)
+                {
+                    _selectedGenreItem = value;
+                    OnPropertyChanged(nameof(SelectedGenreItem));
+                    SelectionGenresChanged();
+                }
+
+            }
+        }
+
+        public int TotalRecords
+        {
+            get { return _totalRecords; }
+            set
+            {
+                if (_totalRecords != value)
+                {
+                    _totalRecords = value;
+                    OnPropertyChanged(nameof(TotalRecords));
+                    SelectionChanged();
+                }
+
+            }
+        }
+        public int CurrentPage
+        {
+            get { return _page; }
+            set
+            {
+                _page = value;
+                OnPropertyChanged(nameof(CurrentPage));
+            }
+        }
         public ObservableCollection<MovieModel> Items
         {
             get { return movies; }
             set
             {
                 movies = value;
-                OnPropertyChanged("Items");
+                OnPropertyChanged(nameof(Items));
             }
         }
 
+        public ObservableCollection<Genre> Genres
+        {
+            get { return genres; }
+            set
+            {
+                genres = value;
+                OnPropertyChanged(nameof(Genres));
+            }
+        }
+        public ICommand PaginateCommand;
+        public ICommand GetAllGenre;
         public SearchViewModel(string searchPattern)
         {
             movieRepo = new MovieRepository();
-            Items = movieRepo.GetMovieByName(searchPattern);
+            PaginateCommand = new ViewModelCommand(ExecutePaginate);
+            _searchPattern = searchPattern;
+            _sortColumns = "";
+            _sortMode = "";
+
+            Genres = movieRepo.GetAllGenre();
+            (Items, TotalRecords) = movieRepo.GetMovieByName(searchPattern);
         }
 
         private void SelectionChanged()
         {
+            if (SelectedItem == null)
+                return;
             string selectOption = SelectedItem.ToString();
             string[] split = selectOption.Split('-');
             string field = split[0];
             string mode = split[1];
             SortMovies(field, mode);
         }
+        private void SelectionGenresChanged()
+        {
+            if (SelectedGenreItem == null)
+                return;
+            FilterMovie(SelectedGenreItem.ToString());
+        }
 
+        private string genre_id = "";
+        private void FilterMovie(string id)
+        {
+            genre_id = id; 
+            (Items, TotalRecords) = movieRepo.GetMovieByName(_searchPattern, _page, id, _sortColumns, _sortMode);
+        }
         private void SortMovies(string field, string mode)
         {
-            if(field.Equals("rating") && mode.Equals("low"))
-                Items = new ObservableCollection<MovieModel>(Items.OrderBy(o => o.Rating));
+            _sortColumns = field;
+            _sortMode = "ASC";
+            if (mode.Equals("high"))
+                _sortMode = "DESC";
+            if (field.Equals("rating") && mode.Equals("low"))
+                (Items, TotalRecords) = movieRepo.GetMovieByName(_searchPattern, _page, genre_id, "rating", "ASC");
             else if (field.Equals("rating") && mode.Equals("high"))
-                Items = new ObservableCollection<MovieModel>(Items.OrderByDescending(o => o.Rating));
-            else if (field.Equals("run") && mode.Equals("low"))
-                Items = new ObservableCollection<MovieModel>(Items.OrderBy(o => o.Duration_minutes));
-            else if (field.Equals("run") && mode.Equals("high"))
-                Items = new ObservableCollection<MovieModel>(Items.OrderByDescending(o => o.Duration_minutes));
+                (Items, TotalRecords) = movieRepo.GetMovieByName(_searchPattern, _page, genre_id, "rating", "DESC");
+            else if (field.Equals("duration_minutes") && mode.Equals("low"))
+                (Items, TotalRecords) = movieRepo.GetMovieByName(_searchPattern, _page, genre_id, "duration_minutes", "ASC");
+            else if (field.Equals("duration_minutes") && mode.Equals("high"))
+                (Items, TotalRecords) = movieRepo.GetMovieByName(_searchPattern, _page, genre_id, "duration_minutes", "DESC");
             return;
+        }
+
+        private void ExecutePaginate(object parameter)
+        {
+            this._page = (int)parameter;
+            (Items, TotalRecords) = movieRepo.GetMovieByName(_searchPattern, _page, genre_id, _sortColumns, _sortMode);
         }
 
     }
