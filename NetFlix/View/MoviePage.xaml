@@ -4,17 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NetFlix.View" xmlns:customcontrols="clr-namespace:NetFlix.CustomControls"
-           mc:Ignorable="d"
+        xmlns:customControls="clr-namespace:NetFlix.CustomControls"
+        mc:Ignorable="d"
         >
-    <Border CornerRadius="20">
-        <Border.Background>
-            <ImageBrush ImageSource="/Images/loginBG.jpg" 
-             />
-        </Border.Background>
 
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="ShowTimesGrouped" Source="{Binding ShowTimesSelected}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="CinemaName"/>
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+    </UserControl.Resources>
+    
+    
+    <Border CornerRadius="20">
         <Border CornerRadius="14" 
                 BorderThickness="3"
-                Height="568">
+               >
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="#FF504F54" Offset="0"/>
@@ -24,7 +30,7 @@
             </Border.BorderBrush>
 
             <Border.Background >
-                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0" Opacity="0.82">
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0" >
                     <GradientStop Color="#FF1D1D22" Offset="0"/>
                     <GradientStop Color="#FF20202E" Offset="0.5"/>
                     <GradientStop Color="#FF100D1F" Offset="0.75"/>
@@ -33,18 +39,8 @@
             </Border.Background>
 
             <!--Header-->
-            <StackPanel Orientation="Vertical" >
-                <Grid Margin="20,0,20,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="30"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Source="/Images/arrow-left.png" RenderOptions.BitmapScalingMode="HighQuality"
-                      Margin="0,0,10,0"
-                      Cursor="Hand"
-                      />
-                    <customcontrols:Header Margin="0,0,20,0" Grid.Column="1"/>
-                </Grid>
+            <StackPanel Orientation="Vertical">
+                <customcontrols:Header Margin="20,0,20,0" Grid.Column="1" />
 
                 <Grid Margin="0,30,0,0">
                     <Grid.ColumnDefinitions>
@@ -53,32 +49,42 @@
                     </Grid.ColumnDefinitions>
 
                     <!--Poster-->
-                    <Image Source="{Binding Movie.Poster_url}" Grid.Column="0" Height="348"
-                            Width="400"
+                    <Image Source="{Binding Movie.PosterUrl}" Grid.Column="0" 
+                            Height="448"
+                            Width="420"
                             Stretch="Uniform" StretchDirection="DownOnly"
+                            VerticalAlignment="Center"
                            />
-                    <StackPanel Orientation="Vertical" Grid.Column="1">
-                        <TextBlock Text="{Binding Movie.Title}" FontSize="24" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="SmallCaps" Typography.CapitalSpacing="True"/>
+                    <StackPanel Orientation="Vertical" Grid.Column="1"
+                                VerticalAlignment="Center">
+                        <!--Title-->
+                        <TextBlock Text="{Binding Movie.Title}" FontSize="24" FontFamily="Montserrat" 
+                                   Foreground="#fdfcf0" HorizontalAlignment="Left" 
+                                   Margin="0,0,0,20"
+                                   d:Text="Dune 2 - Sand Planet"/>
 
                         <!--Genres-->
                         <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                            <TextBlock Text="Genres: " FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="AllSmallCaps"/>
-                            <TextBlock Text="Historucal Drama, Horror" FontSize="12" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"/>
+                            <TextBlock Text="Genres: " FontSize="18" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="AllSmallCaps"/>
+                            <TextBlock Text="Historucal Drama, Horror" FontSize="16" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"/>
                         </StackPanel>
 
                         <!--Duration-->
                         <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                            <TextBlock Text="Duration: " FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="AllSmallCaps"/>
-                            <TextBlock Text="210 mins" FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"/>
+                            <TextBlock Text="Duration: " FontSize="18" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="AllSmallCaps"/>
+                            <TextBlock FontSize="16" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"> 
+                                <Run Text="{Binding Movie.DurationMinutes}" FontSize="16" FontFamily="Montserrat" Foreground="#fdfcf0" TextDecorations="Underline"/>
+                                <Run Text="minutes" FontSize="16" FontFamily="Montserrat" Foreground="#fdfcf0"/>
+                            </TextBlock>
                         </StackPanel>
 
                         <!--Release, Imdb-->
                         <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                            <TextBlock Text="Release: " FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center"  Typography.Capitals="AllSmallCaps"/>
-                            <TextBlock Text="2021" FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"/>
+                            <TextBlock Text="Release: " FontSize="18" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center"  Typography.Capitals="AllSmallCaps"/>
+                            <TextBlock Text="{Binding Movie.ReleaseDate}" FontSize="16" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"/>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Imdb: " FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" VerticalAlignment="Center" Padding="10,0,0,0"/>
-                                <TextBlock Text="9.2" FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" VerticalAlignment="Center" TextDecorations="Underline" Margin="0,0,6,0"/>
+                                <TextBlock Text="Imdb: " FontSize="18" FontFamily="Montserrat" Foreground="#fdfcf0" VerticalAlignment="Center" Padding="10,0,0,0"/>
+                                <TextBlock Text="{Binding Movie.Rating}" FontSize="15" FontFamily="Montserrat" Foreground="#fdfcf0" VerticalAlignment="Center" TextDecorations="Underline" Margin="0,0,6,0"/>
                                 <Image Source="/Images/star-icon.png" VerticalAlignment="Center"/>
                             </StackPanel>
                         </StackPanel>
@@ -86,24 +92,27 @@
 
                         <!--Stars-->
                         <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                            <TextBlock Text="Stars: " FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="AllSmallCaps"/>
-                            <TextBlock Text="Cillian Murphy, Florence Pugh, Emily Blunt" FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"/>
+                            <TextBlock Text="Stars: " FontSize="18" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="AllSmallCaps"/>
+                            <TextBlock Text="Cillian Murphy, Florence Pugh, Emily Blunt" FontSize="16" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"/>
                         </StackPanel>
 
                         <!--Director-->
                         <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                            <TextBlock Text="Director: " FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="AllSmallCaps"/>
-                            <TextBlock Text="Christopher Nolan, Gary Oldman" FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"/>
+                            <TextBlock Text="Director: " FontSize="18" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="AllSmallCaps"/>
+                            <TextBlock Text="Christopher Nolan, Gary Oldman" FontSize="16" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"/>
                         </StackPanel>
 
                         <!--Certification-->
                         <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                            <TextBlock Text="Certification: " FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="AllSmallCaps"/>
-                            <TextBlock Text="16+" FontSize="14" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"/>
+                            <TextBlock Text="Certification: " FontSize="18" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" Typography.Capitals="AllSmallCaps"/>
+                            <TextBlock FontSize="16" FontFamily="Montserrat" Foreground="#fdfcf0" HorizontalAlignment="Center" TextDecorations="Underline"> 
+                                <Run Text="{Binding Movie.Certification, StringFormat='#+'}"/>
+                            </TextBlock>
                         </StackPanel>
 
                         <Button
-                        Margin="0,20,0,0" FontSize="14"
+                        Command="{Binding NavigateToBookingForm}"
+                        Margin="0,20,0,0" FontSize="16"
                         FontWeight="Bold" Foreground="White"
                         Background="#e71a0f"
                         Cursor="Hand"    
@@ -115,7 +124,7 @@
 
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
-                                    <Border Width="160" Height="40" 
+                                    <Border Width="160" Height="50" 
                         CornerRadius="9" 
                         Background="{TemplateBinding Background}">
                                         <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -125,7 +134,87 @@
                         </Button>
                     </StackPanel>
                 </Grid>
+
+                <Label Content="ShowTime" HorizontalAlignment="Center" Foreground="White" Margin="0,20,0,0" 
+                       FontWeight="DemiBold" FontSize="34" 
+                       />
+                <ItemsControl ItemsSource="{Binding DayHaveShowTimes}" HorizontalAlignment="Center" Margin="0,20,0,0">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <customControls:DateItem Month="{Binding Month}" Day="{Binding Day}" 
+                                                     DayOfWeek="{Binding DayOfWeek}" 
+                                                     Command="{Binding DataContext.ChangeSelectedDay, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" 
+                                                     CommandParameter="{Binding Day}"
+                                                     />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+
+                <Label Content="Cinema" HorizontalAlignment="Center" Foreground="White" Margin="0,20,0,0" 
+                       FontWeight="DemiBold" FontSize="34" 
+                       />
+                <ItemsControl ItemsSource="{Binding Source={StaticResource ShowTimesGrouped}}" HorizontalAlignment="Center" Margin="0,20,0,0">
+                    <!--Group Style-->
+                    <ItemsControl.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.ContainerStyle>
+                                <Style TargetType="{x:Type GroupItem}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding Name}" FontSize="24"
+                                                        Foreground="WhiteSmoke" FontWeight="DemiBold"/>
+                                                        <ItemsPresenter/>
+                                                </StackPanel>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </GroupStyle.ContainerStyle>
+                        </GroupStyle>
+                    </ItemsControl.GroupStyle>
+                    <!--End Group Style-->
+
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border CornerRadius="8" BorderThickness="1">
+                                    <Border CornerRadius="12" BorderThickness="1" BorderBrush="WhiteSmoke" Margin="0,10,10,10">
+                                    <Label HorizontalAlignment="Center" Cursor="Hand" FontSize="16" Foreground="WhiteSmoke">
+                                            <Label.Content>
+                                                <TextBlock>
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0}:{1}">
+                                                            <Binding Path="Hour" />
+                                                            <Binding Path="Minute" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </Label.Content>
+                                        </Label>
+                                    </Border>
+                            </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <StackPanel Orientation="Vertical">
+                </StackPanel>
             </StackPanel>
         </Border>
     </Border>
 </UserControl>
+
+    
+   

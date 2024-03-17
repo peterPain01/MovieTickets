@@ -43,5 +43,6 @@ namespace NetFlix.View
                ((LoginViewModel)DataContext).LoginCommand.Execute(null);
             }
         }
+
     }
 }

@@ -37,6 +37,7 @@
     <None Remove="Images\mv-nightswim.jpg" />
     <None Remove="Images\mv-openheimer.jpg" />
     <None Remove="Images\mv-panda.jpg" />
+    <None Remove="Images\mv-spy.jpeg" />
     <None Remove="Images\mv-spy.jpg" />
     <None Remove="Images\search-icon-black.png" />
     <None Remove="Images\search-icon-white.png" />
@@ -58,9 +59,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\dial-phone-icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\movie-header.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\mv-bhead.jpg">
@@ -88,6 +86,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\mv-panda.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\mv-spy.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\mv-spy.jpg">
@@ -177,6 +178,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FontAwesome.Sharp" Version="6.3.0" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
     <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />

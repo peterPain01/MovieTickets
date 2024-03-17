@@ -8,30 +8,37 @@
         xmlns:view="clr-namespace:NetFlix.View" 
         mc:Ignorable="d"
         Title="MainWindow" Height="570" Width="800"
-        WindowStyle="None"
         AllowsTransparency="True"
+        WindowStyle="None"
+        WindowState="Maximized"
         MouseDown="Window_MouseDown"
         Background="Transparent"
-        WindowStartupLocation="CenterScreen"
-        SizeToContent="WidthAndHeight"
+        xmlns:customControls="clr-namespace:NetFlix.CustomControls" 
         >
-    <ContentControl Content="{Binding CurrentViewModel}">
-        <ContentControl.Resources>
-            <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
-                <view:LoginView/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:SignupVM}">
-                <view:Signup/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:LandingViewModel}">
-                <view:LandingUser/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:MovieViewModel}">
-                <view:MoviePage/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:SearchViewModel}">
-                <view:SearchPage/>
+        
+        <ContentControl Content="{Binding CurrentViewModel}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
+                    <view:LoginView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:SignupVM}">
+                    <view:Signup/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:LandingViewModel}">
+                    <view:LandingUser/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:MovieViewModel}">
+                    <view:MoviePage/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:SearchViewModel}">
+                    <view:SearchPage/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:AdminDashBoardVM}">
+                    <view:AdminDashBoard/>
+                </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:Booking}">
+                <view:BookingForm/>
             </DataTemplate>
         </ContentControl.Resources>
-    </ContentControl>
+        </ContentControl>
 </Window>

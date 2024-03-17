@@ -29,21 +29,21 @@ namespace NetFlix.View
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             initPageButton();
-            initGenresOption(); 
+            initGenresOption();
         }
         private void initPageButton()
         {
             int totalItems = (int)((SearchViewModel)DataContext).TotalRecords;
             int totalPages = (int)Math.Ceiling((double)totalItems / PAGE_SIZE);
-            int currentPage = (int)((SearchViewModel)DataContext).CurrentPage; 
+            int currentPage = (int)((SearchViewModel)DataContext).CurrentPage;
 
             for (int i = 1; i <= totalPages; i++)
             {
                 Button button = new Button();
                 button.Content = $"{i}";
                 button.Tag = i;
-                button.Margin = new Thickness(8, 4, 8, 4) ;
-                button.BorderThickness = new Thickness(1); 
+                button.Margin = new Thickness(8, 4, 8, 4);
+                button.BorderThickness = new Thickness(1);
                 UpdateButtonColor(button, i == currentPage);
 
                 button.Click += (sender, e) =>
@@ -79,20 +79,20 @@ namespace NetFlix.View
             }
             else
             {
-                button.Background = Brushes.Transparent; 
+                button.Background = Brushes.Transparent;
             }
         }
 
         private void initGenresOption()
         {
-            int count = (int)((SearchViewModel)DataContext).Genres.Count; 
+            int count = (int)((SearchViewModel)DataContext).Genres.Count;
             for (int i = 0; i < count; ++i)
             {
                 Genre genre = ((SearchViewModel)DataContext).Genres[i];
 
                 ComboBoxItem comboBoxItem = new ComboBoxItem();
-                comboBoxItem.Content = genre.Name; 
-                comboBoxItem.Tag = genre.Id; 
+                comboBoxItem.Content = genre.Name;
+                comboBoxItem.Tag = genre.Id;
                 cbGenres.Items.Add(comboBoxItem);
             }
         }

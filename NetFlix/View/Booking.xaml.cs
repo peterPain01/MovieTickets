@@ -13,11 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Netflix.View
+namespace NetFlix.View
 {
-    /// <summary>
-    /// Interaction logic for Booking.xaml
-    /// </summary>
+
     public partial class Booking : Window
     {
          Color NORMAL_BORDER_COLOR = Colors.Green;

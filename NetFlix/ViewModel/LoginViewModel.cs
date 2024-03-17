@@ -1,4 +1,6 @@
 ﻿using Netflix.Utils;
+using Netflix.View;
+using Netflix.ViewModel;
 using NetFlix.CustomControls;
 using NetFlix.Model;
 using NetFlix.Repository;
@@ -115,9 +117,8 @@ namespace NetFlix.ViewModel
             //    return;
             //};
 
-
-            var isValidUser = userRepository.AuthenticatedUser(new System.Net.NetworkCredential(Username, Password));
-            if (isValidUser)
+            var user = userRepository.AuthenticatedUser(new System.Net.NetworkCredential(Username, Password));
+            if (user != null && (user.isAdmin == 0 || user.isAdmin == null))
             {
                 //Thread.CurrentPrincipal = new GenericPrincipal(
                 //    new GenericIdentity(Username), null
@@ -125,7 +126,9 @@ namespace NetFlix.ViewModel
                 this.IsViewVisible = false;
                 NavigationStore._navigationStore.CurrentViewModel = new LandingViewModel();
             }
-
+            else if(user != null && user.isAdmin == 1)
+                NavigationStore._navigationStore.CurrentViewModel = new AdminDashBoardVM();
+            
             else
             {
                 _vm.ShowError("* Invalid username or password");

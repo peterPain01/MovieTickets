@@ -6,22 +6,25 @@
              xmlns:local="clr-namespace:NetFlix.CustomControls"
              mc:Ignorable="d" 
              >
-    <WrapPanel Orientation="Horizontal">
-        <!-- App Logo  -->
-        <Image Source="/Netflix;component/Images/app-icon.png" Width="120" Height="60"
+    <DockPanel >
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+            <Image Source="/Netflix;component/Images/app-icon.png" Width="120" Height="60"
                MouseDown="Image_MouseDown"
                Cursor="Hand"
+               Margin="40,0,0,0"
                />
 
-        <!-- Navigation Links -->
-        <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Movie" Background="Transparent" VerticalAlignment="Center" Cursor="Hand" 
+            <!-- Navigation Links -->
+            <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Movie" Background="Transparent" VerticalAlignment="Center" Cursor="Hand" 
           MouseDown="TextBlock_MouseDown"
          />
-        <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Now Showing" Background="Transparent" VerticalAlignment="Center" Cursor="Hand"/>
-        <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Account" Background="Transparent" VerticalAlignment="Center" Cursor="Hand" />
-        <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Voucher" Background="Transparent" VerticalAlignment="Center" Cursor="Hand"/>
+            <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Now Showing" Background="Transparent" VerticalAlignment="Center" Cursor="Hand"/>
+            <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Account" Background="Transparent" VerticalAlignment="Center" Cursor="Hand" />
+            <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Voucher" Background="Transparent" VerticalAlignment="Center" Cursor="Hand"/>
+        </StackPanel>
         <!-- Search Bar -->
         <TextBox x:Name="txtMovieName" 
+                        DockPanel.Dock="Right"
                         FontSize="14"
                         FontWeight="Medium"
                         FontFamily="Montserrat" 
@@ -33,7 +36,6 @@
                         BorderBrush="DarkGray"
                         BorderThickness="0,0,0,1"
                         Width="200px"
-                        HorizontalAlignment="Right"
                         KeyDown="txtMovieName_KeyDown"
                  >
             <TextBox.Background>
@@ -42,5 +44,5 @@
                     />
             </TextBox.Background>
         </TextBox>
-    </WrapPanel>
+    </DockPanel>
 </UserControl>

@@ -11,17 +11,21 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using XAct.Users;
+
 namespace NetFlix.Repository
 {
     class UserRepository : RepositoryBase, IUserRepository
     {
-        public bool Add(UserModel userModel) 
+        private User CurrentUser;
+        public bool isLoggedIn()
+        {
+            return CurrentUser != null;
+        }
+        public bool Add(User userModel) 
         {
             bool success = false;
 
-
-            UserModel user = GetByUsername(userModel.Username);
+            User user = GetByUsername(userModel.Username);
             if (user != null)
             {
          
@@ -42,17 +46,14 @@ namespace NetFlix.Repository
                 if (rowsAffected > 0)
                 {
                     success = true; 
-                   
-
                 }
                 connection.Close();
             }
             return success;
         }
-        public bool AuthenticatedUser(NetworkCredential credential)
+        public User AuthenticatedUser(NetworkCredential credential)
         {
-            bool validUser;
-
+            User user = null;
             var hashedPassword = helper.HassPassword(credential.Password); 
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
@@ -63,26 +64,37 @@ namespace NetFlix.Repository
                 command.Parameters.Add("@username", System.Data.SqlDbType.NVarChar).Value = credential.UserName;
                 command.Parameters.Add("@password",System.Data.SqlDbType.NVarChar).Value = hashedPassword;
 
-                validUser = command.ExecuteScalar() == null ? false : true; 
-                connection.Close();
+                using var reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    int isAdminIndex = reader.GetOrdinal("is_admin");
+                    int isAdminValue = reader.IsDBNull(isAdminIndex) ? 0 : reader.GetInt32(isAdminIndex);
+                    user = new User(
+                        reader.GetInt32(reader.GetOrdinal("id")),
+                        reader.GetString(reader.GetOrdinal("username")),
+                        isAdminValue
+                    );
+                }
+
             }
-            return validUser;
+            CurrentUser = user; 
+            return user;
         }
-        public void Edit(UserModel userModel)
+        public void Edit(User userModel)
         {
             throw new NotImplementedException();
         }
-        public IEnumerable<UserModel> GetAll()
+        public IEnumerable<User> GetAll()
         {
             throw new NotImplementedException();
         }
-        public UserModel GetById(int id)
+        public User GetById(int id)
         {
             throw new NotImplementedException();
         }
-        public UserModel GetByUsername(string username)
+        public User GetByUsername(string username)
         {
-            UserModel user = null;
+            User user = null;
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
             {
@@ -93,13 +105,13 @@ namespace NetFlix.Repository
                 using var reader = command.ExecuteReader();
                 if (reader.Read())
                 {
-                    user = new UserModel(reader.GetInt32(reader.GetOrdinal("id")), reader.GetString(reader.GetOrdinal("username")));
+                    user = new User(reader.GetInt32(reader.GetOrdinal("id")), reader.GetString(reader.GetOrdinal("username")));
                 }
             }
            return user;
         }
 
-        public void Remove(UserModel userModel)
+        public void Remove(User userModel)
         {
             throw new NotImplementedException();
         }

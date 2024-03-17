@@ -11,7 +11,8 @@ CREATE TABLE Users (
     password VARCHAR(100) NOT NULL,
     full_name VARCHAR(100),
     birth_date DATE,
-	gender VARCHAR(10) CHECK (gender IN ('Male', 'Female', 'Other')),
+	is_admin bool, 
+    gender VARCHAR(10) CHECK (gender IN ('Male', 'Female', 'Other')),
 );
 
 CREATE TABLE Genres (

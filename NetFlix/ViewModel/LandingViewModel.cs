@@ -23,13 +23,13 @@ namespace NetFlix.ViewModel
 {
     public class LandingViewModel : ViewModelBase
     {
-        private ObservableCollection<MovieModel> _carouselItems;
+        private ObservableCollection<Movie> _carouselItems;
         private bool _isHovering = false;
         private DispatcherTimer _timer;
         private int _currentIndex = 0;
         
      
-        public ObservableCollection<MovieModel> Items
+        public ObservableCollection<Movie> Items
         {
             get { return _carouselItems; }
             set

@@ -20,9 +20,9 @@ namespace Netflix.Repository
 {
     public class MovieRepository : RepositoryBase
     {
-        public ObservableCollection<MovieModel> GetTrendingMovie()
+        public ObservableCollection<Movie> GetTrendingMovie()
         {
-            ObservableCollection<MovieModel> movies = new ObservableCollection<MovieModel>();
+            ObservableCollection<Movie> movies = new ObservableCollection<Movie>();
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
             {
@@ -40,7 +40,7 @@ namespace Netflix.Repository
                 {
                     while (reader.Read())
                     {
-                        MovieModel movie = ProcessMovie(reader);
+                        Movie movie = ProcessMovie(reader);
                         movies.Add(movie);
                     }
                 }
@@ -53,9 +53,9 @@ namespace Netflix.Repository
 
         }
 
-        public (ObservableCollection<MovieModel>, int) GetMovieByName(string title, int page = 1, string filter = "", string sort = "", string sort_type = "")
+        public (ObservableCollection<Movie>, int) GetMovieByName(string title, int page = 1, string filter = "", string sort = "", string sort_type = "")
         {
-            ObservableCollection<MovieModel> movies = new ObservableCollection<MovieModel>();
+            ObservableCollection<Movie> movies = new ObservableCollection<Movie>();
             int PAGE_SIZE = 3;
             int totalRecords = 0;
             using (var connection = GetConnection())
@@ -99,16 +99,16 @@ namespace Netflix.Repository
                 {
                     while (reader.Read())
                     {
-                        MovieModel movie = ProcessMovie(reader);
+                        Movie movie = ProcessMovie(reader);
                         movies.Add(movie);
                     }
                 }
             }
             return (movies, totalRecords);
         }
-        public MovieModel GetMovieById(int id)
+        public Movie GetMovieById(int id)
         {
-            MovieModel movie = new MovieModel();
+            Movie movie = new Movie();
 
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
@@ -165,20 +165,20 @@ namespace Netflix.Repository
         // handle Null Value
         // handle Null Value
         // handle Null Value
-        public MovieModel ProcessMovie(SqlDataReader reader)
+        public Movie ProcessMovie(SqlDataReader reader)
         {
-            MovieModel movie = new MovieModel();
+            Movie movie = new Movie();
             movie.Id = reader.GetInt32(reader.GetOrdinal("movie_id"));
             movie.Title = reader.GetString(reader.GetOrdinal("title"));
-            movie.Genre_id = reader.GetInt32(reader.GetOrdinal("genre_id"));
-            movie.Duration_minutes = reader.GetInt32(reader.GetOrdinal("duration_minutes"));
+            movie.GenreId = reader.GetInt32(reader.GetOrdinal("genre_id"));
+            movie.DurationMinutes = reader.GetInt32(reader.GetOrdinal("duration_minutes"));
             movie.Rating = Convert.ToDouble(reader.GetDecimal(reader.GetOrdinal("rating")));
             movie.Certification = reader.GetInt32(reader.GetOrdinal("Certification"));
-            movie.Plot_summary = reader.GetString(reader.GetOrdinal("plot_summary"));
-            movie.Poster_url = reader.GetString(reader.GetOrdinal("poster_url"));
-            movie.Poster_vertical_url = reader.GetString(reader.GetOrdinal("poster_vertical_url"));
-            movie.Trailer_url = reader.GetString(reader.GetOrdinal("trailer_url"));
-            movie.Director_id = reader.GetInt32(reader.GetOrdinal("director_id"));
+            movie.PlotSummary = reader.GetString(reader.GetOrdinal("plot_summary"));
+            movie.PosterUrl = reader.GetString(reader.GetOrdinal("poster_url"));
+            movie.PosterVerticalUrl = reader.GetString(reader.GetOrdinal("poster_vertical_url"));
+            movie.TrailerUrl = reader.GetString(reader.GetOrdinal("trailer_url"));
+            movie.DirectorId = reader.GetInt32(reader.GetOrdinal("director_id"));
             //movie.Release_date = reader.GetDateTime(reader.GetOrdinal("realease_date"));
 
             return movie;

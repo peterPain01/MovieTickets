@@ -1,6 +1,7 @@
 ﻿using Netflix.Model;
 using Netflix.Repository;
 using Netflix.Utils;
+using NetFlix.View;
 using NetFlix.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace NetFlix.ViewModel
     public class SearchViewModel : ViewModelBase
     {
         private NavigationStore _navigateStore;
-        private ObservableCollection<MovieModel> movies;
+        private ObservableCollection<Movie> movies;
         private ObservableCollection<Genre> genres;
         private MovieRepository movieRepo;
         private int _totalRecords;
@@ -81,7 +82,7 @@ namespace NetFlix.ViewModel
                 OnPropertyChanged(nameof(CurrentPage));
             }
         }
-        public ObservableCollection<MovieModel> Items
+        public ObservableCollection<Movie> Items
         {
             get { return movies; }
             set
@@ -102,10 +103,13 @@ namespace NetFlix.ViewModel
         }
         public ICommand PaginateCommand;
         public ICommand GetAllGenre;
+
+        public ICommand NavigateToMoviePage { get; set; }
         public SearchViewModel(string searchPattern)
         {
             movieRepo = new MovieRepository();
             PaginateCommand = new ViewModelCommand(ExecutePaginate);
+            NavigateToMoviePage = new ViewModelCommand(ExecuteNavigateToMoviePage); 
             _searchPattern = searchPattern;
             _sortColumns = "";
             _sortMode = "";
@@ -159,6 +163,11 @@ namespace NetFlix.ViewModel
             this._page = (int)parameter;
             (Items, TotalRecords) = movieRepo.GetMovieByName(_searchPattern, _page, genre_id, _sortColumns, _sortMode);
         }
-
+        
+        private void ExecuteNavigateToMoviePage(object parameter)
+        {
+            int id = (int)parameter;
+            NavigationStore._navigationStore.CurrentViewModel = new MovieViewModel(id); 
+        }
     }
 }

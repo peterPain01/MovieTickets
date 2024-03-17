@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace NetFlix.Model
 {
-    public class UserModel
+    public class User
     {
 
         public string Username { get; set; }
         public string Password { get; set; }
         public DateTime Dob { get; set; }
         public string Gender { get; set; }
-
+        
         // sub fileds 
         public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
-      
+        public int isAdmin { get; set; }
 
-        public UserModel(string username, string hasedPassword, DateTime dob, string gender)
+        public User(string username, string hasedPassword, DateTime dob, string gender)
         {
             this.Username = username;
             this.Password = hasedPassword;
@@ -28,7 +28,14 @@ namespace NetFlix.Model
             this.Gender = gender;
         }
 
-        public UserModel(int id, string username) { 
+        public User(int id, string username, int isAdmin) { 
+            this.Id = id;
+            this.Username = username;
+            this.isAdmin = isAdmin;
+        }
+
+        public User(int id, string username)
+        {
             this.Id = id;
             this.Username = username;
         }

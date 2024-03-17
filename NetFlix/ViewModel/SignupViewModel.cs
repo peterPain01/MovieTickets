@@ -108,7 +108,7 @@ namespace NetFlix.ViewModel
             var hasedPassword = helper.HassPassword(unhashed);
             try
             {
-                var result = userRepository.Add(new UserModel(Username, hasedPassword, Dob, Gender));
+                var result = userRepository.Add(new User(Username, hasedPassword, Dob, Gender));
                 if(result == false)
                 {
                     _vm.ShowError("Username already exists");

@@ -4,10 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:NetFlix.View" xmlns:customcontrols="clr-namespace:NetFlix.CustomControls" 
-             xmlns:viewmodel="clr-namespace:NetFlix.ViewModel"
+             xmlns:viewmodel="clr-namespace:NetFlix.ViewModel"  
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              Background="Transparent" 
-             Width="1200"
-             Height="600"
              Loaded="UserControl_Loaded"
              >
     <Border CornerRadius="20">
@@ -28,7 +27,7 @@
             </LinearGradientBrush>
         </Border.Background>
 
-        <ScrollViewer >
+        <ScrollViewer>
             <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <customcontrols:Header Margin="20,30,20,0" Height="81"/>
 
@@ -87,21 +86,32 @@
                        FontSize="22" HorizontalAlignment="Center"
                        Margin="0,20,0,20"
                        FontFamily="{StaticResource RobotoRegular}"/>
+                
                 <ListView x:Name="lvResults" Background="Transparent" BorderThickness="0" 
                       HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                          ScrollViewer.VerticalScrollBarVisibility="Auto"
-                      ItemsSource="{Binding Items}">
-
+                          ItemsSource="{Binding Items}">
+                    
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal" Background="Transparent" HorizontalAlignment="Center"></WrapPanel>
                         </ItemsPanelTemplate>
                     </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
 
+                    <ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Vertical" Background="Transparent" Margin="0,0,0,0" HorizontalAlignment="Center">
-                                <Image Source="{Binding Poster_vertical_url}" Width="280" Height="440" Stretch="UniformToFill" Margin="20,40,0,0" Cursor="Hand"/>
+                            <StackPanel Orientation="Vertical" Background="Transparent" Margin="0,0,0,0" HorizontalAlignment="Center"
+                               >
+                                <Image Source="{Binding PosterVerticalUrl}" Width="280" Height="440" Stretch="UniformToFill" Margin="20,40,0,0" Cursor="Hand"
+                                       >
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseDown">
+                                                <i:InvokeCommandAction 
+                                                        Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListView}}, 
+                                                        Path=DataContext.NavigateToMoviePage}" CommandParameter="{Binding Id}"/>    
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                </Image>
                                 <TextBlock Text="{Binding Title}" Foreground="White" Typography.Capitals="AllPetiteCaps"
                                        HorizontalAlignment="Center" FontSize="20"
                                        Margin="0,12,0,0"

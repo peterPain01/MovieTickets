@@ -8,7 +8,6 @@
         xmlns:customcontrols="clr-namespace:NetFlix.CustomControls"
         xmlns:viewModel="clr-namespace:NetFlix.ViewModel" xmlns:i1="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic"
         mc:Ignorable="d"
-        Height="600" Width="1200"
         Background="Transparent"
         >
     <!--#e71a0f-->
@@ -16,7 +15,7 @@
         <viewModel:LandingViewModel/>
     </Window.DataContext>-->
 
-    <ScrollViewer>
+    <ScrollViewer CanContentScroll="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <ScrollViewer.Style>
             <Style TargetType="ScrollViewer">
                 <Setter Property="Template">
@@ -43,8 +42,7 @@
                 </Button>
 
                 <!--Header-->
-                 <customcontrols:Header Margin="20,0,20,0" Height="81" Width="952" 
-                                       />
+                <customcontrols:Header Margin="20,0,20,0" />
 
                 <TextBlock Text="Movie Selection" FontSize="26px" Foreground="#fdfcf0" HorizontalAlignment="Center" Margin="0,20,0,20"/>
 
@@ -52,7 +50,7 @@
                     <Button Command="{Binding PreviousCommand}" 
                             CommandParameter="{Binding ElementName=ItemsControl}"
                             Margin="0,0,0,0" Foreground="#fdfcf0"
-                            FontSize="16" Background="#e71a0f" FontWeight="Bold" Content="&lt;" Panel.ZIndex="2">
+                            FontSize="16" Background="#e71a0f" FontWeight="Bold" Content="&lt;"   Panel.ZIndex="2">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border Width="40" Height="42" 
@@ -69,7 +67,7 @@
                     <ScrollViewer Width="867" VerticalScrollBarVisibility="Auto">
                         <Canvas Width="812" MaxWidth="812">
                             <ItemsControl ItemsSource="{Binding Items}" Name="ItemsControl">
-                                <ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemsPanel>   
                                     <ItemsPanelTemplate>
                                         <StackPanel Orientation="Horizontal"/>
                                     </ItemsPanelTemplate>
@@ -87,7 +85,7 @@
                                                     <i:InvokeCommandAction 
                                                         Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}, 
                                                            Path=DataContext.GridEnterCommand}"
-                                                        CommandParameter="{Binding ElementName=MovieGrid}"/>
+                                                        CommandParameter="{Binding ElementName= MovieGrid}"/>
                                                 </i:EventTrigger>
                                                 <i:EventTrigger EventName="MouseLeave">
                                                     <i:InvokeCommandAction 
@@ -129,7 +127,7 @@
                                             
                                             <!-- Poster Movie -->
                                             <Grid x:Name="gridImage">
-                                                <Image x:Name="poster" Source="{Binding Poster_url}" Stretch="UniformToFill">
+                                                <Image x:Name="poster" Source="{Binding PosterUrl}" Stretch="UniformToFill">
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="MouseDown">
                                                             <i:InvokeCommandAction 

@@ -10,15 +10,25 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Netflix.View
+namespace NetFlix.View
 {
-    public partial class MainWindow : Window
+    public partial class AdminDashBoard : UserControl
     {
-        public MainWindow()
+        public AdminDashBoard()
         {
             InitializeComponent();
         }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                //this.DragMove();
+            }
+        }
+
     }
 }

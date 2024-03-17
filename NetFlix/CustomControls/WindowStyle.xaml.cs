@@ -10,13 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Netflix.View
+namespace NetFlix.CustomControls
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for WindowStyle.xaml
+    /// </summary>
+    public partial class WindowStyle : UserControl
     {
-        public MainWindow()
+        public WindowStyle()
         {
             InitializeComponent();
         }

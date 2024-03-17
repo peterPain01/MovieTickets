@@ -8,6 +8,7 @@
              xmlns:customcontrols="clr-namespace:NetFlix.CustomControls"
              mc:Ignorable="d"
              Loaded="UserControl_Loaded" Height="495"
+             Width="800"
              >
 
     <!--<UserControl.DataContext>
