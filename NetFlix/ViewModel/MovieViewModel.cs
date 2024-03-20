@@ -71,7 +71,8 @@ namespace NetFlix.ViewModel
 
         public ICommand NavigateToBookingForm { get;  } 
         public ICommand ChangeSelectedDay { get; set; }
-
+        public ICommand CheckoutCommand { get; set;  }
+        
         private MovieRepository movieRepo { get; set; }
         private ShowTimeRepo ShowTimeRepo { get; set; }
 
@@ -83,8 +84,14 @@ namespace NetFlix.ViewModel
             Movie = movieRepo.GetMovieById(id);
             NavigateToBookingForm = new ViewModelCommand(ExecuteNavigateToBookingForm);
             ChangeSelectedDay = new ViewModelCommand(ExecuteChangeSelectedDay);
+            CheckoutCommand = new ViewModelCommand(ExecuteCheckoutCommand);
             ShowTimes = ShowTimeRepo.GetShowTimeByMovieId(id);
             FilterShowTimeByDay();
+        }
+
+        private void ExecuteCheckoutCommand(object parameter)
+        {
+            NavigationStore._navigationStore.CurrentViewModel = new UserViewModel();
         }
         private void ExecuteNavigateToBookingForm(object parameter)
         {
