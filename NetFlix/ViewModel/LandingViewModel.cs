@@ -61,7 +61,7 @@ namespace NetFlix.ViewModel
         public LandingViewModel()
         {
             movieRepo = new MovieRepository();
-            _carouselItems = movieRepo.GetTrendingMovie(); 
+            _carouselItems = movieRepo.GetNowShowingMovie(); 
 
             NextCommand = new ViewModelCommand(NextButton_Click);
             PreviousCommand = new ViewModelCommand(PreviousButton_Click);

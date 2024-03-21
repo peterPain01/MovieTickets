@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using XAct;
 
 namespace NetFlix.View
 {
@@ -30,5 +31,26 @@ namespace NetFlix.View
             }
         }
 
+        private Button lastClickedButton; 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button clickedButton)
+            {
+                if (lastClickedButton != null)
+                {
+                    lastClickedButton.Background = new SolidColorBrush(Colors.Transparent);
+                    lastClickedButton.Foreground = new SolidColorBrush(Colors.Black);
+                }
+                clickedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#5B60C4"));
+                clickedButton.Foreground = new SolidColorBrush(Colors.White);
+
+                lastClickedButton = clickedButton;
+            }
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            lastClickedButton = (Button)SpnTopMenu?.Children[0];
+        }
     }
 }

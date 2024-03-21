@@ -8,7 +8,9 @@
              xmlns:local="clr-namespace:NetFlix.View"
              mc:Ignorable="d" 
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-             d:DesignHeight="550" d:DesignWidth="1200">
+             d:DesignHeight="550" d:DesignWidth="1200"
+             Loaded="UserControl_Loaded"
+             >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
@@ -101,13 +103,25 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
+                <!--Highlight actived 
+                    Fetch HotMovie --> 
                 <!--Top Menu-->
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 30 20">
-                    <Button Content="Today" Style="{StaticResource topMenuButton}"/>
-                    <Button Content="Week" Style="{StaticResource topMenuButton}" Background="#5B60C4" Foreground="#ffffff"/>
-                    <Button Content="Month" Style="{StaticResource topMenuButton}"/>
-                    <Button Content="Year" Style="{StaticResource topMenuButton}"/>
-                </StackPanel>
+                <StackPanel x:Name="SpnTopMenu" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 30 20">
+                    <Button Content="Today" Style="{StaticResource topMenuButton}" Background="#5B60C4" Foreground="#ffffff" 
+                            Command="{Binding GetTotalShowTime}" CommandParameter="today" Cursor="Hand"
+                            Tag="{Binding SelectedShowtimeFilter}"
+                            Click="Button_Click"
+                            />
+                    <Button Content="Week" Style="{StaticResource topMenuButton}" Command="{Binding GetTotalShowTime}" CommandParameter="week" Cursor="Hand"
+                             Tag="{Binding SelectedShowtimeFilter}" 
+                            Click="Button_Click"/>
+                    <Button Content="Month" Style="{StaticResource topMenuButton}" Command="{Binding GetTotalShowTime}" CommandParameter="month" Cursor="Hand"
+                             Tag="{Binding SelectedShowtimeFilter}"
+                            Click="Button_Click"/>
+                    <Button Content="Year" Style="{StaticResource topMenuButton}" Cursor="Hand"
+                             Tag="{Binding SelectedShowtimeFilter}"
+                            Click="Button_Click"/>
+                </StackPanel>   
 
                 <!--Title-->
                 <TextBlock FontSize="26" Foreground="Black" Margin="50 35 0 20" Text="Welcome back, abc" HorizontalAlignment="Left"/>
@@ -120,28 +134,22 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <customcontrols:InfoCard Grid.Column="0" Title="Total Now Showing" Number="654,947" Icon="Eye" Background1="#827BFF" Background2="#D9B5FF" EllipseBackground1="#B298FD" EllipseBackground2="#E4BBFF"/>
-                    <customcontrols:InfoCard Grid.Column="1" Title="Total Showtime" Number="192,320" Icon="PhotoFilm" Background1="#FD8A87" Background2="#F3AB92" EllipseBackground1="#FBD5A8" EllipseBackground2="#FDB89B"/>
-                    <customcontrols:InfoCard Grid.Column="2" Title="Total Revenue" Number="$14,528" Icon="Coins" Background1="#FC84CB" Background2="#FC8FAE" EllipseBackground1="#FC8FAE" EllipseBackground2="#FFABE6"/>
+                    <customcontrols:InfoCard Grid.Column="0" Title="Total Now Showing" Number="{Binding TotalNowShowing}" Icon="Eye" Background1="#827BFF" Background2="#D9B5FF" EllipseBackground1="#B298FD" EllipseBackground2="#E4BBFF"/>
+                    <customcontrols:InfoCard Grid.Column="1" Title="Total Showtime" Number="{Binding TotalShowTime}" Icon="PhotoFilm" Background1="#FD8A87" Background2="#F3AB92" EllipseBackground1="#FBD5A8" EllipseBackground2="#FDB89B"/>
+                    <customcontrols:InfoCard Grid.Column="2" Title="Total Revenue" Number="$1,528" Icon="Coins" Background1="#FC84CB" Background2="#FC8FAE" EllipseBackground1="#FC8FAE" EllipseBackground2="#FFABE6"/>
                 </Grid>
 
                 <!--Top Movie Trending-->
                 <DataGrid Grid.Row="2" ItemsSource="{Binding TrendingMovies}" AutoGenerateColumns="False"
                           >
-                    <DataGrid.Resources>
-                        <Style TargetType="{x:Type DataGridTextColumn}">
-                            <Setter Property="Width" Value="Auto" />
-                            <Setter Property="CanUserResize" Value="False" />
-                            <Setter Property="CanUserReorder" Value="False" />
-                        </Style>
-                    </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
-                        <DataGridTextColumn Header="Title" Binding="{Binding Title}" />
-                        <DataGridTextColumn Header="Duration (minutes)" Binding="{Binding DurationMinutes}" />
-                        <DataGridTextColumn Header="Release Date" Binding="{Binding ReleaseDate}" />
-                        <DataGridTextColumn Header="Rating" Binding="{Binding Rating}" />
-                        <DataGridTextColumn Header="Certification" Binding="{Binding Certification}" />
+                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto" MinWidth="80"/>
+                        <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="Auto" MinWidth="120"/>
+                        <DataGridTextColumn Header="Ticket Sold" Binding="{Binding Title}" Width="Auto" MinWidth="100"/>
+                        <DataGridTextColumn Header="Duration (minutes)" Binding="{Binding DurationMinutes}" MinWidth="60" Width="Auto"/>
+                        <DataGridTextColumn Header="Release Date" Binding="{Binding ReleaseDate}" MinWidth="80" Width="Auto"/>
+                        <DataGridTextColumn Header="Rating" Binding="{Binding Rating}" Width="Auto" MinWidth="60"/>
+                        <DataGridTextColumn Header="Certification" Binding="{Binding Certification}" Width="Auto" MinWidth="60"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
