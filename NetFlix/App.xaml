@@ -13,8 +13,8 @@
 
             <Style x:Key="menuButton" TargetType="Button">
                 <Setter Property="Background" Value="Transparent" />
-                <Setter Property="Foreground" Value="#707DB2" />
-                <Setter Property="Tag" Value="#6673B7" />
+                <Setter Property="Foreground" Value="#626878" />
+                <Setter Property="Tag" Value="#626878" />
                 <Setter Property="Margin" Value="0 0 0 5" />
                 <Setter Property="Height" Value="45" />
                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -58,14 +58,14 @@
             <Style x:Key="menuButtonActive" TargetType="Button">
                 <Setter Property="Background" >
                     <Setter.Value>
-                        <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
-                            <GradientStop Color="#31407B" Offset="0" />
-                            <GradientStop Color="#495385" Offset="3" />
+                        <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5" Opacity="0.2">
+                            <GradientStop Color="#FFCECECE" Offset="0" />
+                            <GradientStop Color="#FFC2B7B7" Offset="3" />
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="Foreground" Value="#BCCAF1" />
-                <Setter Property="Tag" Value="#7071F0" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="Tag" Value="White" />
                 <Setter Property="Margin" Value="0 0 0 5" />
                 <Setter Property="Height" Value="45" />
                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -106,7 +106,7 @@
 
             <Style x:Key="topMenuButton" TargetType="Button">
                 <Setter Property="Background" Value="Transparent" />
-                <Setter Property="Foreground" Value="#9EABE2" />
+                <Setter Property="Foreground" Value="Black" />
                 <Setter Property="Width" Value="80" />
                 <Setter Property="Height" Value="30" />
                 <Setter Property="Margin" Value="5 0 0 0" />

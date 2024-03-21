@@ -48,9 +48,10 @@ namespace Netflix.Repository
             return movies;
         }
 
-        public void GetNowShowingMovie()
+        public ObservableCollection<Movie> GetNowShowingMovie()
         {
-
+            ObservableCollection<Movie> movies = new ObservableCollection<Movie>();
+            return movies; 
         }
 
         public (ObservableCollection<Movie>, int) GetMovieByName(string title, int page = 1, string filter = "", string sort = "", string sort_type = "")

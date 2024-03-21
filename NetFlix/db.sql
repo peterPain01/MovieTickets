@@ -72,26 +72,35 @@ CREATE TABLE Showtimes (
 );
 
 CREATE TABLE Seats(
+    seat_id INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
 	row char(1), 
 	number int, 
-	cinema_id int, 
 	showtime_id int, 
 	status VARCHAR(12) CHECK (status IN ('Available', 'Sold')), 
 	price int, -- decimal to upgrade
-	PRIMARY KEY (row, number, cinema_id, showtime_id), 
-    FOREIGN KEY (cinema_id) REFERENCES Cinema(cinema_id), 
     FOREIGN KEY (showtime_id) REFERENCES Showtimes(showtime_id)
 )
 
 CREATE TABLE Bookings (
     booking_id INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
-    user_id INT,
+    user_id INT,    
     showtime_id INT,
     booking_datetime DATETIME,
-	transfer int, 
+    original_price int,
+	total_price int, 
     FOREIGN KEY (user_id) REFERENCES Users(id),
     FOREIGN KEY (showtime_id) REFERENCES Showtimes(showtime_id)
 );
+
+
+CREATE TABLE BookingSeats( 
+    booking_id INT,
+    seat_id INT,
+    PRIMARY KEY (booking_id, seat_id),
+    FOREIGN KEY (booking_id) REFERENCES Bookings(booking_id),
+    FOREIGN KEY (seat_id) REFERENCES Seats(seat_id)
+)
+
 
 INSERT INTO Users (username, email, password, full_name, birth_date, gender)
 VALUES
@@ -127,6 +136,7 @@ VALUES
 ('Movie 2', 2, 110, '2023-02-01', 7.8, 2, 'Plot summary for Movie 2', 'poster2.jpg', 'trailer2.mp4', 2),
 ('Movie 3', 3, 130, '2023-03-01', 6.9, 3, 'Plot summary for Movie 3', 'poster3.jpg', 'trailer3.mp4', 3),
 ('Fast and Furious 11', 1, 120, '2023-01-01', 8.5, 1, 'Plot summary for Movie 1', '/Images/slider-faf.jpg','/Images/mv-faf.jpg', 'trailer1.mp4', 1);
+
 -- MovieStars
 INSERT INTO MovieStars (movie_id, star_id)
 VALUES
@@ -167,4 +177,25 @@ VALUES
 (1, 3, '2023-03-01 16:00:00', 0);
 
 
+-- Add dummy for BookingSeats 
+CREATE TABLE #Letters (
+    letter CHAR(1) PRIMARY KEY
+);
 
+-- Insert letters A-Z into the temporary table
+INSERT INTO #Letters (letter)
+VALUES ('A'), ('B'), ('C'), ('D'), ('E'), ('F'), ('G'), ('H'), ('I'), ('J'),
+       ('K'), ('L');
+
+-- Insert 50 dummy records into Seats table
+INSERT INTO Seats (row, number, showtime_id, status, price)
+SELECT
+    l.letter,
+    s.number,
+    2 AS showtime_id, -- Change this to your desired showtime_id
+    'Available' AS status,
+    100 AS price -- Change this to your desired price
+FROM
+    (SELECT number FROM master..spt_values WHERE type='P' AND number BETWEEN 1 AND 10) AS s
+CROSS JOIN
+    #Letters AS l;

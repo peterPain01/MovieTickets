@@ -16,7 +16,7 @@ namespace NetFlix.Repository
 {
     class UserRepository : RepositoryBase, IUserRepository
     {
-        private User CurrentUser;
+        public User CurrentUser { get; set; }
         public bool isLoggedIn()
         {
             return CurrentUser != null;
