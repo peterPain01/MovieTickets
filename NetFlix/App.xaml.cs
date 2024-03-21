@@ -17,7 +17,7 @@ namespace NetFlix
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            NavigationStore._navigationStore = new NavigationStore();
+            NavigationStore._navigationStore = new NavigationStore();   
             NavigationStore._navigationStore.CurrentViewModel = new LoginViewModel();
             MainWindow = new MainWindow()
             {

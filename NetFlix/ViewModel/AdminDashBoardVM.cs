@@ -1,5 +1,6 @@
 ﻿using Netflix.Model;
 using Netflix.Repository;
+using NetFlix.View.Admin;
 using NetFlix.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using XAct.Messages;
 
@@ -20,7 +22,8 @@ namespace NetFlix.ViewModel
         private int _totalShowtime;
         private int _totalNowShowing;
         private string _selectedShowtimeFilter = "today";
-        
+        private UserControl _currentMainSection; 
+
         public int TotalShowTime
         {
             get { return _totalShowtime; }
@@ -28,6 +31,16 @@ namespace NetFlix.ViewModel
             {
                 _totalShowtime = value;
                 OnPropertyChanged("TotalShowTime");
+            }
+        }
+
+        public UserControl CurrentMainSection
+        {
+            get { return _currentMainSection; }
+            set
+            {
+                _currentMainSection = value;
+                OnPropertyChanged("CurrentMainSection");
             }
         }
 
@@ -63,30 +76,48 @@ namespace NetFlix.ViewModel
             }
         }
 
-        public ICommand GetTrendingMovie { get; set; }
         public ICommand GetTotalShowTime { get; set; }
+        public ICommand NavigateToFeature { get; set; }
+        public ICommand OpenAddMovieForm { get; set; }
+
         private MovieRepository movieRepo;
 
         public AdminDashBoardVM()
         {
             // Initital ICommand 
-            GetTrendingMovie = new ViewModelCommand(ExecuteGetTrendingMovie);
             GetTotalShowTime = new ViewModelCommand(ExecutetGetTotalShowTime);
-
+            NavigateToFeature = new ViewModelCommand(ExecuteNavigateToFeature);
+            OpenAddMovieForm = new ViewModelCommand(ExecuteOpenAddMovieForm); 
             // Initital Variable 
             movieRepo = new MovieRepository();
+            CurrentMainSection = new View.Admin.AdminDashBoard(); 
 
             TrendingMovies = movieRepo.GetTrendingMovie(); 
             InitTotalShowtime();
             InitTotalNowShowing(); 
         }
 
-        private void ExecuteGetTrendingMovie(object parameter)
+        private void ExecuteNavigateToFeature(object parameter)
         {
-
+            string section = (string)parameter;
+            switch (section)
+            {
+                case "Movie":
+                    CurrentMainSection = new View.Admin.AdminMovie();
+                    break;
+                case "Dashboard":
+                    CurrentMainSection = new View.Admin.AdminDashBoard();
+                    break;
+            } 
         }
 
-        
+        private void ExecuteOpenAddMovieForm(object parameter)
+        {
+            var form = new AddMovieForm(); 
+            form.Show();
+        }
+
+
         private void InitTotalNowShowing() 
         {
             TotalNowShowing = movieRepo.GetTotalNowShowing();

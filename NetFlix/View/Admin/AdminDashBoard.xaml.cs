@@ -12,9 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using XAct;
 
-namespace NetFlix.View
+namespace NetFlix.View.Admin
 {
     public partial class AdminDashBoard : UserControl
     {
@@ -23,15 +22,7 @@ namespace NetFlix.View
             InitializeComponent();
         }
 
-        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                //this.DragMove();
-            }
-        }
-
-        private Button lastClickedButton; 
+        private Button lastClickedButton;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button clickedButton)
@@ -52,5 +43,7 @@ namespace NetFlix.View
         {
             lastClickedButton = (Button)SpnTopMenu?.Children[0];
         }
+
+       
     }
 }
