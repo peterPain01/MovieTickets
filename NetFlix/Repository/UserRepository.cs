@@ -14,9 +14,9 @@ using System.Threading.Tasks;
 
 namespace NetFlix.Repository
 {
-    class UserRepository : RepositoryBase, IUserRepository
+    public class UserRepository : RepositoryBase, IUserRepository
     {
-        public User CurrentUser { get; set; }
+        public static User CurrentUser { get; set; }
         public bool isLoggedIn()
         {
             return CurrentUser != null;

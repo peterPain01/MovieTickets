@@ -8,12 +8,13 @@ namespace NetFlix.Model
 {
     public class Seat
     {
-        int SeatId { get; set; }
-        int CinemaId { get; set; }
-        int ShowtimeId { get; set; }
-        char row { get; set;  }
-        int number { get; set; }
-        string Status { get; set; }
+        public int SeatId { get; set; }
+        public int CinemaId { get; set; }
+        public int ShowtimeId { get; set; }
+        public char row { get; set;  }
+        public int number { get; set; }
+        public int Price { get; set; }
+        public string Status { get; set; }
     }
 }
 

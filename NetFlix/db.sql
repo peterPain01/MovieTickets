@@ -91,7 +91,7 @@ CREATE TABLE Bookings (
     FOREIGN KEY (user_id) REFERENCES Users(id),
     FOREIGN KEY (showtime_id) REFERENCES Showtimes(showtime_id)
 );
-
+ 
 
 CREATE TABLE BookingSeats( 
     booking_id INT,

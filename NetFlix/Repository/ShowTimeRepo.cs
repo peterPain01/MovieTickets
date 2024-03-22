@@ -39,6 +39,38 @@ namespace NetFlix.Repository
             return showtimes;
         }
 
+        public ObservableCollection<Seat> GetSeatByShowtimeId(int showtimeId)
+        {
+            ObservableCollection<Seat> seats = new ObservableCollection<Seat>();
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "select * from Seats where showtime_id = @showtime_id"; 
+                command.Parameters.AddWithValue("@showtime_id", showtimeId);
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Seat seat = ProcessSeat(reader);
+                        seats.Add(seat);
+                    }
+                }
+            }
+            return seats;
+        }
+        private Seat ProcessSeat(SqlDataReader reader)
+        {
+            Seat seat = new Seat();
+            seat.SeatId = reader.GetInt32(reader.GetOrdinal("seat_id"));
+            seat.ShowtimeId = reader.GetInt32(reader.GetOrdinal("showtime_id"));
+            seat.row = reader.GetString(reader.GetOrdinal("row"))[0];
+            seat.number = reader.GetInt32(reader.GetOrdinal("number"));
+            seat.Status = reader.GetString(reader.GetOrdinal("status"));
+            seat.Price = reader.GetInt32(reader.GetOrdinal("price")); 
+            return seat; 
+        }
         private ShowTime ProcessShowTime(SqlDataReader reader)
         {
             ShowTime st = new ShowTime();

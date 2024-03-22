@@ -62,7 +62,6 @@
                         </Button.Template>
                     </Button>
 
-
                     <!--Carousel-->
                     <ScrollViewer Width="867" VerticalScrollBarVisibility="Auto">
                         <Canvas Width="812" MaxWidth="812">

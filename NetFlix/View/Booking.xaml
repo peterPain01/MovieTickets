@@ -1,15 +1,20 @@
-﻿<Window x:Class="NetFlix.View.Booking"
+﻿<UserControl x:Class="NetFlix.View.Booking"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converter="clr-namespace:NetFlix.Utils"
              mc:Ignorable="d" 
-             WindowStyle="None"
-             WindowStartupLocation="CenterScreen"
-             Width="600" Height="760" 
-            Background="Transparent"
-            AllowsTransparency="True"
+             Background="Transparent"
+             x:Name="bookingItem"
+             IsVisibleChanged="bookingItem_IsVisibleChanged"
+             Unloaded="bookingItem_Unloaded"
         >
+    <UserControl.Resources>
+        <converter:ConvertListSeatToString x:Key="ConvertListSeatToString"/>
+        <converter:FormatCurrentcy x:Key="FormatCurrentcy"/>
+        <converter:DateTimeConverter x:Key="DateTimeConverter"/>
+    </UserControl.Resources>
     <Border CornerRadius="20">
         <Border.BorderBrush>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -64,18 +69,20 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Orientation="Vertical" Grid.Column="0" Margin="6,14,0,20" VerticalAlignment="Top">
+                    <StackPanel Orientation="Vertical" Grid.Column="0" Margin="6,14,0,20" VerticalAlignment="Top" Width="90">
                         <Label Content="Cinema: " Foreground="DarkGray" FontSize="14" FontWeight="DemiBold"/>
                         <Label Content="Showtimes: " Foreground="DarkGray"  FontSize="14" FontWeight="DemiBold"/>
-                        <Label Content="Chair:" Foreground="DarkGray" FontSize="14" FontWeight="DemiBold"/>
+                        <TextBlock  Width="90" TextWrapping="WrapWithOverflow">
+                            <Label Content="Chair: " Foreground="DarkGray" FontSize="14" FontWeight="DemiBold"/>
+                        </TextBlock>
                         <Label Content="Total: " Foreground="DarkGray" FontSize="14" FontWeight="DemiBold"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Column="1"  Margin="-8,14,0,20">
-                        <Label Content="Cinema 1" Foreground="White" FontSize="14"/>
-                        <Label Content="19:45, 16/03/2024" Foreground="White" FontSize="14"/>
-                        <Label Content="H14, H15" Foreground="White" FontSize="14"/>
-                        <Label Content="210.000.000 d" Foreground="White" FontSize="14"/>
+                        <Label Content="{Binding SelectedShowTime.CinemaName}" Foreground="White" FontSize="14"/>
+                        <Label Content="{Binding SelectedShowTime.ShowTimeDateTime}" Foreground="White" FontSize="14"/>
+                        <Label Content="{Binding Path= SelectedSeats, Converter={StaticResource ConvertListSeatToString}}" Foreground="White" FontSize="14"/>
+                        <Label Content="{Binding Path= TotalPrice, Converter={StaticResource FormatCurrentcy}}" Foreground="White" FontSize="14"/>
                     </StackPanel>
                 </Grid>
                 <Border CornerRadius="10" Width="134">
@@ -85,7 +92,9 @@
                     <Button  Foreground="White" Margin="6,0,20,0" 
                             Width="80" Height="80" 
                             Cursor="Hand"
-                            BorderBrush="Transparent" HorizontalAlignment="Center">
+                            BorderBrush="Transparent" HorizontalAlignment="Center"
+                             Command="{Binding CheckoutCommand}"
+                             >
                         <StackPanel>
                             <Image Source="/Images/arrow-right.png" Width="34" Height="34" RenderOptions.BitmapScalingMode="HighQuality"/>
                             <Label Content="Next" Foreground="White" FontWeight="Bold" FontSize="14"/>
@@ -111,4 +120,4 @@
             </WrapPanel>
         </StackPanel>
     </Border>
-</Window>
+</UserControl>

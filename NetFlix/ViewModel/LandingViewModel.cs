@@ -56,13 +56,14 @@ namespace NetFlix.ViewModel
 
         public ICommand NavigateToMoviePage { get; set; }
 
-        private MovieRepository movieRepo; 
-
+        private MovieRepository movieRepo;
+        private UserRepository userRepo; 
         public LandingViewModel()
         {
             movieRepo = new MovieRepository();
+            userRepo = new UserRepository(); 
             _carouselItems = movieRepo.GetNowShowingMovie(); 
-
+            
             NextCommand = new ViewModelCommand(NextButton_Click);
             PreviousCommand = new ViewModelCommand(PreviousButton_Click);
 

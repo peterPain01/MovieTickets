@@ -5,13 +5,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:NetFlix.CustomControls" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
+             xmlns:helper="clr-namespace:NetFlix.Utils"
              Name="dateItem"
             >
+    <UserControl.Resources>
+        <helper:StringCompareConverter x:Key="StringCompareConverter"/>
+    </UserControl.Resources>
     <Border Padding="5" Margin="0 0 25 5" HorizontalAlignment="Stretch"
             CornerRadius="12"
             Width="120"
             Cursor="Hand"
             >
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="MouseDown">
+                <i:InvokeCommandAction Command="{Binding Path=Command, ElementName=dateItem}" 
+                                   CommandParameter="{Binding Path=CommandParameter, ElementName=dateItem}"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
         <Border.Style>
             <Style TargetType="Border">
                 <Setter Property="BorderBrush" Value="Transparent"/>
@@ -21,28 +31,32 @@
                     <Trigger Property="IsMouseOver" Value="True">
                         <Setter Property="BorderBrush" Value="WhiteSmoke"/>
                     </Trigger>
+                    <DataTrigger Value="True">
+                        <DataTrigger.Binding>
+                            <MultiBinding Converter="{StaticResource StringCompareConverter}">
+                                <Binding Path="Day" ElementName="dateItem"/>
+                                <Binding Path="Tag" ElementName="dateItem" />
+                            </MultiBinding>
+                        </DataTrigger.Binding>
+                        <Setter Property="BorderBrush" Value="WhiteSmoke" />
+                    </DataTrigger>
                 </Style.Triggers>
             </Style>
         </Border.Style>
         <StackPanel VerticalAlignment="Center" Orientation="Vertical" Cursor="Hand"
                     >
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDown">
-                    <i:InvokeCommandAction Command="{Binding Path=Command, ElementName=dateItem}" 
-                                   CommandParameter="{Binding Path=CommandParameter, ElementName=dateItem}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+         
             <TextBlock FontSize="26" Foreground="WhiteSmoke" VerticalAlignment="Center"
                                    Margin="0,0,0,6"
                                    HorizontalAlignment="Center">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{}{0}/{1}">
-                            <Binding Path="Day" ElementName="dateItem"/>
-                            <Binding Path="Month" ElementName="dateItem"/>
-                        </MultiBinding>
-                    </TextBlock.Text>
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0}/{1}">
+                        <Binding Path="Day" ElementName="dateItem"/>
+                        <Binding Path="Month" ElementName="dateItem"/>
+                    </MultiBinding>
+                </TextBlock.Text>
             </TextBlock>
-                <TextBlock Text="{Binding Path=DayOfWeek,ElementName=dateItem}" FontSize="14" Foreground="WhiteSmoke" d:Text="Wed"
+            <TextBlock Text="{Binding Path=DayOfWeek,ElementName=dateItem}" FontSize="14" Foreground="WhiteSmoke" d:Text="Wed"
                   HorizontalAlignment="Center"
                            />
         </StackPanel>

@@ -40,6 +40,13 @@ namespace NetFlix.CustomControls
             set { SetValue(CommandParameterProperty, value); }
         }
 
+        public string Tag
+        {
+            get { return (string)GetValue(TagProperty); }
+            set { SetValue(TagProperty, value); }
+        }
+        public static readonly DependencyProperty TagProperty = DependencyProperty.Register("Tag", typeof(string), typeof(DateItem));
+
         public string Day
         {
             get { return (string)GetValue(DayProperty); }
