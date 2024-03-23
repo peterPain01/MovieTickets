@@ -107,8 +107,7 @@
                         <Label Content="{Binding SelectedShowTime.ShowTimeDateTime}" Foreground="White" FontSize="14"/>
                         <Label Content="{Binding Path= SelectedSeats, Converter={StaticResource ConvertListSeatToString}}" Foreground="White" FontSize="14"/>
                         <Label Content="{Binding Path= TotalPrice, Converter={StaticResource FormatCurrentcy}}" Foreground="White" FontSize="14"/>
-                        <TextBlock Text="{Binding VoucherMessage}" Foreground="LimeGreen" VerticalAlignment="Center" FontSize="14"
-                                       />
+                        <Label Content="{Binding VoucherMessage}" Foreground="LimeGreen" VerticalAlignment="Center" FontSize="14" FontWeight="DemiBold"/>
                     </StackPanel>
                 </Grid>
                 <Border CornerRadius="10" Width="134">
