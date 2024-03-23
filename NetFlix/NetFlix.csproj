@@ -28,6 +28,7 @@
     <None Remove="Images\loginBG.jpg" />
     <None Remove="Images\mainview-bg.jpg" />
     <None Remove="Images\movie-header.png" />
+    <None Remove="Images\mv-aquaman.jpg" />
     <None Remove="Images\mv-bhead.jpg" />
     <None Remove="Images\mv-demonslayer.jpg" />
     <None Remove="Images\mv-dune.jpg" />
@@ -52,6 +53,7 @@
     <None Remove="Images\star-icon.png" />
     <None Remove="Images\trailer-dune.mp4" />
     <None Remove="Images\user-icon.png" />
+    <None Remove="Images\voucher-icon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -77,6 +79,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\arrow-right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\mv-aquaman.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\mv-faf.jpg">
@@ -169,6 +174,9 @@
 
   <ItemGroup>
     <Resource Include="Fonts\Roboto-Medium.ttf" />
+    <Resource Include="Images\voucher-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -178,8 +186,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="FontAwesome.Sharp" Version="6.3.0" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
     <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />

@@ -1,4 +1,5 @@
-﻿using NetFlix.Model;
+﻿using NetFlix.EnityModel;
+using NetFlix.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

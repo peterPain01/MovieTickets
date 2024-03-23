@@ -1,4 +1,5 @@
 ﻿using NetFlix.CustomControls;
+using NetFlix.EnityModel;
 using NetFlix.Model;
 using NetFlix.Utils;
 using Org.BouncyCastle.Utilities.Collections;

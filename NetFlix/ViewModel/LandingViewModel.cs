@@ -18,6 +18,7 @@ using System.Diagnostics;
 using Netflix.Repository;
 using Netflix.Model;
 using NetFlix.ViewModel;
+using NetFlix.EnityModel;
 
 namespace NetFlix.ViewModel
 {

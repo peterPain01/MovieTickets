@@ -1,4 +1,5 @@
-﻿using NetFlix.Model;
+﻿using NetFlix.EnityModel;
+using NetFlix.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -68,7 +69,7 @@ namespace NetFlix.Utils
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is int price)
+            if (value is decimal price)
             {
                 return $"{(price * 1000).ToString("N0")} đ"; // Formats the price with thousand separators
             }

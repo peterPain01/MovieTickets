@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Collections.ObjectModel;
+using NetFlix.EnityModel;
 
 namespace NetFlix.Repository
 {

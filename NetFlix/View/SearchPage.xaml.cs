@@ -1,4 +1,5 @@
 ﻿using Netflix.Model;
+using NetFlix.EnityModel;
 using NetFlix.ViewModel;
 using Org.BouncyCastle.Utilities;
 using System;

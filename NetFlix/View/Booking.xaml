@@ -6,6 +6,7 @@
              xmlns:converter="clr-namespace:NetFlix.Utils"
              mc:Ignorable="d" 
              Background="Transparent"
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
              x:Name="bookingItem"
              IsVisibleChanged="bookingItem_IsVisibleChanged"
              Unloaded="bookingItem_Unloaded"
@@ -69,13 +70,36 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Orientation="Vertical" Grid.Column="0" Margin="6,14,0,20" VerticalAlignment="Top" Width="90">
+                    <StackPanel Orientation="Vertical" Grid.Column="0" Margin="6,14,0,20" VerticalAlignment="Top" Width="120">
                         <Label Content="Cinema: " Foreground="DarkGray" FontSize="14" FontWeight="DemiBold"/>
                         <Label Content="Showtimes: " Foreground="DarkGray"  FontSize="14" FontWeight="DemiBold"/>
-                        <TextBlock  Width="90" TextWrapping="WrapWithOverflow">
-                            <Label Content="Chair: " Foreground="DarkGray" FontSize="14" FontWeight="DemiBold"/>
-                        </TextBlock>
+                        <Label Content="Chair: " Foreground="DarkGray" FontSize="14" FontWeight="DemiBold"/>
                         <Label Content="Total: " Foreground="DarkGray" FontSize="14" FontWeight="DemiBold"/>
+                        <!--Apply Voucher button-->
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="Apply Voucher" Margin="6,14,0,0" FontSize="14" 
+                                Cursor="Hand"
+                                Command="{Binding OpenVoucherForm}">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <TextBlock TextDecorations="Underline">
+                                        <ContentPresenter />
+                                        </TextBlock>
+                                    </ControlTemplate>
+                                </Button.Template>
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Foreground" Value="WhiteSmoke" />
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="true">
+                                                <Setter Property="Foreground" Value="White" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                           
+                        </StackPanel>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Column="1"  Margin="-8,14,0,20">
@@ -83,6 +107,8 @@
                         <Label Content="{Binding SelectedShowTime.ShowTimeDateTime}" Foreground="White" FontSize="14"/>
                         <Label Content="{Binding Path= SelectedSeats, Converter={StaticResource ConvertListSeatToString}}" Foreground="White" FontSize="14"/>
                         <Label Content="{Binding Path= TotalPrice, Converter={StaticResource FormatCurrentcy}}" Foreground="White" FontSize="14"/>
+                        <TextBlock Text="{Binding VoucherMessage}" Foreground="LimeGreen" VerticalAlignment="Center" FontSize="14"
+                                       />
                     </StackPanel>
                 </Grid>
                 <Border CornerRadius="10" Width="134">

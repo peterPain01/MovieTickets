@@ -1,0 +1,161 @@
+﻿<Window x:Class="NetFlix.View.VoucherForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
+        xmlns:customcontrols="clr-namespace:NetFlix.CustomControls"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        MouseDown="Window_MouseDown"
+        AllowsTransparency="True"
+        Title="VoucherForm" Height="400" Width="400">
+    <Border CornerRadius="12">
+        <Border.Background>
+            <ImageBrush ImageSource="/Images/loginBG.jpg"/>
+        </Border.Background>
+
+        <Border CornerRadius="12" 
+                BorderThickness="1"
+                Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#462AD8" Offset="0"/>
+                    <GradientStop Color="#DA34AE" Offset="0.75"/>
+                    <GradientStop Color="#8A16C1" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="#FF303034" Offset="0"/>
+                    <GradientStop Color="#FF100D1F" Offset="0.75"/>
+                    <GradientStop Color="#FF050312" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <StackPanel Orientation="Vertical">
+                <!--Window Style-->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="btnMinimize"
+                        BorderThickness="0"
+                        Content="-"
+                        Foreground="White"
+                        FontSize="14"
+                        FontFamily="Montserrat"
+                        Cursor="Hand"
+                        Grid.Column="1"
+                        >
+                        <!--Click="btnMinimize_Click"-->
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#28AEED"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FF529FED" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="18" 
+                                    CornerRadius="9" 
+                                    Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button x:Name="btnClose"
+                        BorderThickness="0"
+                        Content="X"
+                        Foreground="White"
+                        FontSize="12"
+                        FontFamily="Montserrat"
+                        Cursor="Hand"
+                        Grid.Column="2"
+                        Click="btnClose_Click"
+                        >
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#e50914"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FFEE4D55" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="20" 
+                                    CornerRadius="9" 
+                                    Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+                
+                <!--Voucher Form-->
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,80,0,0">
+                    <TextBlock Text="Voucher Form" Foreground="WhiteSmoke" FontSize="24" FontWeight="DemiBold"
+                           HorizontalAlignment="Center"
+                   Margin="0,0,0,0"
+                   />
+                    <TextBlock Text="Voucher"
+                               Foreground="DarkGray" 
+                               FontSize="12"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat" 
+                               Margin="0,40,0,0"/>
+                    <TextBox x:Name="txtVoucher" 
+                            FontSize="13"
+                            FontWeight="Medium"
+                            FontFamily="Montserrat" 
+                            Foreground="White" 
+                            Height="28"
+                            VerticalAlignment="Bottom"
+                            Margin="0,5,0,0"
+                            Padding="30,4,0,0"
+                            CaretBrush="LightGray"
+                            BorderBrush="DarkGray"
+                            BorderThickness="0,0,0,1"
+                            >
+                        <TextBox.Background>
+                            <ImageBrush ImageSource="/Images/voucher-icon.png" Stretch="None"
+                                        AlignmentX="Left"
+                                        />
+                        </TextBox.Background>
+                    </TextBox>
+                    <Button x:Name="btnApply"
+                        Content="Apply Now"
+                        Foreground="White"
+                        Background="#e50914"
+                        FontSize="16"
+                        FontFamily="Montserrat"
+                        Cursor="Hand"
+                        Command="{Binding ApplyVoucherCommand}"
+                        CommandParameter="{Binding Text, ElementName=txtVoucher}"
+                        Margin="0,40,0,0"
+                        Width="200"
+                        Height="40"
+                        >
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border 
+                                    CornerRadius="4" 
+                                    Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Border>
+</Window>

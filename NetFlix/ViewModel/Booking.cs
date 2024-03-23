@@ -1,5 +1,6 @@
 ﻿using Netflix.Model;
 using Netflix.Repository;
+using NetFlix.EnityModel;
 using NetFlix.Model;
 using NetFlix.Repository;
 using System;
@@ -9,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NetFlix.ViewModel 
+namespace NetFlix.ViewModel
 {
     public class Booking : ViewModelBase
     {

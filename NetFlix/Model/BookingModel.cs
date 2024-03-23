@@ -15,8 +15,8 @@ namespace NetFlix.Model
         public int UserId { get; set; }
         public int ShowtimeId { get; set; }
         public DateTime BookingDatetime { get; set; }
-        public int OriginalPrice { get; set; }
-        public int TotalPrice { get; set; }
+        public decimal OriginalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
         public ObservableCollection<Seat> SelectedSeats { get; set; }
     }
 }

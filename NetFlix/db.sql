@@ -55,6 +55,7 @@ CREATE TABLE MovieStars (
     FOREIGN KEY (star_id) REFERENCES Stars(star_id)
 );
 
+
 CREATE TABLE Cinema(
 	cinema_id INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
 	name varchar(32), 
@@ -100,6 +101,17 @@ CREATE TABLE BookingSeats(
     FOREIGN KEY (booking_id) REFERENCES Bookings(booking_id),
     FOREIGN KEY (seat_id) REFERENCES Seats(seat_id)
 )
+
+CREATE TABLE Vouchers (
+    VoucherID INT PRIMARY KEY IDENTITY(1, 1),
+    VoucherCode VARCHAR(10) UNIQUE,
+    VoucherType VARCHAR(20) CHECK (VoucherType IN ('Percentage', 'Fixed Amount')), 
+    DiscountValue DECIMAL(10, 2),
+    ValidFrom DATE,
+    ValidUntil DATE,
+    UsageLimit INT,
+    RemainingUsage INT,
+);
 
 
 INSERT INTO Users (username, email, password, full_name, birth_date, gender)
@@ -199,3 +211,11 @@ FROM
     (SELECT number FROM master..spt_values WHERE type='P' AND number BETWEEN 1 AND 10) AS s
 CROSS JOIN
     #Letters AS l;
+
+-- Generate dummy data for Vouchers table
+INSERT INTO Vouchers (VoucherCode, VoucherType, DiscountValue, ValidFrom, ValidUntil, UsageLimit, RemainingUsage)
+VALUES
+('ABC123', 'Percentage', 10, '2024-03-01', '2024-04-01', 100, 100),
+('DEF456', 'Fixed Amount', 5.00, '2024-03-15', '2024-04-15', 50, 50),
+('GHI789', 'Percentage', 20, '2024-03-01', '2024-05-01', 200, 200),
+('JKL012', 'Fixed Amount', 10.00, '2024-03-10', '2024-04-10', 20, 20);
