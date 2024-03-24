@@ -34,18 +34,53 @@ namespace NetFlix.Repository
             {
                 if (voucher.VoucherType.Equals("Percentage"))
                 {
-                    new_price = original_price * ((100 - voucher.DiscountValue)/100);
+                    new_price = original_price * ((100 - voucher.DiscountValue) / 100);
                 }
                 else if (voucher.VoucherType.Equals("Fixed Amount"))
                 {
-                    new_price = original_price - voucher.DiscountValue; 
+                    new_price = original_price - voucher.DiscountValue;
                 }
                 else
                 {
-                    throw new Exception("VoucherType: InValid Format"); 
+                    throw new Exception("VoucherType: InValid Format");
                 }
             }
             return new_price < 0 ? 0 : new_price;
+        }
+
+        public void UpdateVoucher(Voucher newVoucher)
+        {
+            using(var context = new BookingMovieAppContext())
+            {
+                var voucher = context.Vouchers.FirstOrDefault(v => v.VoucherId == newVoucher.VoucherId);
+                if(voucher != null)
+                {
+                    voucher = newVoucher;
+                    context.SaveChanges(); 
+                }
+                else
+                {
+                    throw new Exception("Voucher cannot be found"); 
+                }
+            }
+        }
+        public bool AddVoucher(Voucher voucher)
+        {
+            using (var context = new BookingMovieAppContext())
+            {
+                context.Vouchers.Add(voucher);
+                context.SaveChanges();
+                return true;
+            }
+        }
+
+        public void DeletetVoucher(Voucher voucher)
+        {
+            using (var context = new BookingMovieAppContext())
+            {
+                context.Vouchers.Remove(voucher); 
+                context.SaveChanges();
+            }
         }
     }
 

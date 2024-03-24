@@ -29,27 +29,51 @@
     <None Remove="Images\mainview-bg.jpg" />
     <None Remove="Images\movie-header.png" />
     <None Remove="Images\mv-aquaman.jpg" />
+    <None Remove="Images\mv-avatar.jpg" />
     <None Remove="Images\mv-bhead.jpg" />
     <None Remove="Images\mv-demonslayer.jpg" />
     <None Remove="Images\mv-dune.jpg" />
+    <None Remove="Images\mv-endgame.jpg" />
     <None Remove="Images\mv-faf.jpg" />
+    <None Remove="Images\mv-impossible.jpg" />
     <None Remove="Images\mv-madamweb.jpg" />
     <None Remove="Images\mv-mai.jpg" />
+    <None Remove="Images\mv-mario.jpg" />
+    <None Remove="Images\mv-matvuong.jpg" />
+    <None Remove="Images\mv-nhabanu.jpg" />
     <None Remove="Images\mv-nightswim.jpg" />
     <None Remove="Images\mv-openheimer.jpg" />
     <None Remove="Images\mv-panda.jpg" />
+    <None Remove="Images\mv-shazam.jpg" />
+    <None Remove="Images\mv-sieudiepvien.jpg" />
+    <None Remove="Images\mv-spiderman.jpg" />
     <None Remove="Images\mv-spy.jpeg" />
     <None Remove="Images\mv-spy.jpg" />
+    <None Remove="Images\mv-titanic.jpg" />
+    <None Remove="Images\mv-transformer.jpg" />
     <None Remove="Images\search-icon-black.png" />
     <None Remove="Images\search-icon-white.png" />
     <None Remove="Images\search-icon.svg" />
+    <None Remove="Images\slider-aquaman.jpg" />
+    <None Remove="Images\slider-avatar.jpg" />
     <None Remove="Images\slider-boidem.jpg" />
     <None Remove="Images\slider-dao-pho-piano.jpg" />
+    <None Remove="Images\slider-drstrange.jpg" />
     <None Remove="Images\slider-dune.jpg" />
+    <None Remove="Images\slider-endgame.jpg" />
     <None Remove="Images\slider-faf.jpg" />
+    <None Remove="Images\slider-impossible.jpg" />
     <None Remove="Images\slider-kungfu.jpg" />
     <None Remove="Images\slider-Mai.jpg" />
+    <None Remove="Images\slider-mario.jpg" />
+    <None Remove="Images\slider-matvuong.jpg" />
+    <None Remove="Images\slider-nhabanu.jpg" />
+    <None Remove="Images\slider-shazam.jpg" />
+    <None Remove="Images\slider-sieudiepvien.jpg" />
+    <None Remove="Images\slider-spiderman.jpg" />
     <None Remove="Images\slider-spy.png" />
+    <None Remove="Images\slider-titanic.jpg" />
+    <None Remove="Images\slider-transformer.jpg" />
     <None Remove="Images\star-icon.png" />
     <None Remove="Images\trailer-dune.mp4" />
     <None Remove="Images\user-icon.png" />
@@ -58,6 +82,15 @@
 
   <ItemGroup>
     <Content Include="Images\app-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\slider-sieudiepvien.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+     <Content Include="Images\slider-shazam.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\mv-transformer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\dial-phone-icon.png">
@@ -84,7 +117,25 @@
     <Resource Include="Images\mv-aquaman.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\mv-avatar.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\mv-endgame.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\mv-faf.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\mv-impossible.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\mv-mario.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\mv-matvuong.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\mv-nhabanu.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\mv-nightswim.jpg">
@@ -93,16 +144,37 @@
     <Resource Include="Images\mv-panda.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\mv-shazam.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\mv-sieudiepvien.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\mv-spiderman.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\mv-spy.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\mv-spy.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\mv-titanic.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\slider-aquaman.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\slider-avatar.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\slider-boidem.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\slider-dao-pho-piano.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\slider-drstrange.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\slider-dune.jpg">
@@ -140,7 +212,13 @@
     </Content>
     <Resource Include="Fonts\Roboto-Thin.ttf" />
     <Resource Include="Fonts\Roboto-ThinItalic.ttf" />
+    <Resource Include="Images\slider-endgame.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\slider-faf.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\slider-impossible.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\slider-kungfu.jpg">
@@ -149,7 +227,25 @@
     <Resource Include="Images\slider-mai.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\slider-mario.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\slider-matvuong.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\slider-nhabanu.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\slider-spiderman.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\slider-spy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\slider-titanic.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\slider-transformer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\trailer-dune.mp4">
@@ -189,6 +285,7 @@
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="FontAwesome.Sharp" Version="6.3.0" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.12">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -204,6 +301,33 @@
     <PackageReference Include="ToastNotifications" Version="2.5.1" />
     <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
     <PackageReference Include="XAct.Core.PCL" Version="0.0.5014" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

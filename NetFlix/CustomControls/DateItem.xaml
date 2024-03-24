@@ -7,6 +7,7 @@
              mc:Ignorable="d" 
              xmlns:helper="clr-namespace:NetFlix.Utils"
              Name="dateItem"
+             Loaded="UserControl_Loaded"
             >
     <UserControl.Resources>
         <helper:StringCompareConverter x:Key="StringCompareConverter"/>
@@ -45,20 +46,20 @@
         </Border.Style>
         <StackPanel VerticalAlignment="Center" Orientation="Vertical" Cursor="Hand"
                     >
-         
+
             <TextBlock FontSize="26" Foreground="WhiteSmoke" VerticalAlignment="Center"
                                    Margin="0,0,0,6"
-                                   HorizontalAlignment="Center">
+                                   HorizontalAlignment="Center" >
                 <TextBlock.Text>
                     <MultiBinding StringFormat="{}{0}/{1}">
                         <Binding Path="Day" ElementName="dateItem"/>
                         <Binding Path="Month" ElementName="dateItem"/>
                     </MultiBinding>
                 </TextBlock.Text>
-            </TextBlock>
-            <TextBlock Text="{Binding Path=DayOfWeek,ElementName=dateItem}" FontSize="14" Foreground="WhiteSmoke" d:Text="Wed"
+            </TextBlock> 
+            <TextBlock Text="{Binding Path= DayOfWeek, ElementName=dateItem}" FontSize="14" Foreground="WhiteSmoke" d:Text="Wed"
                   HorizontalAlignment="Center"
-                           />
+              />
         </StackPanel>
 
     </Border>

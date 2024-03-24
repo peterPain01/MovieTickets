@@ -1,5 +1,4 @@
-﻿using Netflix.Model;
-using NetFlix.EnityModel;
+﻿using NetFlix.EnityModel;
 using NetFlix.ViewModel;
 using Org.BouncyCastle.Utilities;
 using System;
@@ -93,7 +92,7 @@ namespace NetFlix.View
 
                 ComboBoxItem comboBoxItem = new ComboBoxItem();
                 comboBoxItem.Content = genre.Name;
-                comboBoxItem.Tag = genre.Id;
+                comboBoxItem.Tag = genre.GenreId;
                 cbGenres.Items.Add(comboBoxItem);
             }
         }

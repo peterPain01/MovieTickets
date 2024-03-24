@@ -1,9 +1,9 @@
-﻿using Netflix.Model;
-using NetFlix.Model;
+﻿using NetFlix.EnityModel;
 using NetFlix.Repository;
 using System;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace Netflix.Repository
 {
@@ -11,34 +11,37 @@ namespace Netflix.Repository
     {
         public ObservableCollection<Movie> GetNowShowingMovie()
         {
-            ObservableCollection<Movie> movies = new ObservableCollection<Movie>();
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
+            using (var context = new BookingMovieAppContext())
             {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "SELECT m.* " +
-                    "FROM Movies m " +
-                    "JOIN (SELECT DISTINCT mv.movie_id " +
-                    "FROM Movies mv " +
-                    "JOIN Showtimes st ON mv.movie_id = st.movie_id " +
-                    "WHERE st.showtime_datetime > GETDATE()) " +
-                    "AS sub ON m.movie_id = sub.movie_id;";
+                var currentTime = DateTime.Now;
+                var tempQuery = (from st in context.Showtimes
+                                 join mv in context.Movies on st.MovieId equals mv.MovieId
+                                 where st.ShowtimeDatetime > currentTime
+                                 select mv.MovieId).Distinct();
 
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Movie movie = ProcessMovie(reader);
-                        movies.Add(movie);
-                    }
-                }
+                ObservableCollection<Movie> movies = new ObservableCollection<Movie> (from mv in context.Movies
+                                                                                      join temp in tempQuery on mv.MovieId equals temp
+                                                                                      select mv);
+                return movies;
             }
-            return movies;
         }
 
         public ObservableCollection<Movie> GetTrendingMovie()
         {
+            //using (var context = new BookingMovieAppContext())
+            //{
+            //    var currentTime = DateTime.Now;
+            //    var tempQuery = (from bk in context.Bookings
+            //                     join st in context.Showtimes on bk.ShowtimeId equals st.ShowtimeId
+            //                     group st by st.MovieId into g
+            //                     where g.Any(s => s.ShowtimeDatetime > currentTime)
+            //                     orderby g.Count() descending
+            //                     select new { Id = g.Key, Total = g.Count() }).Take(5);
+
+            //    var moviesQuery = from mv in context.Movies
+            //                      join temp in tempQuery on mv.MovieId equals temp.Id
+            //                      select mv;
+            //}
             ObservableCollection<Movie> movies = new ObservableCollection<Movie>();
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
@@ -193,50 +196,22 @@ namespace Netflix.Repository
         }
         public Movie GetMovieById(int id)
         {
-            Movie movie = new Movie();
-
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
+            using (var context = new BookingMovieAppContext())
             {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "SELECT * FROM Movies WHERE movie_id = @id";
-                command.Parameters.AddWithValue("@id", id);
-                using (var reader = command.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        movie = ProcessMovie(reader);
-                    }
-                }
+                Movie mv = context.Movies.FirstOrDefault(mv => mv.MovieId == id);
+                return mv; 
             }
-            return movie;
         }
 
         public ObservableCollection<Genre> GetAllGenre()
         {
-            ObservableCollection<Genre> genres = new ObservableCollection<Genre>();
-
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
+            using (var context = new BookingMovieAppContext())
             {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "SELECT * FROM Genres";
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Genre genre = new Genre
-                        {
-                            Id = reader.GetInt32(reader.GetOrdinal("genre_id")),
-                            Name = reader.GetString(reader.GetOrdinal("name")) // Assuming "name" is the correct column for genre name
-                        };
-                        genres.Add(genre);
-                    }
-                }
+                ObservableCollection<Genre> genres = new ObservableCollection<Genre>(
+                        context.Genres.ToList()
+                    );
+                return genres;
             }
-            return genres;
         }
 
         public void GetMovieByCategory(string categorie) { }
@@ -253,17 +228,15 @@ namespace Netflix.Repository
         public Movie ProcessMovie(SqlDataReader reader)
         {
             Movie movie = new Movie();
-            movie.Id = reader.GetInt32(reader.GetOrdinal("movie_id"));
+            movie.MovieId = reader.GetInt32(reader.GetOrdinal("movie_id"));
             movie.Title = reader.GetString(reader.GetOrdinal("title"));
-            movie.GenreId = reader.GetInt32(reader.GetOrdinal("genre_id"));
             movie.DurationMinutes = reader.GetInt32(reader.GetOrdinal("duration_minutes"));
-            movie.Rating = Convert.ToDouble(reader.GetDecimal(reader.GetOrdinal("rating")));
+            movie.Rating = Convert.ToDecimal(reader.GetDecimal(reader.GetOrdinal("rating")));
             movie.Certification = reader.GetInt32(reader.GetOrdinal("Certification"));
             movie.PlotSummary = reader.GetString(reader.GetOrdinal("plot_summary"));
             movie.PosterUrl = reader.GetString(reader.GetOrdinal("poster_url"));
             movie.PosterVerticalUrl = reader.GetString(reader.GetOrdinal("poster_vertical_url"));
             movie.TrailerUrl = reader.GetString(reader.GetOrdinal("trailer_url"));
-            movie.DirectorId = reader.GetInt32(reader.GetOrdinal("director_id"));
             //movie.Release_date = reader.GetDateTime(reader.GetOrdinal("realease_date"));
 
             return movie;

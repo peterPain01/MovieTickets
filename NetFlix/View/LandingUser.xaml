@@ -131,7 +131,7 @@
                                                         <i:EventTrigger EventName="MouseDown">
                                                             <i:InvokeCommandAction 
                                                                  Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}, 
-                                                                 Path=DataContext.NavigateToMoviePage}" CommandParameter="{Binding Id}"/>
+                                                                 Path=DataContext.NavigateToMoviePage}" CommandParameter="{Binding MovieId}"/>
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
                                                 </Image>

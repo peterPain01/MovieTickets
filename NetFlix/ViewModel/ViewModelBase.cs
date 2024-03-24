@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NetFlix.ViewModel
 {
-    // what does class do ? 
+    
     public abstract class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -15,6 +15,5 @@ namespace NetFlix.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-           
-    }
+    }   
 }

@@ -1,16 +1,12 @@
-﻿using NetFlix.CustomControls;
+﻿using Microsoft.EntityFrameworkCore;
 using NetFlix.EnityModel;
 using NetFlix.Model;
 using NetFlix.Utils;
-using Org.BouncyCastle.Utilities.Collections;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace NetFlix.Repository
@@ -22,65 +18,35 @@ namespace NetFlix.Repository
         {
             return CurrentUser != null;
         }
-        public bool Add(User userModel) 
+        public bool Add(User user)
         {
             bool success = false;
 
-            User user = GetByUsername(userModel.Username);
-            if (user != null)
+            User validUser = GetByUsername(user.Username);
+            if (validUser != null)
             {
-         
-                return false; 
+                return false;
             }
 
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
+            using (var context = new BookingMovieAppContext())
             {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = " INSERT INTO [Users] (username, password, birth_date, gender) VALUES (@username, @password, @dob, @gender)";
-                command.Parameters.AddWithValue("@username", userModel.Username);
-                command.Parameters.AddWithValue("@password", userModel.Password);
-                command.Parameters.AddWithValue("@dob", userModel.Dob);
-                command.Parameters.AddWithValue("@gender", userModel.Gender);
-                int rowsAffected = command.ExecuteNonQuery();
-                if (rowsAffected > 0)
-                {
-                    success = true; 
-                }
-                connection.Close();
+                context.AddAsync(user);
+                context.SaveChanges();
+                success = true; 
             }
             return success;
         }
-        public User AuthenticatedUser(NetworkCredential credential)
+        public async Task<User> AuthenticatedUser(NetworkCredential credential)
         {
-            User user = null;
-            var hashedPassword = helper.HassPassword(credential.Password); 
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
+            var hashedPassword = helper.HassPassword(credential.Password);
+            using (var context = new BookingMovieAppContext())
             {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "select * from [Users] where username=@username and [password]=@password";
-                command.Parameters.Add("@username", System.Data.SqlDbType.NVarChar).Value = credential.UserName;
-                command.Parameters.Add("@password",System.Data.SqlDbType.NVarChar).Value = hashedPassword;
-
-                using var reader = command.ExecuteReader();
-                if (reader.Read())
-                {
-                    int isAdminIndex = reader.GetOrdinal("is_admin");
-                    int isAdminValue = reader.IsDBNull(isAdminIndex) ? 0 : reader.GetInt32(isAdminIndex);
-                    user = new User(
-                        reader.GetInt32(reader.GetOrdinal("id")),
-                        reader.GetString(reader.GetOrdinal("username")),
-                        isAdminValue
-                    );
-                }
-
+                User user = await context.Users.FirstOrDefaultAsync(user => user.Username.Equals(credential.UserName) && user.Password == hashedPassword);
+                CurrentUser = user;
+                return user;
             }
-            CurrentUser = user; 
-            return user;
         }
+
         public void Edit(User userModel)
         {
             throw new NotImplementedException();
@@ -95,21 +61,11 @@ namespace NetFlix.Repository
         }
         public User GetByUsername(string username)
         {
-            User user = null;
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
+            using (var context = new BookingMovieAppContext())
             {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "SELECT * FROM [Users] WHERE username = @username";
-                command.Parameters.AddWithValue("@username", username);
-                using var reader = command.ExecuteReader();
-                if (reader.Read())
-                {
-                    user = new User(reader.GetInt32(reader.GetOrdinal("id")), reader.GetString(reader.GetOrdinal("username")));
-                }
+                User user = context.Users.FirstOrDefault(u => u.Username.Equals(username));
+                return user;
             }
-           return user;
         }
 
         public void Remove(User userModel)

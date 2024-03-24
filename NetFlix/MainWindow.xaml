@@ -36,9 +36,6 @@
             <DataTemplate DataType="{x:Type viewmodels:AdminDashBoardVM}">
                 <view:AdminDashBoard/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:Booking}">
-                <view:BookingForm/>
-            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:UserViewModel}">
                 <view:UserProfile/>
             </DataTemplate>

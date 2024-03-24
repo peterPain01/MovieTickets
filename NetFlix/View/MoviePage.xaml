@@ -52,7 +52,7 @@
                         </Grid.ColumnDefinitions>
 
                         <!--Poster-->
-                        <Image Source="{Binding Movie.PosterUrl}" Grid.Column="0" 
+                        <Image Source="{Binding Movie.PosterVerticalUrl}" Grid.Column="0" 
                             Height="448"
                             Width="420"
                             Stretch="Uniform" StretchDirection="DownOnly"
@@ -149,10 +149,10 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <customControls:DateItem Month="{Binding Month}" Day="{Binding Day}" 
-                                                     DayOfWeek="{Binding DayOfWeek}" 
+                                <customControls:DateItem 
+                                                    Datetime="{Binding ShowtimeDatetime}"
                                                      Command="{Binding DataContext.ChangeSelectedDay, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" 
-                                                     CommandParameter="{Binding Day}"
+                                                     CommandParameter="{Binding ShowtimeDatetime}"
                                                      Tag="{Binding DataContext.SelectedDay, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
                                                      />
                             </DataTemplate>
@@ -175,7 +175,8 @@
                                             <Setter.Value>
                                                 <ControlTemplate>
                                                     <StackPanel>
-                                                        <TextBlock Text="{Binding Name}" FontSize="24"
+                                                        <TextBlock FontSize="24"
+                                                                   Text="{Binding Cinema}"
                                                         Foreground="WhiteSmoke" FontWeight="DemiBold"/>
                                                         <ItemsPresenter/>
                                                     </StackPanel>
@@ -202,7 +203,7 @@
                                             <i:EventTrigger EventName="MouseDown">
                                                 <i:InvokeCommandAction 
                                                      Command="{Binding DataContext.GetSeatsCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" 
-                                                    CommandParameter="{Binding Path=ShowTimeId}"/>
+                                                    CommandParameter="{Binding Path=ShowtimeId}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
 
@@ -212,9 +213,9 @@
                                             <Label.Content>
                                                 <TextBlock>
                                                     <TextBlock.Text>
-                                                        <MultiBinding StringFormat="{}{0}:{1}">
-                                                            <Binding Path="Hour" />
-                                                            <Binding Path="Minute" />
+                                                        <MultiBinding StringFormat="{}{0}:{1:00}">
+                                                            <Binding Path="ShowtimeDatetime.Hour" />
+                                                            <Binding Path="ShowtimeDatetime.Minute" />
                                                         </MultiBinding>
                                                     </TextBlock.Text>
                                                 </TextBlock>

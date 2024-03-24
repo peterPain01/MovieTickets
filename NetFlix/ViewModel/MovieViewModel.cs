@@ -1,9 +1,7 @@
-﻿using Netflix.Model;
-using Netflix.Repository;
+﻿using Netflix.Repository;
 using Netflix.Utils;
 using NetFlix.CustomControls;
 using NetFlix.EnityModel;
-using NetFlix.Model;
 using NetFlix.Repository;
 using NetFlix.View;
 using System;
@@ -25,16 +23,16 @@ namespace NetFlix.ViewModel
     public class MovieViewModel : ViewModelBase
     {
         private int id;
-        private string selectedDay;
+        private int selectedDay;
         private Movie movie;
         private decimal _totalPrice;
         public Movie Movie { get => movie; set { movie = value; OnPropertyChanged(nameof(Movie)); } }
-        private ObservableCollection<ShowTime> showtimes;
-        private ObservableCollection<ShowTime> showtimes_selected;
-        private List<ShowTime> day_showtimes;
+        private ObservableCollection<Showtime> showtimes;
+        private ObservableCollection<Showtime> showtimes_selected;
+        private List<Showtime> day_showtimes;
         private ObservableCollection<Seat> seat_of_selected_showtime;
         private bool _isSelectedShowTime = false;
-        private ShowTime _selectedShowtime;
+        private Showtime _selectedShowtime;
         private ObservableCollection<Seat> _selectedSeats = new ObservableCollection<Seat>();
         private Voucher _voucher;
         private String _voucherMessage;
@@ -51,7 +49,7 @@ namespace NetFlix.ViewModel
             set { _voucher = value; OnPropertyChanged(nameof(Voucher)); }
         }
 
-        public ShowTime SelectedShowTime
+        public Showtime SelectedShowTime
         {
             get { return _selectedShowtime; }
             set { _selectedShowtime = value; OnPropertyChanged(nameof(SelectedShowTime)); }
@@ -67,7 +65,7 @@ namespace NetFlix.ViewModel
             set { _totalPrice = value; OnPropertyChanged(nameof(TotalPrice)); }
         }
 
-        public string SelectedDay
+        public int SelectedDay
         {
             get { return selectedDay; }
             set { selectedDay = value; OnPropertyChanged(nameof(SelectedDay)); }
@@ -87,7 +85,7 @@ namespace NetFlix.ViewModel
                 OnPropertyChanged(nameof(SeatOfSelectedShowtime));
             }
         }
-        public ObservableCollection<ShowTime> ShowTimes
+        public ObservableCollection<Showtime> ShowTimes
         {
             get { return showtimes; }
             set
@@ -98,7 +96,7 @@ namespace NetFlix.ViewModel
         }
 
         // Store List of Showtime with distinct day -> It's should be just store date
-        public List<ShowTime> DayHaveShowTimes
+        public List<Showtime> DayHaveShowTimes
         {
             get { return day_showtimes; }
             set
@@ -109,7 +107,7 @@ namespace NetFlix.ViewModel
         }
 
         // Store all showtimes in day user selected 
-        public ObservableCollection<ShowTime> ShowTimesSelected
+        public ObservableCollection<Showtime> ShowTimesSelected
         {
             get => showtimes_selected;
             set
@@ -209,7 +207,7 @@ namespace NetFlix.ViewModel
         private void ExecuteSeatClickedCommand(object parameter)
         {
             Seat seat = (Seat)parameter;
-            if (SelectedSeats.Any(s => s.row == seat.row && s.number == seat.number))
+            if (SelectedSeats.Any(s => s.Row == seat.Row && s.Number == seat.Number))
             {
                 SelectedSeats.Remove(seat);
             }
@@ -219,16 +217,16 @@ namespace NetFlix.ViewModel
             }
             if (Voucher != null && Voucher.VoucherType.Equals("Percentage"))
             {
-                TotalPrice = DiscountAmount(Voucher, SelectedSeats.Sum(s => s.Price));
+                TotalPrice = DiscountAmount(Voucher, SelectedSeats.Sum(s => s.Price.Value));
             }
             else
-                TotalPrice = SelectedSeats.Sum(s => s.Price);
+                TotalPrice = SelectedSeats.Sum(s => s.Price.Value);
             OnPropertyChanged(nameof(SelectedSeats));
         }
         private void ExecuteGetSeatsCommand(object parameter)
         {
             int ShowtimeId = (int)parameter;
-            SelectedShowTime = ShowTimes.FirstOrDefault(s => s.ShowTimeId == ShowtimeId);
+            SelectedShowTime = ShowTimes.FirstOrDefault(s => s.ShowtimeId == ShowtimeId);
 
             SeatOfSelectedShowtime = ShowTimeRepo.GetSeatByShowtimeId(ShowtimeId);
             if (SeatOfSelectedShowtime.Count > 0)
@@ -239,16 +237,15 @@ namespace NetFlix.ViewModel
         }
         private void ExecuteCheckoutCommand(object parameter)
         {
-            BookingModel newBooking = new BookingModel
+            EnityModel.Booking newBooking = new EnityModel.Booking
             {
-                ShowtimeId = SelectedShowTime.ShowTimeId,
+                ShowtimeId = SelectedShowTime.ShowtimeId,
                 UserId = UserRepository.CurrentUser.Id,
-                SelectedSeats = SelectedSeats,
-                OriginalPrice = TotalPrice,
-                TotalPrice = TotalPrice
+                OriginalPrice = Convert.ToInt32(TotalPrice),
+                TotalPrice = Convert.ToInt32(TotalPrice)
             };
 
-            BookingRepo.CreateBooking(newBooking);
+            BookingRepo.CreateBooking(newBooking, SelectedSeats);
             NavigationStore._navigationStore.CurrentViewModel = new UserViewModel();
         }
 
@@ -256,19 +253,20 @@ namespace NetFlix.ViewModel
         {
             IsSelectedShowTime = false;
             SeatOfSelectedShowtime.Clear();
-            string date = (string)parameter;
+            DateTime datetime = (DateTime)parameter;
+            int date = datetime.Day; 
             SelectedDay = date;
-            ShowTimesSelected = new ObservableCollection<ShowTime>(ShowTimes.Where(showtime => showtime.Day.Equals(selectedDay))
+            ShowTimesSelected = new ObservableCollection<Showtime>(ShowTimes.Where(showtime => showtime.ShowtimeDatetime.Value.Day.Equals(selectedDay))
                                .Select(showtime => showtime).ToList());
         }
 
         private void FilterShowTimeByDay()
         {
-            DayHaveShowTimes = ShowTimes.GroupBy(showtime => showtime.Day) // ->>  need more constrant here 
+            DayHaveShowTimes = ShowTimes.GroupBy(showtime => showtime.ShowtimeDatetime.Value.Day) // ->>  need more constrant here 
                               .Select(grp => grp.First())
                                .ToList();
-            selectedDay = DayHaveShowTimes.ElementAt(0).Day;
-            ShowTimesSelected = new ObservableCollection<ShowTime>(ShowTimes.Where(showtime => showtime.Day.Equals(selectedDay))
+            selectedDay = DayHaveShowTimes.ElementAt(0).ShowtimeDatetime.Value.Day;
+            ShowTimesSelected = new ObservableCollection<Showtime>(ShowTimes.Where(showtime => showtime.ShowtimeDatetime.Value.Day == selectedDay)
                                 .Select(showtime => showtime).ToList());
         }
 

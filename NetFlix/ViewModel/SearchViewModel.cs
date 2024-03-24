@@ -1,5 +1,4 @@
-﻿using Netflix.Model;
-using Netflix.Repository;
+﻿using Netflix.Repository;
 using Netflix.Utils;
 using NetFlix.EnityModel;
 using NetFlix.View;

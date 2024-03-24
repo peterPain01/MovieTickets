@@ -1,5 +1,4 @@
-﻿using Netflix.Model;
-using Netflix.Repository;
+﻿using Netflix.Repository;
 using NetFlix.EnityModel;
 using NetFlix.Model;
 using NetFlix.Repository;
@@ -15,13 +14,13 @@ namespace NetFlix.ViewModel
     public class Booking : ViewModelBase
     {
         public Movie Movie { get; set; }
-        private ObservableCollection<ShowTime> showtimes;
-        private ShowTime selectedShowTimes { get; set; }
+        private ObservableCollection<Showtime> showtimes;
+        private Showtime selectedShowTimes { get; set; }
 
         private MovieRepository MovieRepository { get; }
         private ShowTimeRepo ShowTimeRepo { get; }
 
-        public ObservableCollection<ShowTime> ShowTimes
+        public ObservableCollection<Showtime> ShowTimes
         {
             get { return showtimes; }
             set

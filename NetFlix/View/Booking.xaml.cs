@@ -64,7 +64,7 @@ namespace NetFlix.View
                 {
                     Button button = new Button
                     {
-                        Content = (seat.row + (seat.number).ToString()).ToString(), // Button text (1 to 100)
+                        Content = (seat.Row + (seat.Number).ToString()).ToString(), // Button text (1 to 100)
                         Margin = new Thickness(5), // Add some margin between buttons
                         FontSize = 13,
                         Width = 30,
@@ -75,7 +75,7 @@ namespace NetFlix.View
                     };
                     button.Click += (s, e) =>
                     {
-                        if (((MovieViewModel)DataContext).SelectedSeats.Any(s => s.row == seat.row && s.number == seat.number))
+                        if (((MovieViewModel)DataContext).SelectedSeats.Any(s => s.Row == seat.Row && s.Number == seat.Number))
                         {
                             button.Background = new SolidColorBrush(Colors.Transparent);
                         }
@@ -91,12 +91,12 @@ namespace NetFlix.View
                     }
                     else
                     {
-                        if (seat.row < 'C')
+                        if (seat.Row.ElementAt(0) < 'C')
                         {
                             button.Template = CreateControlTemplate(1);
                             button.Style = CreateButtonStyle(1);
                         }
-                        else if (seat.row < 'J')
+                        else if (seat.Row.ElementAt(0) < 'J')
                         {
                             button.Template = CreateControlTemplate(2);
                             button.Style = CreateButtonStyle(2);
@@ -109,8 +109,8 @@ namespace NetFlix.View
                         }
                     }
 
-                    Grid.SetRow(button, seat.row - 'A');
-                    Grid.SetColumn(button, seat.number);
+                    Grid.SetRow(button, seat.Row[0] - 'A');
+                    Grid.SetColumn(button, seat.Number.Value);
                     MainGrid.Children.Add(button);
                 }
             }

@@ -8,6 +8,7 @@ using NetFlix.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security;
 using System.Security.Principal;
 using System.Text;
@@ -81,7 +82,7 @@ namespace NetFlix.ViewModel
         public LoginViewModel()
         {
             this.userRepository = new UserRepository();
-            LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
+            LoginCommand = new AsyncRelayCommand(() => ExecuteLoginCommand(),() =>  CanExecuteLoginCommand());
             RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPassCommand("", ""));
 
             this._vm = new ToastViewModel();
@@ -92,7 +93,7 @@ namespace NetFlix.ViewModel
         {
             NavigationStore._navigationStore.CurrentViewModel = new SignupVM();
         }
-        private void ExecuteLoginCommand(object obj)
+        private async Task ExecuteLoginCommand()
         {
             string valid_user = valid_Username(Username);
             string valid_password = valid_Password(Password);
@@ -117,8 +118,9 @@ namespace NetFlix.ViewModel
             //    return;
             //};
 
-            var user = userRepository.AuthenticatedUser(new System.Net.NetworkCredential(Username, Password));
-            if (user != null && (user.isAdmin == 0 || user.isAdmin == null))
+            NetworkCredential credential = new NetworkCredential(Username, Password);
+            var user = await userRepository.AuthenticatedUser(credential);
+            if (user != null && (user.IsAdmin == 0 || user.IsAdmin == null))
             {
                 //Thread.CurrentPrincipal = new GenericPrincipal(
                 //    new GenericIdentity(Username), null
@@ -126,7 +128,7 @@ namespace NetFlix.ViewModel
                 this.IsViewVisible = false;
                 NavigationStore._navigationStore.CurrentViewModel = new LandingViewModel();
             }
-            else if(user != null && user.isAdmin == 1)
+            else if(user != null && user.IsAdmin == 1)
                 NavigationStore._navigationStore.CurrentViewModel = new AdminDashBoardVM();
             
             else
@@ -137,7 +139,7 @@ namespace NetFlix.ViewModel
             }
         }
 
-        private bool CanExecuteLoginCommand(object obj)
+        private bool CanExecuteLoginCommand()
         {
             bool validData;
             if (string.IsNullOrEmpty(Username) || Password == null)

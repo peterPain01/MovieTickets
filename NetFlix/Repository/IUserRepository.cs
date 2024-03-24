@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetFlix.EnityModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,9 +10,9 @@ namespace NetFlix.Model
 {
     public interface IUserRepository
     {
-        User AuthenticatedUser(NetworkCredential credential);
+        Task<User> AuthenticatedUser(NetworkCredential credential);
         bool isLoggedIn(); 
-        bool Add(User userModel); 
+        bool Add(User user); 
         void Edit(User userModel);
         void Remove(User userModel);
         User GetById(int id);

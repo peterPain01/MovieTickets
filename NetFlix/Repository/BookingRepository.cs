@@ -14,10 +14,10 @@ namespace NetFlix.Repository
 {
     public class BookingRepository : RepositoryBase
     {
-        public int CreateBooking(BookingModel newBooking)
+        public int CreateBooking(Booking newBooking, ObservableCollection<Seat> SelectedSeats)
         {
             int bookingId = -1;
-            BookingModel bookingModel = new BookingModel();
+            Booking bookingModel = new Booking();
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
             {
@@ -33,7 +33,7 @@ namespace NetFlix.Repository
                 object result = command.ExecuteScalar();
                 if (result != null && int.TryParse(result.ToString(), out bookingId))
                 {
-                    CreateBookingSeat(bookingId, newBooking.SelectedSeats);
+                    CreateBookingSeat(bookingId, SelectedSeats);
                 }
                 connection.Close();
             }

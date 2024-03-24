@@ -16,7 +16,6 @@ using System.Collections.ObjectModel;
 using System.Windows.Threading;
 using System.Diagnostics;
 using Netflix.Repository;
-using Netflix.Model;
 using NetFlix.ViewModel;
 using NetFlix.EnityModel;
 

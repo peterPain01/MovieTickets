@@ -23,6 +23,16 @@ namespace NetFlix.CustomControls
             InitializeComponent();
         }
 
+        private void InitialDateTime(DateTime datetime)
+        {
+            Month = datetime.Month.ToString();
+            Day = datetime.Day.ToString();
+            DayOfWeek = datetime.DayOfWeek;
+        }
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            InitialDateTime(Datetime);
+        }
         public static readonly DependencyProperty CommandProperty =
             DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(DateItem));
 
@@ -47,29 +57,37 @@ namespace NetFlix.CustomControls
         }
         public static readonly DependencyProperty TagProperty = DependencyProperty.Register("Tag", typeof(string), typeof(DateItem));
 
+
         public string Day
         {
             get { return (string)GetValue(DayProperty); }
             set { SetValue(DayProperty, value); }
         }
-
-        public static readonly DependencyProperty DayProperty = DependencyProperty.Register("Day", typeof(string), typeof(DateItem));
-
+        public static readonly DependencyProperty DayProperty = DependencyProperty.Register("Day", typeof(string), typeof(DateItem)); 
+        
         public string Month
         {
             get { return (string)GetValue(MonthProperty); }
             set { SetValue(MonthProperty, value); }
         }
-
         public static readonly DependencyProperty MonthProperty = DependencyProperty.Register("Month", typeof(string), typeof(DateItem));
 
-
-        public string DayOfWeek
+        public DayOfWeek DayOfWeek
         {
-            get { return (string)GetValue(DayOfWeekProperty); }
+            get { return (DayOfWeek)GetValue(DayOfWeekProperty); }
             set { SetValue(DayOfWeekProperty, value); }
         }
+        public static readonly DependencyProperty DayOfWeekProperty = DependencyProperty.Register("DayOfWeek", typeof(DayOfWeek), typeof(DateItem));
 
-        public static readonly DependencyProperty DayOfWeekProperty = DependencyProperty.Register("DayOfWeek", typeof(string), typeof(DateItem));
+        public DateTime Datetime
+        {
+            get { return (DateTime)GetValue(DatetimeProperty); }
+            set { 
+                SetValue(DatetimeProperty, value); 
+                InitialDateTime(Datetime);
+            }
+        }
+        public static readonly DependencyProperty DatetimeProperty = DependencyProperty.Register("Datetime", typeof(DateTime), typeof(DateItem));
+
     }
 }

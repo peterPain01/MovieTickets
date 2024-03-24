@@ -76,7 +76,6 @@
                         <Label Content="Chair: " Foreground="DarkGray" FontSize="14" FontWeight="DemiBold"/>
                         <Label Content="Total: " Foreground="DarkGray" FontSize="14" FontWeight="DemiBold"/>
                         <!--Apply Voucher button-->
-                        <StackPanel Orientation="Horizontal">
                             <Button Content="Apply Voucher" Margin="6,14,0,0" FontSize="14" 
                                 Cursor="Hand"
                                 Command="{Binding OpenVoucherForm}">
@@ -98,16 +97,14 @@
                                     </Style>
                                 </Button.Style>
                             </Button>
-                           
-                        </StackPanel>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Column="1"  Margin="-8,14,0,20">
-                        <Label Content="{Binding SelectedShowTime.CinemaName}" Foreground="White" FontSize="14"/>
-                        <Label Content="{Binding SelectedShowTime.ShowTimeDateTime}" Foreground="White" FontSize="14"/>
+                        <Label Content="{Binding SelectedShowTime.Cinema.Name}" Foreground="White" FontSize="14"/>
+                        <Label Content="{Binding SelectedShowTime.ShowtimeDatetime}" Foreground="White" FontSize="14"/>
                         <Label Content="{Binding Path= SelectedSeats, Converter={StaticResource ConvertListSeatToString}}" Foreground="White" FontSize="14"/>
                         <Label Content="{Binding Path= TotalPrice, Converter={StaticResource FormatCurrentcy}}" Foreground="White" FontSize="14"/>
-                        <Label Content="{Binding VoucherMessage}" Foreground="LimeGreen" VerticalAlignment="Center" FontSize="14" FontWeight="DemiBold"/>
+                        <Label Content="{Binding VoucherMessage}" Foreground="LimeGreen" VerticalAlignment="Center" FontSize="14" FontWeight="DemiBold" Margin="0,0,14,0"/>
                     </StackPanel>
                 </Grid>
                 <Border CornerRadius="10" Width="134">

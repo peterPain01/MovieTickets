@@ -54,7 +54,7 @@ namespace NetFlix.Utils
         {
             if (value is ObservableCollection<Seat> seats)
             {
-                return string.Join(", ", seats.Select(s => $"{s.row}{s.number.ToString()}"));
+                return string.Join(", ", seats.Select(s => $"{s.Row}{s.Number.ToString()}"));
             }
             return String.Empty;
         }

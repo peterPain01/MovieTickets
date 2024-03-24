@@ -1,4 +1,4 @@
-use master
+﻿use master
 DROP DATABASE IF EXISTS BookingMovieApp;
 CREATE DATABASE BookingMovieApp;
 GO
@@ -11,7 +11,7 @@ CREATE TABLE Users (
     password VARCHAR(100) NOT NULL,
     full_name VARCHAR(100),
     birth_date DATE,
-	is_admin bool, 
+	is_admin int, 
     gender VARCHAR(10) CHECK (gender IN ('Male', 'Female', 'Other')),
 );
 
@@ -40,7 +40,7 @@ CREATE TABLE Movies (
 	Certification int, 
     plot_summary TEXT,
     poster_url VARCHAR(255),
-    poster_vertical_url VARCHAR(255),
+         VARCHAR(255),
     trailer_url VARCHAR(255), 
 	director_id INT,
     FOREIGN KEY (director_id) REFERENCES Directors(director_id),
@@ -142,12 +142,15 @@ VALUES
 ('Star 3');
 
 -- Movies
-INSERT INTO Movies (title, genre_id, duration_minutes, release_date, rating, Certification, plot_summary, poster_url, trailer_url, director_id)
-VALUES
-('Movie 1', 1, 120, '2023-01-01', 8.5, 1, 'Plot summary for Movie 1', 'poster1.jpg', 'trailer1.mp4', 1),
-('Movie 2', 2, 110, '2023-02-01', 7.8, 2, 'Plot summary for Movie 2', 'poster2.jpg', 'trailer2.mp4', 2),
-('Movie 3', 3, 130, '2023-03-01', 6.9, 3, 'Plot summary for Movie 3', 'poster3.jpg', 'trailer3.mp4', 3),
-('Fast and Furious 11', 1, 120, '2023-01-01', 8.5, 1, 'Plot summary for Movie 1', '/Images/slider-faf.jpg','/Images/mv-faf.jpg', 'trailer1.mp4', 1);
+-- Movies
+INSERT INTO Movies (title, duration_minutes, release_date, rating, Certification, plot_summary, poster_url,poster_vertical_url, trailer_url)
+VALUES ('Mai', 120, '2023-01-01', 8.5, 18, 'Plot summary for Mai', '/Images/slider-mai.jpg','/Images/mv-mai.jpg', 'trailer1.mp4'),
+VALUES ('Fast and Furious', 130, '2022-01-01', 8, 16, 'Plot summary for Fast and Furious', '/Images/slider-faf.jpg','/Images/mv-faf.jpg', 'trailer1.mp4'),
+('Aquaman', 144, '2023-02-01', 8, 18, 'Plot summary for Aquaman', '/Images/slider-aquaman.jpg','/Images/mv-aquaman.jpg', 'trailer1.mp4'),
+('Avatar', 130, '2021-01-01', 9, 16, 'Plot summary for Avatar', '/Images/slider-avatar.jpg','/Images/mv-avatar.jpg', 'trailer1.mp4'),
+(N'Quỷ Thay Đầu', 130, '2024-04-01', 9, 18, 'Plot summary for Quỷ Thay Đầu', '/Images/mv-bhead.jpg','/Images/mv-bhead.jpg', 'trailer1.mp4'),
+('Dune - Hành tinh cát', 180, '2024-05-03', 8.5, 18, 'Plot summary for Dune 2', '/Images/slider-dune.jpg','/Images/mv-dune.jpg', 'trailer1.mp4'),
+('KungFu Panda 4', 120, '2024-03-08', 6.5, 12, 'Plot summary for KungFuPanda', '/Images/slider-kungfu.jpg','/Images/mv-panda.jpg', 'trailer1.mp4');
 
 -- MovieStars
 INSERT INTO MovieStars (movie_id, star_id)
@@ -167,26 +170,13 @@ VALUES
 -- Showtimes
 INSERT INTO Showtimes (movie_id, cinema_id, showtime_datetime)
 VALUES
-(1, 1, '2023-01-01 15:00:00'),
-(2, 2, '2023-02-01 16:00:00'),
-(3, 3, '2023-03-01 17:00:00');
-
--- Seats
-INSERT INTO Seats (row, number, cinema_id, showtime_id, status, price)
-VALUES
-('A', 1, 1, 1, 'Available', 10),
-('A', 2, 1, 1, 'Available', 10),
-('B', 1, 2, 2, 'Available', 12),
-('B', 2, 2, 2, 'Available', 12),
-('C', 1, 3, 3, 'Available', 15),
-('C', 2, 3, 3, 'Available', 15);
-
--- Bookings
-INSERT INTO Bookings (user_id, showtime_id, booking_datetime, transfer)
-VALUES
-(1, 1, '2023-01-01 14:00:00', 0),
-(2, 2, '2023-02-01 15:00:00', 0),
-(1, 3, '2023-03-01 16:00:00', 0);
+(1, 1, '2024-04-24 15:00:00'),
+(2, 2, '2024-04-25 16:00:00'),
+(3, 3, '2024-04-04 17:00:00'), 
+(4, 1, '2024-04-01 15:00:00'),
+(5, 2, '2024-04-01 16:00:00'),
+(6, 3, '2024-04-01 17:00:00'),
+(7, 3, '2024-04-01 17:00:00');
 
 
 -- Add dummy for BookingSeats 

@@ -1,5 +1,6 @@
 ﻿using Netflix.Utils;
 using NetFlix.CustomControls;
+using NetFlix.EnityModel;
 using NetFlix.Model;
 using NetFlix.Repository;
 using NetFlix.Utils;
@@ -108,7 +109,14 @@ namespace NetFlix.ViewModel
             var hasedPassword = helper.HassPassword(unhashed);
             try
             {
-                var result = userRepository.Add(new User(Username, hasedPassword, Dob, Gender));
+                User user = new User
+                {
+                    Username = Username,
+                    Password = hasedPassword,
+                    BirthDate = Dob,
+                    Gender = Gender,
+                }; 
+                var result = userRepository.Add(user);
                 if(result == false)
                 {
                     _vm.ShowError("Username already exists");
