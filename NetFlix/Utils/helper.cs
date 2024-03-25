@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace NetFlix.Utils
 {
@@ -45,7 +47,23 @@ namespace NetFlix.Utils
         
             return Convert.ToHexString(hashedPassword);
         }
-
-
+        
+        // 0 - Horizo 
+        // 1 - vertical 
+        public static string CreateImagePath(string sourcePath, int mode)
+        {
+            Random random = new Random();
+            string destinationFilePath = ""; 
+            if (mode  == 0)
+            {
+                 destinationFilePath = @"C:\Learning\School\CURRENT\Window\Project\NetFlix\NetFlix\Images\slider-" + random.NextDouble() + Path.GetExtension(sourcePath);
+            }
+            if(mode == 1)
+            {
+                destinationFilePath = @"C:\Learning\School\CURRENT\Window\Project\NetFlix\NetFlix\Images\mv-" + random.NextDouble() + Path.GetExtension(sourcePath);
+            }
+            File.Copy(sourcePath, destinationFilePath);
+            return destinationFilePath; 
+        }
     }
 }

@@ -7,6 +7,7 @@ using NetFlix.Repository;
 using NetFlix.View;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Security;
@@ -16,6 +17,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using ToastNotifications.Core;
 
 namespace NetFlix.ViewModel
@@ -29,6 +31,9 @@ namespace NetFlix.ViewModel
         private string _errorMessage;
         private bool _isViewVisible = true;
         private IUserRepository userRepository;
+        private bool _isLoggingIn;
+
+
         // Properties 
         public string Username
         {
@@ -69,6 +74,16 @@ namespace NetFlix.ViewModel
             }
         }
 
+        public bool IsLoggingIn
+        {
+            get { return _isLoggingIn; }
+            set
+            {
+                _isLoggingIn = value;
+                OnPropertyChanged(nameof(IsLoggingIn));
+            }
+        }
+
         // -> Commands 
         public ICommand LoginCommand { get; }
         public ICommand RecoverPasswordCommand { get; set; }
@@ -82,7 +97,7 @@ namespace NetFlix.ViewModel
         public LoginViewModel()
         {
             this.userRepository = new UserRepository();
-            LoginCommand = new AsyncRelayCommand(() => ExecuteLoginCommand(),() =>  CanExecuteLoginCommand());
+            LoginCommand = new AsyncRelayCommand(async () => ExecuteLoginCommand(), () => CanExecuteLoginCommand());
             RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPassCommand("", ""));
 
             this._vm = new ToastViewModel();
@@ -95,6 +110,10 @@ namespace NetFlix.ViewModel
         }
         private async Task ExecuteLoginCommand()
         {
+
+            Application.Current.Dispatcher.Invoke(() => { IsLoggingIn = true; OnPropertyChanged(nameof(IsLoggingIn)); }) ;
+            Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+
             string valid_user = valid_Username(Username);
             string valid_password = valid_Password(Password);
             // Validation
@@ -125,18 +144,21 @@ namespace NetFlix.ViewModel
                 //Thread.CurrentPrincipal = new GenericPrincipal(
                 //    new GenericIdentity(Username), null
                 //    );
-                this.IsViewVisible = false;
+                IsLoggingIn = false;
                 NavigationStore._navigationStore.CurrentViewModel = new LandingViewModel();
             }
-            else if(user != null && user.IsAdmin == 1)
+            else if (user != null && user.IsAdmin == 1)
+            {
+                IsLoggingIn = false;
                 NavigationStore._navigationStore.CurrentViewModel = new AdminDashBoardVM();
-            
+            }
             else
             {
+                IsLoggingIn = false;
                 _vm.ShowError("* Invalid username or password");
                 //this.ErrorMessage = "* Invalid username or password"; 
-
             }
+            Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
         }
 
         private bool CanExecuteLoginCommand()

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="NetFlix.View.Admin.AdminMovie"
+﻿<UserControl x:Class="NetFlix.View.Admin.AdminShowtime"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -19,33 +19,30 @@
             </Grid.RowDefinitions>
 
             <!--Them xoa sua-->
-            <TextBlock FontSize="26" Foreground="Black" Margin="50 35 0 20" Text="Movie Infomation" HorizontalAlignment="Left"/>
+            <TextBlock FontSize="26" Foreground="Black" Margin="50 35 0 20" Text="Showtime Infomation" HorizontalAlignment="Left"/>
             <StackPanel Orientation="Vertical" Grid.Row="1">
                 <!--Data Grid Movie-->
                 <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" RowHeaderStyle="{DynamicResource DataGridRowHeaderStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"  
-                      Grid.Row="2" ItemsSource="{Binding AllMovies}" AutoGenerateColumns="False"  
+                      Grid.Row="2" ItemsSource="{Binding AllShowtime}" AutoGenerateColumns="False"  
                       Margin="50,0,40,0" >
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding MovieId}" Width="*" MinWidth="80"/>
-                        <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*" MinWidth="120"/>
-                        <DataGridTextColumn Header="Ticket Sold" Binding="{Binding Title}" Width="*" MinWidth="100"/>
-                        <DataGridTextColumn Header="Duration (minutes)" Binding="{Binding DurationMinutes}" MinWidth="60" Width="*"/>
-                        <DataGridTextColumn Header="Release Date" Binding="{Binding ReleaseDate}" MinWidth="80" Width="*"/>
-                        <DataGridTextColumn Header="Rating" Binding="{Binding Rating}" Width="*" MinWidth="60"/>
-                        <DataGridTextColumn Header="Certification" Binding="{Binding Certification}" Width="*" MinWidth="60"/>
+                        <DataGridTextColumn Header="Showtime Id" Binding="{Binding ShowtimeId}" Width="*" MinWidth="80"/>
+                        <DataGridTextColumn Header="Movie Id" Binding="{Binding MovieId}" Width="*" MinWidth="120"/>
+                        <DataGridTextColumn Header="Cinema Id" Binding="{Binding CinemaId}" Width="*" MinWidth="100"/>
+                        <DataGridTextColumn Header="Time" Binding="{Binding ShowtimeDatetime}" MinWidth="60" Width="*"/>
                         <DataGridTemplateColumn  Header="Operations" Width="*" MinWidth="60">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <!--Edit Movie Button-->
                                         <Button Style="{StaticResource gridEditButton}"
-                                                Command="{Binding DataContext.OpenEditMovieForm, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                Command="{Binding DataContext.OpenEditShowtimeForm, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
                                                 CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}"
                                                 >
                                             <fa:IconImage Icon="Pencil" Style="{StaticResource gridButtonIcon}"/>
                                         </Button>
                                         <!--Remove Movie Button-->
-                                        <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}" Command="{Binding DataContext.DeleteMovieCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                        <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}" Command="{Binding DataContext.DeleteShowtimeCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
                                             CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}"
                                                 >
                                             <fa:IconImage Icon="Trash" Style="{StaticResource gridButtonIcon}"/>
@@ -58,8 +55,7 @@
                 </DataGrid>
 
                 <!--Add Movie Button-->
-                <Button Content="Add New Movie" Command="{Binding OpenAddMovieForm}" HorizontalAlignment="Center"
-                        
+                <Button Content="Add New Showtime" Command="{Binding OpenAddShowTimeForm}" HorizontalAlignment="Center"
                         Margin="0,30,0,0"
                         Foreground="White"
                         Background="#5B60C4"

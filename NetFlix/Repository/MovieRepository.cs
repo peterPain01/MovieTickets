@@ -19,10 +19,22 @@ namespace Netflix.Repository
                                  where st.ShowtimeDatetime > currentTime
                                  select mv.MovieId).Distinct();
 
-                ObservableCollection<Movie> movies = new ObservableCollection<Movie> (from mv in context.Movies
-                                                                                      join temp in tempQuery on mv.MovieId equals temp
-                                                                                      select mv);
+                ObservableCollection<Movie> movies = new ObservableCollection<Movie>(from mv in context.Movies
+                                                                                     join temp in tempQuery on mv.MovieId equals temp
+                                                                                     select mv);
                 return movies;
+            }
+        }
+        public ObservableCollection<Movie> GetAllMovies()
+        {
+            using (var context = new BookingMovieAppContext())
+            {
+                var movies = new ObservableCollection<Movie>(
+                        context.Movies.ToList()
+                    );
+
+                return movies;
+
             }
         }
 
@@ -199,7 +211,7 @@ namespace Netflix.Repository
             using (var context = new BookingMovieAppContext())
             {
                 Movie mv = context.Movies.FirstOrDefault(mv => mv.MovieId == id);
-                return mv; 
+                return mv;
             }
         }
 
@@ -219,6 +231,44 @@ namespace Netflix.Repository
         public void GetMovieByRating(int rating) { }
         public void GetMovieByCertficate(int certificate) { }
 
+        public void CreateMovie(Movie newMovie)
+        {
+            using (var context = new BookingMovieAppContext())
+            {
+                context.Add(newMovie);
+                context.SaveChanges();
+            }
+        }
+
+        public void DeleteMovie(Movie movie)
+        {
+            using(var context = new BookingMovieAppContext())
+            {
+                context.Remove(movie);
+                context.SaveChanges();
+            }
+        }
+
+        public void UpdateMovie(Movie newMovie)
+        {
+            using(var context = new BookingMovieAppContext())
+            {
+                Movie movie = context.Movies.FirstOrDefault(mv => mv.MovieId == newMovie.MovieId);
+
+                if (movie != null)
+                {
+                    movie.Title = newMovie.Title;
+                    movie.DurationMinutes = newMovie.DurationMinutes;
+                    movie.ReleaseDate = newMovie.ReleaseDate;
+                    movie.Rating = newMovie.Rating;
+                    movie.Certification = newMovie.Certification;
+                    movie.PlotSummary = newMovie.PlotSummary;
+                    movie.PosterUrl = newMovie.PosterUrl;
+                    movie.PosterVerticalUrl = newMovie.PosterVerticalUrl;
+                    context.SaveChanges();
+                }
+            }
+        }
 
         // handle Null Value
         // handle Null Value

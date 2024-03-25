@@ -70,24 +70,24 @@
                     </StackPanel>
                 </Button>
 
-                <Button Style="{StaticResource menuButton}">
+                <Button Style="{StaticResource menuButton}" Command="{Binding NavigateToFeature}" CommandParameter="Showtime">
                     <StackPanel Orientation="Horizontal">
                         <fa:IconImage Icon="ClockFour" Style="{StaticResource menuButtonIcon}"/>
                         <TextBlock Text="Showtime" Style="{StaticResource menuButtonText}"/>
                     </StackPanel>
                 </Button>
 
-                <Button Style="{StaticResource menuButton}">
+                <Button Style="{StaticResource menuButton}" Command="{Binding NavigateToFeature}" CommandParameter="Voucher">
                     <StackPanel Orientation="Horizontal">
                         <fa:IconImage Icon="Ticket" Style="{StaticResource menuButtonIcon}"/>
                         <TextBlock Text="Voucher" Style="{StaticResource menuButtonText}"/>
                     </StackPanel>
                 </Button>
 
-                <Button Style="{StaticResource menuButton}">
+                <Button Style="{StaticResource menuButton}" Command="{Binding NavigateToFeature}" CommandParameter="Statistic">
                     <StackPanel Orientation="Horizontal">
                         <fa:IconImage Icon="ChartBar" Style="{StaticResource menuButtonIcon}"/>
-                        <TextBlock Text="Statistics" Style="{StaticResource menuButtonText}"/>
+                        <TextBlock Text="Statistic" Style="{StaticResource menuButtonText}"/>
                     </StackPanel>
                 </Button>
             </StackPanel>

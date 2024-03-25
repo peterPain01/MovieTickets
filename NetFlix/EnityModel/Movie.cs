@@ -23,11 +23,11 @@ public partial class Movie
 
     public string? PosterUrl { get; set; }
 
+    public string? PosterVerticalUrl { get; set; }
+
     public string? TrailerUrl { get; set; }
 
     public int? DirectorId { get; set; }
-
-    public string? PosterVerticalUrl { get; set; }
 
     public virtual Director? Director { get; set; }
 

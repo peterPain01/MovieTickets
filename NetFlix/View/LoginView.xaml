@@ -191,15 +191,32 @@
                         Width="200"
                         Height="40"
                         >
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsLoggingIn}" Value="True"> 
+                                        <Setter Property="Content" Value=""/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+
+                        </Button.Style>
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
-                                <Border 
-                                    CornerRadius="4" 
-                                    Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                    <Grid>
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        <customcontrols:DonutSpinner x:Name="spinner" Visibility="Collapsed"/>
+                                    </Grid>
                                 </Border>
+                                <ControlTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding IsLoggingIn, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Value="True">
+                                        <Setter TargetName="spinner" Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Button.Template>
+                      
                     </Button>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"

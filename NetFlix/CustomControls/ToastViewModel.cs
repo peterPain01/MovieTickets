@@ -34,7 +34,8 @@ namespace NetFlix.CustomControls
                 cfg.Dispatcher = Application.Current.Dispatcher;
 
                 cfg.DisplayOptions.TopMost = false;
-                cfg.DisplayOptions.Width = 250;
+                cfg.DisplayOptions.Width = 320;
+               
             });
 
             _notifier.ClearMessages(new ClearAll());
@@ -57,7 +58,16 @@ namespace NetFlix.CustomControls
 
         public void ShowSuccess(string message)
         {
-            _notifier.ShowSuccess(message);
+            MessageOptions opts = new MessageOptions
+            {
+                FontSize = 22,
+                UnfreezeOnMouseLeave = true,
+            }; 
+            _notifier.ShowSuccess(message, opts);
+            Task.Delay(3000).ContinueWith((task) =>
+            {
+                OnUnloaded();
+            }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         public void ShowSuccess(string message, MessageOptions opts)

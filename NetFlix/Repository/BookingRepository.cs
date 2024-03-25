@@ -39,6 +39,15 @@ namespace NetFlix.Repository
             }
             return bookingId;
         }
+
+        public ObservableCollection<Booking> GetAllBooking()
+        {
+            using (var context = new BookingMovieAppContext())
+            {
+                var bookings = context.Bookings.ToList();
+                return new ObservableCollection<Booking>(bookings); 
+            }
+        }
         public void CreateBookingSeat(int bookingId, ObservableCollection<Seat> seats)
         {
             using (var connection = GetConnection())

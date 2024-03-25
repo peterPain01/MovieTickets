@@ -60,7 +60,7 @@
                       Grid.Row="2" ItemsSource="{Binding TrendingMovies}" AutoGenerateColumns="False"  
                       Margin="50,0,40,0" >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="*" MinWidth="80"/>
+                    <DataGridTextColumn Header="ID" Binding="{Binding MovieId}" Width="*" MinWidth="80"/>
                     <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*" MinWidth="120"/>
                     <DataGridTextColumn Header="Ticket Sold" Binding="{Binding Title}" Width="*" MinWidth="100"/>
                     <DataGridTextColumn Header="Duration (minutes)" Binding="{Binding DurationMinutes}" MinWidth="60" Width="*"/>

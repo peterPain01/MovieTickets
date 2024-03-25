@@ -2,6 +2,7 @@
 using NetFlix.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,22 @@ namespace NetFlix.Repository
             }
         }
 
+        public ObservableCollection<Voucher> GetAllVoucher()
+        {
+            using(var dbContext = new BookingMovieAppContext())
+            {
+                try
+                {
+                    var vouchers = dbContext.Vouchers.ToList();
+                    return new ObservableCollection<Voucher>(vouchers);
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Occured error while getting all Voucher" + ex.Message); 
+                    return null; 
+                }
+            }
+        }
         public decimal? DiscountAmount(Voucher voucher, decimal original_price)
         {
             decimal? new_price = -1;
