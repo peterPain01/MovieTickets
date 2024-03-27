@@ -14,217 +14,283 @@
     <!--<Window.DataContext>
         <viewModel:LandingViewModel/>
     </Window.DataContext>-->
-
-    <ScrollViewer CanContentScroll="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-        <ScrollViewer.Style>
-            <Style TargetType="ScrollViewer">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="ScrollViewer">
-                            <Border Background="{TemplateBinding Background}"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <customcontrols:WindowStyle Background="#202020"/>
+        <ScrollViewer CanContentScroll="True" Grid.Row="1">
+            <ScrollViewer.Style>
+                <Style TargetType="ScrollViewer">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ScrollViewer">
+                                <Border Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}">
-                                <ScrollContentPresenter/>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-        </ScrollViewer.Style>
-        <Border CornerRadius="20">
-            <Border.Background>
-                <ImageBrush ImageSource="/Images/mainview-bg.jpg"/>
-            </Border.Background>
-
-            <StackPanel Orientation="Vertical">
-                <Button Background="Transparent" FontSize="16px" FontWeight="Bold" BorderThickness="0,0,0,0" Foreground="#e71a0f"
-                         Width="30" Height="20" HorizontalAlignment="Right" Cursor="Hand" Content="X" Click="btnClose_Click">
-                </Button>
-
-                <!--Header-->
-                <customcontrols:Header Margin="20,0,20,0" />
-
-                <TextBlock Text="Movie Selection" FontSize="26px" Foreground="#fdfcf0" HorizontalAlignment="Center" Margin="0,20,0,20"/>
-
-                <StackPanel x:Name="carouselPanel" Orientation="Horizontal" HorizontalAlignment="Center" Height="393" Cursor="Hand" Width="952">
-                    <Button Command="{Binding PreviousCommand}" 
-                            CommandParameter="{Binding ElementName=ItemsControl}"
-                            Margin="0,0,0,0" Foreground="#fdfcf0"
-                            FontSize="16" Background="#e71a0f" FontWeight="Bold" Content="&lt;"   Panel.ZIndex="2">
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Width="40" Height="42" 
-                                        CornerRadius="50" 
-                                        Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <ScrollContentPresenter/>
                                 </Border>
                             </ControlTemplate>
-                        </Button.Template>
-                    </Button>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ScrollViewer.Style>
+            <Border>
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                        <GradientStop Color="#434343" Offset="0"/>
+                        <GradientStop Color="#5A5C6A" Offset="0.25"/>
+                        <GradientStop Color="#202D3A" Offset="0.5"/>
+                        <GradientStop Color="#FF050312" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
 
-                    <!--Carousel-->
-                    <ScrollViewer Width="867" VerticalScrollBarVisibility="Auto">
-                        <Canvas Width="812" MaxWidth="812">
-                            <ItemsControl ItemsSource="{Binding Items}" Name="ItemsControl">
-                                <ItemsControl.ItemsPanel>   
-                                    <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Horizontal"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid Width="400" Height="220" 
+                <StackPanel Orientation="Vertical" CanVerticallyScroll="True" HorizontalAlignment="Center">
+                    <!--btnClose_Click-->
+                    <!--Header-->
+                    <customcontrols:Header Margin="20,0,20,0" Foreground="#fdfcf0"/>
+
+                    <TextBlock Text="Movie Hot Trending" FontSize="32px" Foreground="#fdfcf0" 
+                           FontWeight="DemiBold"
+                            Typography.CapitalSpacing="True"
+                           HorizontalAlignment="Center" Margin="0,20,0,20"/>
+                    <StackPanel Orientation="Vertical">
+                        <Grid HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <!--Carousel-->
+                            <Image Source="/Images/popup.jpg" Grid.Column="0"
+                               Width="200"
+                               Margin="0,0,60,0"
+                               />
+                            <StackPanel x:Name="carouselPanel" Orientation="Horizontal"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Center" Height="393" Cursor="Hand" Width="952">
+                                <Button Command="{Binding PreviousCommand}" 
+                            CommandParameter="{Binding ElementName=ItemsControl}"
+                            Margin="0,0,0,100" Foreground="#fdfcf0"
+                            FontSize="16" Background="#e71a0f" FontWeight="Bold" Content="&lt;"   Panel.ZIndex="2">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Width="40" Height="42" 
+                                        CornerRadius="50" 
+                                        Background="{TemplateBinding Background}">
+                                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+
+                                <!--Carousel-->
+                                <ScrollViewer Width="867" VerticalScrollBarVisibility="Auto">
+                                    <Canvas Width="812" MaxWidth="812">
+                                        <ItemsControl ItemsSource="{Binding Items}" Name="ItemsControl">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Horizontal"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid Width="400" Height="220" 
                                               Name="MovieGrid"
                                               Margin="10,40,10,0" 
                                               VerticalAlignment="Center"
                                               >
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseEnter">
-                                                    <i:InvokeCommandAction 
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="MouseEnter">
+                                                                <i:InvokeCommandAction 
                                                         Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}, 
                                                            Path=DataContext.GridEnterCommand}"
                                                         CommandParameter="{Binding ElementName= MovieGrid}"/>
-                                                </i:EventTrigger>
-                                                <i:EventTrigger EventName="MouseLeave">
-                                                    <i:InvokeCommandAction 
+                                                            </i:EventTrigger>
+                                                            <i:EventTrigger EventName="MouseLeave">
+                                                                <i:InvokeCommandAction 
                                                          Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}, 
                                                            Path=DataContext.GridLeaveCommand}"
                                                         CommandParameter="{Binding ElementName=MovieGrid}"/>
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                            <Grid.Style>
-                                                <Style TargetType="Grid">
-                                                    <Style.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="RenderTransform">
-                                                                <Setter.Value>
-                                                                    <ScaleTransform/>
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                            <Trigger.EnterActions>
-                                                                <BeginStoryboard>
-                                                                    <Storyboard>
-                                                                        <DoubleAnimation Storyboard.TargetProperty="(Grid.RenderTransform).(ScaleTransform.ScaleX)" To="1.03" Duration="0:0:0.3"/>
-                                                                        <DoubleAnimation Storyboard.TargetProperty="(Grid.RenderTransform).(ScaleTransform.ScaleY)" To="1.03" Duration="0:0:0.3"/>
-                                                                    </Storyboard>
-                                                                </BeginStoryboard>
-                                                            </Trigger.EnterActions>
-                                                            <Trigger.ExitActions>
-                                                                <BeginStoryboard>
-                                                                    <Storyboard>
-                                                                        <DoubleAnimation Storyboard.TargetProperty="(Grid.RenderTransform).(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.3"/>
-                                                                        <DoubleAnimation Storyboard.TargetProperty="(Grid.RenderTransform).(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.3"/>
-                                                                    </Storyboard>
-                                                                </BeginStoryboard>
-                                                            </Trigger.ExitActions>
-                                                        </Trigger>
-                                                    </Style.Triggers>
-                                                      
-                                                </Style>
-                                            </Grid.Style>
-                                            
-                                            <!-- Poster Movie -->
-                                            <Grid x:Name="gridImage">
-                                                <Image x:Name="poster" Source="{Binding PosterUrl}" Stretch="UniformToFill">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="MouseDown">
-                                                            <i:InvokeCommandAction 
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                        <Grid.Style>
+                                                            <Style TargetType="Grid">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="RenderTransform">
+                                                                            <Setter.Value>
+                                                                                <ScaleTransform/>
+                                                                            </Setter.Value>
+                                                                        </Setter>
+                                                                        <Trigger.EnterActions>
+                                                                            <BeginStoryboard>
+                                                                                <Storyboard>
+                                                                                    <DoubleAnimation Storyboard.TargetProperty="(Grid.RenderTransform).(ScaleTransform.ScaleX)" To="1.03" Duration="0:0:0.3"/>
+                                                                                    <DoubleAnimation Storyboard.TargetProperty="(Grid.RenderTransform).(ScaleTransform.ScaleY)" To="1.03" Duration="0:0:0.3"/>
+                                                                                </Storyboard>
+                                                                            </BeginStoryboard>
+                                                                        </Trigger.EnterActions>
+                                                                        <Trigger.ExitActions>
+                                                                            <BeginStoryboard>
+                                                                                <Storyboard>
+                                                                                    <DoubleAnimation Storyboard.TargetProperty="(Grid.RenderTransform).(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.3"/>
+                                                                                    <DoubleAnimation Storyboard.TargetProperty="(Grid.RenderTransform).(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.3"/>
+                                                                                </Storyboard>
+                                                                            </BeginStoryboard>
+                                                                        </Trigger.ExitActions>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+
+                                                            </Style>
+                                                        </Grid.Style>
+
+                                                        <!-- Poster Movie -->
+                                                        <Grid x:Name="gridImage">
+                                                            <Image x:Name="poster" Source="{Binding PosterUrl}" Stretch="UniformToFill">
+                                                                <i:Interaction.Triggers>
+                                                                    <i:EventTrigger EventName="MouseDown">
+                                                                        <i:InvokeCommandAction 
                                                                  Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}, 
                                                                  Path=DataContext.NavigateToMoviePage}" CommandParameter="{Binding MovieId}"/>
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
-                                                </Image>
-                                                                                                            
-                                                    <!--Movie Infomationr-->
-                                                <StackPanel Orientation="Vertical" Name="sp_MovieInfo"
-                                                         VerticalAlignment="Bottom">
-                                                    <StackPanel.Resources>
-                                                        <Style TargetType="StackPanel">
-                                                            <Setter Property="Visibility" Value="Hidden"/>
-                                                            <Style.Triggers>
-                                                                <DataTrigger Binding="{Binding Path=IsMouseOver,ElementName=gridImage}" Value="True">
-                                                                    <Setter Property="Visibility" Value="Visible"/>
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </StackPanel.Resources>
-                                                    <StackPanel.Background>
-                                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" Opacity="0.5">
-                                                                <GradientStop Color="Black" Offset="0"/>
-                                                                <GradientStop Color="#272d30" Offset="0.5"/>
-                                                                <GradientStop Color="#35383a" Offset="0.75"/>
-                                                                <GradientStop Color="#414142" Offset="1"/>
-                                                        </LinearGradientBrush>
-                                                    </StackPanel.Background>
+                                                                    </i:EventTrigger>
+                                                                </i:Interaction.Triggers>
+                                                            </Image>
 
-                                                    <Label Foreground="WhiteSmoke" Content="{Binding Title}" Margin="6,0,0,10" 
+                                                            <!--Movie Infomationr-->
+                                                            <StackPanel Orientation="Vertical" Name="sp_MovieInfo"
+                                                         VerticalAlignment="Bottom">
+                                                                <StackPanel.Resources>
+                                                                    <Style TargetType="StackPanel">
+                                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                                        <Style.Triggers>
+                                                                            <DataTrigger Binding="{Binding Path=IsMouseOver,ElementName=gridImage}" Value="True">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                            </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </StackPanel.Resources>
+                                                                <StackPanel.Background>
+                                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" Opacity="0.5">
+                                                                        <GradientStop Color="Black" Offset="0"/>
+                                                                        <GradientStop Color="#272d30" Offset="0.5"/>
+                                                                        <GradientStop Color="#35383a" Offset="0.75"/>
+                                                                        <GradientStop Color="#414142" Offset="1"/>
+                                                                    </LinearGradientBrush>
+                                                                </StackPanel.Background>
+
+                                                                <Label Foreground="WhiteSmoke" Content="{Binding Title}" Margin="6,0,0,10" 
                                                                FontSize="22" FontWeight="Bold" FontFamily="{StaticResource RobotoRegular}"></Label>
-                                                    
-                                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,10">
-                                                        <Border BorderBrush="DarkGray" BorderThickness="1" Width="30" HorizontalAlignment="Left">
-                                                            <TextBlock FontSize="14" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                                <TextBlock.Foreground>
-                                                                    <SolidColorBrush Color="WhiteSmoke"/>
-                                                                </TextBlock.Foreground>
-                                                                <TextBlock.Text>
-                                                                    <MultiBinding StringFormat="{}{0}+">
-                                                                        <Binding Path="Certification"/>
-                                                                    </MultiBinding>
-                                                                </TextBlock.Text>
-                                                            </TextBlock>
-                                                        </Border>
-                                                        <TextBlock Foreground="WhiteSmoke" Text="2 seasons" 
+
+                                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,10">
+                                                                    <Border BorderBrush="DarkGray" BorderThickness="1" Width="30" HorizontalAlignment="Left">
+                                                                        <TextBlock FontSize="14" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                                            <TextBlock.Foreground>
+                                                                                <SolidColorBrush Color="WhiteSmoke"/>
+                                                                            </TextBlock.Foreground>
+                                                                            <TextBlock.Text>
+                                                                                <MultiBinding StringFormat="{}{0}+">
+                                                                                    <Binding Path="Certification"/>
+                                                                                </MultiBinding>
+                                                                            </TextBlock.Text>
+                                                                        </TextBlock>
+                                                                    </Border>
+                                                                    <TextBlock Foreground="WhiteSmoke" Text="2 seasons" 
                                                                    Margin="4,0,0,0"
                                                                    FontSize="14" FontWeight="DemiBold"></TextBlock>
-                                                    </StackPanel>
+                                                                </StackPanel>
 
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Foreground="WhiteSmoke" Text="Comedy - Dramna" 
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <TextBlock Foreground="WhiteSmoke" Text="Comedy - Dramna" 
                                                                    FontSize="14" FontWeight="DemiBold"
                                                                    Margin="10,0,0,10"></TextBlock>
-                                                    </StackPanel>
-                                                </StackPanel>
-                                            </Grid>
-                                           
-                                            <!-- Trailer -->
-                                            <MediaElement Name="mediaElement" 
+                                                                </StackPanel>
+                                                            </StackPanel>
+                                                        </Grid>
+
+                                                        <!-- Trailer -->
+                                                        <MediaElement Name="mediaElement" 
                                                         Source="C:\Learning\School\CURRENT\Window\Project\NetFlix\NetFlix\Images\trailer-dune.mp4" 
                                                         Stretch="Fill" Visibility="Hidden" LoadedBehavior="Manual"
                                              >
-                                          
-                                            </MediaElement>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Canvas>
-                    </ScrollViewer>
 
-                    <Button Command="{Binding NextCommand}" CommandParameter="{Binding ElementName=ItemsControl}" Margin="0,0,0,0" Foreground="#fdfcf0"
+                                                        </MediaElement>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Canvas>
+                                </ScrollViewer>
+
+                                <Button Command="{Binding NextCommand}" CommandParameter="{Binding ElementName=ItemsControl}" Margin="0,0,0,100" Foreground="#fdfcf0"
                             FontSize="16" Background="#e71a0f" FontWeight="Bold" Content=">" Cursor="Hand">
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Width="40" Height="42" 
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Width="40" Height="42" 
                                         CornerRadius="50" 
                                         Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                    <!--End Carousel-->
+                                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                                <!--End Carousel-->
+                            </StackPanel>
+
+                            <Image Source="/Images/popup.jpg" Grid.Column="2"
+                               Width="200"
+                               Margin="60,0,0,0"
+                               />
+                        </Grid>
+                        <!--List View Movie Info-->
+                        <Label Content="Movie Selection" Foreground="WhiteSmoke" 
+                               FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Margin="0,20,0,20" FontWeight="DemiBold"
+                               Typography.CapitalSpacing="True"
+                               />
+                        <ListView x:Name="lvResults" Background="Transparent" BorderThickness="0" 
+                            HorizontalAlignment="Center"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                            Width="952"
+                            ItemsSource="{Binding AllMovies}">
+
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" Background="Transparent" HorizontalAlignment="Center"></WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical" Background="Transparent" Margin="0,0,0,0" HorizontalAlignment="Center"
+                               >
+                                        <Image Source="{Binding PosterVerticalUrl}" Width="280" Height="440" Stretch="UniformToFill" Margin="20,40,0,0" Cursor="Hand"
+                                       >
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseDown">
+                                                    <i:InvokeCommandAction 
+                                                        Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListView}}, 
+                                                        Path=DataContext.NavigateToMoviePage}" CommandParameter="{Binding MovieId}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Image>
+                                        <TextBlock Text="{Binding Title}" Foreground="White" Typography.Capitals="AllPetiteCaps"
+                                       HorizontalAlignment="Center" FontSize="20"
+                                       Margin="0,12,0,0"
+                                       />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                        <!--Footer-->
+                        <TextBlock Text="21127011 - Trinh Xuan Bach" FontSize="12" FontFamily="Montserrat" Foreground="White" HorizontalAlignment="Center"/>
+                        <TextBlock Text="21127617 - Pham Hoang Gia Huy" FontSize="12" FontFamily="Montserrat" Foreground="White" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                    </StackPanel>
                 </StackPanel>
-
-                <!--Card view here-->
-
-                <!--Footer-->
-                <!--<TextBlock Text="21127011 - Trinh Xuan Bach" FontSize="12" FontFamily="Montserrat" Foreground="White" HorizontalAlignment="Center"/>
-                <TextBlock Text="21127617 - Pham Hoang Gia Huy" FontSize="12" FontFamily="Montserrat" Foreground="White" HorizontalAlignment="Center" Margin="0,0,0,10"/>-->
-               
-            </StackPanel>
-        </Border>
-    </ScrollViewer>
-
-        
+            </Border>
+        </ScrollViewer >
+    </Grid>
 </UserControl>

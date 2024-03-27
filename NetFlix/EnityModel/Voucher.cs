@@ -21,5 +21,3 @@ public partial class Voucher
 
     public int? RemainingUsage { get; set; }
 }
-
-

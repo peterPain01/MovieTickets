@@ -7,9 +7,22 @@
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              mc:Ignorable="d" 
              >
-    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-        <fa:IconImage Icon="WindowMaximize" Style="{StaticResource WindowStyleButton}"/>
-        <fa:IconImage Icon="WindowMinimize" Style="{StaticResource WindowStyleButton}"/>
-        <fa:IconImage Icon="WindowClose" Style="{StaticResource WindowStyleButton}"/>
-    </StackPanel> 
+    <DockPanel Background="#202020">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+            <fa:IconImage Icon="Subtract"
+                          Width="16"
+                          Margin="0,0,20,0"
+                          Foreground="#c0c0c0"
+                          Style="{StaticResource WindowStyleButton}"
+                          Cursor="Hand"
+                          MouseDown="IconImage_MouseDown_1"
+                          />
+
+            <fa:IconImage Icon="X" Foreground="#c0c0c0" Style="{StaticResource WindowStyleButton}"
+                          Width="20" Height="20"
+                          Cursor="Hand"
+                          MouseDown="IconImage_MouseDown"
+                          />
+        </StackPanel>
+    </DockPanel> 
 </UserControl>

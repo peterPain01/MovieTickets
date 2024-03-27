@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace NetFlix.View
 {
-    /// <summary>
-    /// Interaction logic for UserProfile.xaml
-    /// </summary>
     public partial class UserProfile : UserControl
     {
         public UserProfile()

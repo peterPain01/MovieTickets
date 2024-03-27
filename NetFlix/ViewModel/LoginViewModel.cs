@@ -117,25 +117,28 @@ namespace NetFlix.ViewModel
             string valid_user = valid_Username(Username);
             string valid_password = valid_Password(Password);
             // Validation
-            //if (valid_user != "")
-            //{
-            //    _vm.ShowWarning(valid_user, new MessageOptions
-            //    {
-            //        FontSize = 14,
-            //        FreezeOnMouseEnter = true
-            //    });
-            //    return;
-            //};
+            if (valid_user != "")
+            {
+                //_vm.ShowWarning(valid_user, new MessageOptions
+                //{
+                //    FontSize = 14,
+                //    FreezeOnMouseEnter = true
+                //});
+                //ErrorMessage = valid_user; 
+            };
 
-            //if (valid_password != "")
-            //{
-            //    _vm.ShowWarning(valid_user, new MessageOptions
-            //    {
-            //        FontSize = 14,
-            //        FreezeOnMouseEnter = true
-            //    });
-            //    return;
-            //};
+            if (valid_password != "")
+            {
+                //_vm.ShowWarning(valid_user, new MessageOptions
+                //{
+                //    FontSize = 14,
+                //    FreezeOnMouseEnter = true
+                //});
+                //ErrorMessage = valid_password;
+                //return;
+            };
+
+            
 
             NetworkCredential credential = new NetworkCredential(Username, Password);
             var user = await userRepository.AuthenticatedUser(credential);
@@ -156,9 +159,9 @@ namespace NetFlix.ViewModel
             {
                 IsLoggingIn = false;
                 _vm.ShowError("* Invalid username or password");
-                //this.ErrorMessage = "* Invalid username or password"; 
+                this.ErrorMessage = "* Invalid username or password"; 
             }
-            Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+            Mouse.OverrideCursor = null;
         }
 
         private bool CanExecuteLoginCommand()
@@ -196,7 +199,7 @@ namespace NetFlix.ViewModel
         {
             if (password.Length < 6)
             {
-                return "Password mst have at least 6 characters";
+                return "Password must have at least 6 characters";
             }
             return "";
         }

@@ -15,14 +15,21 @@ using System.Windows.Shapes;
 
 namespace NetFlix.CustomControls
 {
-    /// <summary>
-    /// Interaction logic for WindowStyle.xaml
-    /// </summary>
     public partial class WindowStyle : UserControl
     {
         public WindowStyle()
         {
             InitializeComponent();
+        }
+
+        private void IconImage_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
+
+        private void IconImage_MouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Minimized; 
         }
     }
 }

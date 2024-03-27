@@ -17,9 +17,9 @@ public partial class User
 
     public DateTime? BirthDate { get; set; }
 
-    public string? Gender { get; set; }
-
     public int? IsAdmin { get; set; }
+
+    public string? Gender { get; set; }
 
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 }

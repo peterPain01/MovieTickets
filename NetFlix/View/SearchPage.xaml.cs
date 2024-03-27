@@ -96,5 +96,25 @@ namespace NetFlix.View
                 cbGenres.Items.Add(comboBoxItem);
             }
         }
+
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            PaginationPanel.Children.Clear(); 
+        }
+
+        private void cbGenres_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            PaginationPanel.Children.Clear();
+            initPageButton(); 
+        }
+
+        private void Header_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                PaginationPanel.Children.Clear();
+                initPageButton();
+            }
+        }
     }
 }

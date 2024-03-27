@@ -35,6 +35,7 @@
     <None Remove="Images\mv-endgame.jpg" />
     <None Remove="Images\mv-faf.jpg" />
     <None Remove="Images\mv-impossible.jpg" />
+    <None Remove="Images\mv-kong.jpg" />
     <None Remove="Images\mv-madamweb.jpg" />
     <None Remove="Images\mv-mai.jpg" />
     <None Remove="Images\mv-mario.jpg" />
@@ -50,6 +51,7 @@
     <None Remove="Images\mv-spy.jpg" />
     <None Remove="Images\mv-titanic.jpg" />
     <None Remove="Images\mv-transformer.jpg" />
+    <None Remove="Images\popup.jpg" />
     <None Remove="Images\search-icon-black.png" />
     <None Remove="Images\search-icon-white.png" />
     <None Remove="Images\search-icon.svg" />
@@ -62,6 +64,7 @@
     <None Remove="Images\slider-endgame.jpg" />
     <None Remove="Images\slider-faf.jpg" />
     <None Remove="Images\slider-impossible.jpg" />
+    <None Remove="Images\slider-kong.jpg" />
     <None Remove="Images\slider-kungfu.jpg" />
     <None Remove="Images\slider-Mai.jpg" />
     <None Remove="Images\slider-mario.jpg" />
@@ -74,13 +77,15 @@
     <None Remove="Images\slider-titanic.jpg" />
     <None Remove="Images\slider-transformer.jpg" />
     <None Remove="Images\star-icon.png" />
+    <None Remove="Images\star-murphy.jpg" />
     <None Remove="Images\trailer-dune.mp4" />
     <None Remove="Images\user-icon.png" />
     <None Remove="Images\voucher-icon.png" />
+    <None Remove="Images\younotalone.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\**">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

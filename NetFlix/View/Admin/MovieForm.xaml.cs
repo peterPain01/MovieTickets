@@ -74,10 +74,12 @@ namespace NetFlix.View.Admin
                 if (uploadButton.Name == "HorizontalUploadBtn")
                 {
                     HorizontalPreview.Source = bitmap;
+                    PosterUrlSrcHidden.Text = openFileDialog.FileName; 
                 }
                 else if (uploadButton.Name == "VerticalUploadBtn")
                 {
                     VerticalPreview.Source = bitmap;
+                    PosterVerticalUrlSrcHidden.Text = openFileDialog.FileName;
                 }
             }
         }
@@ -85,6 +87,11 @@ namespace NetFlix.View.Admin
         private void AdminForm_Unloaded(object sender, RoutedEventArgs e)
         {
             this.Close(); 
+        }
+
+        private void AdminForm_Loaded(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

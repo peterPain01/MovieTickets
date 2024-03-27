@@ -15,7 +15,6 @@
         Background="Transparent"
         xmlns:customControls="clr-namespace:NetFlix.CustomControls" 
         >
-
     <ContentControl Content="{Binding CurrentViewModel}">
         <ContentControl.Resources>
             <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
@@ -38,6 +37,16 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:UserViewModel}">
                 <view:UserProfile/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:NowShowing}">
+                <view:NowShowing/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:StarModel}">
+                <view:StarInfo/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:AdvanceSearch}">
+                <view:AdvanceSearch/>
             </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>

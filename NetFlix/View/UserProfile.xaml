@@ -5,50 +5,94 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:NetFlix.View"
              mc:Ignorable="d" 
+             xmlns:customcontrols="clr-namespace:NetFlix.CustomControls"
+             xmlns:helper="clr-namespace:NetFlix.Utils"
              d:DesignHeight="700" d:DesignWidth="900">
-    <Border CornerRadius="20">
-        <Border CornerRadius="14" 
-                BorderThickness="3"
-               >
-            <Border.Background>
-                <SolidColorBrush Color="WhiteSmoke"/>
-            </Border.Background>
-            <StackPanel Orientation="Vertical">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                    <Label Content="DASHBOARD" Foreground="Black" HorizontalAlignment="Center" FontSize="30"
-                           FontWeight="DemiBold" FontFamily="{StaticResource RobotoRegular}"/>
+
+    <UserControl.Resources>
+        <helper:NullOrEmptyConverter x:Key="NullOrEmptyConverter" />
+        <helper:ConvertListSeatToString x:Key="ConvertListSeatToString" />
+        <helper:FormatCurrentcy x:Key="FormatCurrentcy"/>
+        <helper:PriceDifferenceConverter x:Key="PriceDifferenceConverter" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <customcontrols:WindowStyle Background="#202020"/>
+        <ScrollViewer Background="WhiteSmoke" CanContentScroll="True" Grid.Row="1">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                
+               <customcontrols:Header Foreground="Black"/>
+                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" 
+                            Margin="0,30,0,10"
+                            >
+                    <Label Content="DASHBOARD" Foreground="Black" HorizontalAlignment="Center" FontSize="31"
+                           FontWeight="DemiBold" FontFamily="{StaticResource RobotoRegular}"
+                           Typography.CapitalSpacing="True"
+                           />
                 </StackPanel>
 
-                <Grid HorizontalAlignment="Center" Margin="0,40,0,0">
+                <Grid Margin="0,40,0,0"
+                  HorizontalAlignment="Center"
+                  >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
                     <Label Content="USER INFORMATION"
                                    FontSize="24" Foreground="#636363" FontWeight="DemiBold"
                                     Grid.Column="0"         
-                           VerticalAlignment="Center"
+                                    VerticalAlignment="Center"
                            />
-                    <WrapPanel Orientation="Vertical" Grid.Column="1" >
-                        <WrapPanel.Resources>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.Resources>
                             <Style TargetType="Label">
                                 <Setter Property="Foreground" Value="#222" />
                                 <Setter Property="FontWeight" Value="DemiBold" />
-                                <Setter Property="FontSize" Value="18" />
+                                <Setter Property="FontSize" Value="16" />
                                 <Setter Property="Margin" Value="20,0,0,0" />
                                 <Setter Property="VerticalAlignment" Value="Center" />
                             </Style>
-                        </WrapPanel.Resources>
-                        <Label Content="Username: sasasasasasasasassasasasasa"/>
-                        <Label Content="Password: ******" />
-                        <Label Content="Name: "/>
-                        <Label Content="Email: " />
-                        <Label Content="Date of Birth: " />
-                        <Label Content="Gender: " />
-                    </WrapPanel>
-                    <StackPanel Orientation="Vertical" Grid.Column="2" Margin="100,0,0,0">
+                        </Grid.Resources>
+                        <Label Content="Username" Grid.Row="0"/>
+                        <Label Content="Password" Grid.Row="1"/>
+                        <Label Content="Name" Grid.Row="2"/>
+                        <Label Content="Email" Grid.Row="3"/>
+                        <Label Content="Date of Birth" Grid.Row="4"/>
+                        <Label Content="Gender" Grid.Row="5"/>
+
+                        <!--value-->
+                        <Label
+                            Content="{Binding CurrentUser.Username, 
+                            Converter={StaticResource NullOrEmptyConverter}, ConverterParameter='Username not set'}" Grid.Row="0" Grid.Column="1"/>
+                        <Label Content="******"  Grid.Row="1" Grid.Column="1"></Label>
+                        <Label Content="{Binding CurrentUser.FullName, Converter={StaticResource NullOrEmptyConverter}, ConverterParameter='Not set'}" Grid.Row="2"  Grid.Column="1"/>
+                        <Label Content="{Binding CurrentUser.Email, Converter={StaticResource NullOrEmptyConverter}, ConverterParameter='Not set'}" Grid.Row="3"  Grid.Column="1"/>
+                        <Label Content="{Binding CurrentUser.BirthDate, Converter={StaticResource NullOrEmptyConverter}, ConverterParameter='Not set'}" Grid.Row="4"  Grid.Column="1"/>
+                        <Label Content="{Binding CurrentUser.Gender, Converter={StaticResource NullOrEmptyConverter}, ConverterParameter='Not set'}" Grid.Row="5"  Grid.Column="1"/>
+                    </Grid>
+
+                    <StackPanel Orientation="Vertical" Grid.Column="2" Margin="50,0,0,0" >
                         <StackPanel.Resources>
                             <Style TargetType="Label">
                                 <Setter Property="Foreground" Value="#FF77A2DD" />
@@ -57,45 +101,105 @@
                                 <Setter Property="Margin" Value="20,0,0,0" />
                             </Style>
                         </StackPanel.Resources>
-                        <Label Content=""></Label>
-                        <Label>Change password</Label>
-                        <Label>Change name</Label>
-                        <Label>Change email</Label>
-                        <Label>Change dob</Label>
-                        <Label>Change gender</Label>
-                    </StackPanel>
-                </Grid>
-                <Separator Margin="0,20,0,20"/>
-                <StackPanel Orientation="Vertical">
-                    <Label Content="History Booking" 
-                           Foreground="Black" FontSize="24" FontWeight="DemiBold"
-                           Margin="0,20,0,20"
-                           />
-                    <StackPanel Orientation="Horizontal"> 
-                        <Image Source="/Images/mv-panda.jpg" Height="200" Stretch="Uniform" StretchDirection="DownOnly" Width="136"/>
-                        <StackPanel>
-                            <Label FontWeight="DemiBold" FontSize="15">Movie Name</Label>
-                            <Label>Content</Label>
-                            <Label>Content</Label>
-                            <Label>Content</Label>
-                        </StackPanel>
+                        <Button Background="Transparent" Foreground="DeepSkyBlue" 
+                                HorizontalAlignment="Left"
+                                BorderBrush="Transparent"
+                                Content="Change Password"
+                                Command="{Binding DataContext.OpenChangePasswordFormCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}"
+                                FontWeight="DemiBold" FontSize="18" Margin="0,20,0,0"/>
+
+                        <Button Background="Transparent" Foreground="DeepSkyBlue" 
+                                BorderBrush="Transparent"
+                                HorizontalAlignment="Left"
+                                Content="Change Infomation"
+                                Cursor="Hand"
+                                Command="{Binding Path=OpenChangeInfoFormCommand}"
+                                FontWeight="DemiBold" FontSize="18" Margin="0,20,0,0"/>
                     </StackPanel>
 
-                    <Grid Background="#efebdb" Margin="0,20,0,0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="100"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Label Content="Original Price" Grid.Column="0" />
-                        <Label Content="Discount" Grid.Column="1"/>
-                        <Label Content="Total Price" Grid.Column="2"/>
-                    </Grid>
-                </StackPanel>
+
+                </Grid>
+                <Separator Margin="0,20,0,20"/>
+
+                <!--Booking Section-->
+                <Label Content="History Booking" 
+                           Foreground="Black" FontSize="24" FontWeight="DemiBold"
+                           HorizontalAlignment="Center"
+                           Margin="0,14,0,20"
+                           />
+                <Grid Width="867" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ItemsControl ItemsSource="{Binding AllBookings}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Expander Grid.Column="0"
+                            Name="ExpanderControl" Background="WhiteSmoke"   
+                            Foreground="DarkGray" FontWeight="DemiBold"
+                            Header="{Binding BookingId, StringFormat= BookingID: #{0} }"   
+                            ExpandDirection="Down" IsExpanded="False"
+                            FontSize="16"
+                            >
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="{Binding Showtime.Movie.PosterVerticalUrl}" Height="300" Width="200" Stretch="UniformToFill" StretchDirection="DownOnly" />
+                                            <StackPanel Margin="20,20,0,0">
+                                                <Label FontWeight="Bold" FontSize="18" Content="{Binding Showtime.Movie.Title}" Foreground="Black"
+                                              ></Label>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Label Content="Showtime:" FontSize="14" FontWeight="DemiBold" Foreground="#636363"></Label>
+                                                    <Label FontWeight="DemiBold" FontSize="14" Content="{Binding Path= Showtime.ShowtimeDatetime}" Foreground="Black"></Label>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Label Content="Duration:" FontSize="14" FontWeight="DemiBold" Foreground="#636363"></Label>
+                                                    <Label FontWeight="DemiBold" FontSize="14" Content="{Binding Path= Showtime.Movie.DurationMinutes}" Foreground="Black"></Label>
+                                                    <Label FontWeight="DemiBold" FontSize="14" Content="Minutes" Foreground="Black"></Label>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Label Content="Release:" FontSize="14" FontWeight="DemiBold" Foreground="#636363"></Label>
+                                                    <Label FontWeight="DemiBold" FontSize="14" Content="{Binding Path= Showtime.Movie.ReleaseDate}" Foreground="Black"></Label>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Label Content="Seats:" FontSize="14" FontWeight="DemiBold" Foreground="#636363"></Label>
+                                                    <Label FontWeight="DemiBold" FontSize="14" Content="{Binding Path= Seats, Converter={StaticResource ConvertListSeatToString}}" Foreground="Black"></Label>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Label Content="BookingTime:" FontSize="14" FontWeight="DemiBold" Foreground="#636363"></Label>
+                                                    <Label FontWeight="DemiBold" FontSize="14" Content="{Binding Path= Booking.BookingDatetime}" Foreground="Black"></Label>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <Separator Margin="0,4,0,0"/>
+
+                                        <Grid Background="#efebdb" Margin="0,20,0,0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="100"></RowDefinition>
+                                                <RowDefinition Height="100"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Content="Original Price" Grid.Column="0" />
+                                            <Label Content="Total Price" Grid.Column="1"/>
+
+                                            <Label Content="{Binding OriginalPrice, Converter={StaticResource FormatCurrentcy}}" Grid.Column="0" Grid.Row="1"
+                                               FontSize="20" FontWeight="Bold"
+                                               />
+                                            <Label Content="{Binding TotalPrice, Converter={StaticResource FormatCurrentcy}}" Grid.Column="1" Grid.Row="1"
+                                               FontSize="20" FontWeight="Bold"
+                                               />
+                                        </Grid>
+                                    </StackPanel>
+                                </Expander>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                </Grid>
             </StackPanel>
-        </Border>
-    </Border>
+        </ScrollViewer>
+    </Grid>
 </UserControl>        

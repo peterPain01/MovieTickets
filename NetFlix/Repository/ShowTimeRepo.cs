@@ -3,6 +3,7 @@ using NetFlix.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Windows;
 
@@ -47,7 +48,16 @@ namespace NetFlix.Repository
             {
                 try
                 {
-                    var showtimes = context.Showtimes.ToList();
+                    var showtimes = from showtime in context.Showtimes
+                                    join movie in context.Movies on showtime.MovieId equals movie.MovieId
+                                    select new Showtime
+                                    {
+                                        ShowtimeId = showtime.ShowtimeId,
+                                        MovieId = movie.MovieId,
+                                        ShowtimeDatetime = showtime.ShowtimeDatetime,
+                                        CinemaId = showtime.CinemaId,  
+                                        Movie = movie,
+                                    };
                     return new ObservableCollection<Showtime>(showtimes);
                 }
                 catch (Exception ex)
@@ -58,22 +68,35 @@ namespace NetFlix.Repository
             }
         }
 
-        public void InsertShowtime(Showtime showtime)
+        public Showtime InsertShowtime(Showtime newShowtime)
         {
             using (var context = new BookingMovieAppContext())
             {
                 try
                 {
-                    context.Showtimes.Add(showtime);
+                    context.Showtimes.Add(newShowtime);
                     context.SaveChanges();
+                    var showtime = (from st in context.Showtimes
+                                    join movie in context.Movies on st.MovieId equals movie.MovieId
+                                    where st.ShowtimeId == st.ShowtimeId
+                                    select new Showtime
+                                    {
+                                        ShowtimeId = st.ShowtimeId,
+                                        MovieId = movie.MovieId,
+                                        ShowtimeDatetime = st.ShowtimeDatetime,
+                                        CinemaId = st.CinemaId,
+                                        Movie = movie,
+                                    }).FirstOrDefault();
+                    return showtime;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("An error occurred while creating showtime: " + ex.Message);
+                    return null;
                 }
             }
-
         }
+
         public void DeleteShowtime(int id)
         {
             using (var context = new BookingMovieAppContext())
@@ -118,6 +141,23 @@ namespace NetFlix.Repository
 
         }
 
+        public ObservableCollection<Cinema> GetAllCinema()
+        {
+            try
+            {
+                using (var context = new BookingMovieAppContext())
+                {
+                    var cinema = context.Cinemas.ToList();
+                    return new ObservableCollection<Cinema>(cinema);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("An error occurred while get all Cinema: " + ex.Message);
+                return null; 
+            }
+        }
+       
         public ObservableCollection<Seat> GetSeatByShowtimeId(int showtimeId)
         {
             using (var context = new BookingMovieAppContext())

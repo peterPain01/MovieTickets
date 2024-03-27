@@ -35,5 +35,7 @@ public partial class Movie
 
     public virtual ICollection<Showtime> Showtimes { get; set; } = new List<Showtime>();
 
+    public virtual ICollection<Director> Directors { get; set; } = new List<Director>();
+
     public virtual ICollection<Star> Stars { get; set; } = new List<Star>();
 }

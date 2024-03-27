@@ -47,5 +47,25 @@ namespace NetFlix.CustomControls
         {
             ((HeaderViewModel)DataContext).NavigateToLanding.Execute(null);
         }
+
+        private void Account_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ((HeaderViewModel)DataContext).NavigateToUserProfile.Execute(null);
+        }
+
+        private void NowShowingClick(object sender, MouseButtonEventArgs e)
+        {
+            ((HeaderViewModel)DataContext).NavigateToNowShowing.Execute(null);
+        }
+
+        private void AdvanceSearch_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ((HeaderViewModel)DataContext).NavigateToAdvanceSearch.Execute(null);
+        }
+
+        private void Logout_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ((HeaderViewModel)DataContext).NavigateToLogin.Execute(null);
+        }
     }
 }

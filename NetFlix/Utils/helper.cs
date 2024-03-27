@@ -7,6 +7,7 @@ using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Xml.Linq;
 
 namespace NetFlix.Utils
@@ -43,27 +44,32 @@ namespace NetFlix.Utils
         {
             SHA256 hash = SHA256.Create();
             var passwordBytes = Encoding.Default.GetBytes(password);
-            var hashedPassword = hash.ComputeHash(passwordBytes); 
-        
+            var hashedPassword = hash.ComputeHash(passwordBytes);
+
             return Convert.ToHexString(hashedPassword);
         }
-        
+
         // 0 - Horizo 
         // 1 - vertical 
         public static string CreateImagePath(string sourcePath, int mode)
         {
             Random random = new Random();
-            string destinationFilePath = ""; 
-            if (mode  == 0)
+            string destinationFilePath = "";
+            string file_extension = random.NextDouble() + Path.GetExtension(sourcePath);
+            if (mode == 0)
             {
-                 destinationFilePath = @"C:\Learning\School\CURRENT\Window\Project\NetFlix\NetFlix\Images\slider-" + random.NextDouble() + Path.GetExtension(sourcePath);
+                destinationFilePath = @"C:\Learning\School\CURRENT\Window\Project\NetFlix\NetFlix\Images\slider-" + file_extension;
+                File.Copy(sourcePath, destinationFilePath);
+                return @"/Images/slider-" + file_extension; 
             }
-            if(mode == 1)
+            if (mode == 1)
             {
-                destinationFilePath = @"C:\Learning\School\CURRENT\Window\Project\NetFlix\NetFlix\Images\mv-" + random.NextDouble() + Path.GetExtension(sourcePath);
+                destinationFilePath = @"C:\Learning\School\CURRENT\Window\Project\NetFlix\NetFlix\Images\mv-" + file_extension;
+                File.Copy(sourcePath, destinationFilePath);
+                return @"/Images/mv-" + file_extension;
             }
-            File.Copy(sourcePath, destinationFilePath);
-            return destinationFilePath; 
+            string a = System.AppDomain.CurrentDomain.BaseDirectory; 
+            return "";
         }
     }
 }

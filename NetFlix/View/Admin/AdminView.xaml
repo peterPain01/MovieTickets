@@ -12,13 +12,18 @@
              d:DesignHeight="550" d:DesignWidth="1200"
              >
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <customcontrols:WindowStyle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
         <!--Left Menu-->
-        <Border CornerRadius="10 0 0 10">
+        <Border  Grid.Row="1">
             <Border.Background>
                 <SolidColorBrush Color="#1a2030"/>
             </Border.Background>
@@ -34,11 +39,11 @@
                             </LinearGradientBrush>
                         </Border.Background>
 
-                        <TextBlock Text="JP" Foreground="#ffffff" FontSize="22" FontWeight="SemiBold" TextAlignment="Center" VerticalAlignment="Center" Margin="3 0 0 2"/>
+                        <TextBlock Text="{Binding CurrentUser.Username}" Foreground="#ffffff" FontSize="22" FontWeight="SemiBold" TextAlignment="Center" VerticalAlignment="Center" Margin="3 0 0 2"/>
                     </Border>
 
                     <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
-                        <TextBlock Text="Jonathan Perman" FontSize="15" Margin="0 0 0 5" Foreground="#C2CFFF"/>
+                        <TextBlock Text="{Binding CurrentUser.Username}" FontSize="15" Margin="0 0 0 5" Foreground="#C2CFFF"/>
                         <TextBlock Text="Admistrator" Foreground="#7788bf" FontSize="11"/>
                     </StackPanel>
                 </StackPanel>
@@ -46,16 +51,21 @@
                 <Separator Height="0.8" Background="#46558a" Margin="20 30 20 30"/>
 
                 <!--Menu Buttons-->
-                <Button Style="{StaticResource menuButtonActive}" Command="{Binding NavigateToFeature}" CommandParameter="Dashboard">
+                <Button Command="{Binding NavigateToFeature}" Style="{StaticResource menuButtonActive}" 
+                        Click="menuBtnMovie_Click"
+                        x:Name="menuBtnDashboard" 
+                        CommandParameter="Dashboard">
                     <StackPanel Orientation="Horizontal">
                         <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
-                        <TextBlock Text="Dashboard" Style="{StaticResource menuButtonText}"> 
+                        <TextBlock Text="Dashboard" Style="{StaticResource menuButtonText}">
                         </TextBlock>
-
                     </StackPanel>
                 </Button>
 
-                <Button Style="{StaticResource menuButton}" Command="{Binding NavigateToFeature}" CommandParameter="Movie">
+                <Button Style="{StaticResource menuButton}" Command="{Binding NavigateToFeature}" CommandParameter="Movie"
+                        x:Name="menuBtnMovie"
+                        Click="menuBtnMovie_Click"
+                        >
                     <StackPanel Orientation="Horizontal">
                         <fa:IconImage Icon="Film" Style="{StaticResource menuButtonIcon}"/>
                         <TextBlock Text="Movie" Style="{StaticResource menuButtonText}">
@@ -63,28 +73,40 @@
                     </StackPanel>
                 </Button>
 
-                <Button Style="{StaticResource menuButton}">
+                <Button Style="{StaticResource menuButton}" Command="{Binding NavigateToFeature}" CommandParameter="MovieDetails"
+                        Click="menuBtnMovie_Click">
                     <StackPanel Orientation="Horizontal">
                         <fa:IconImage Icon="Book" Style="{StaticResource menuButtonIcon}"/>
                         <TextBlock Text="Movie Detail" Style="{StaticResource menuButtonText}"/>
                     </StackPanel>
                 </Button>
 
-                <Button Style="{StaticResource menuButton}" Command="{Binding NavigateToFeature}" CommandParameter="Showtime">
+                <Button Style="{StaticResource menuButton}" Command="{Binding NavigateToFeature}" CommandParameter="ManageStarDir"
+                        Click="menuBtnMovie_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:IconImage Icon="PeopleGroup" Style="{StaticResource menuButtonIcon}"/>
+                        <TextBlock Text="Manage Stars, Directors" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource menuButton}" Command="{Binding NavigateToFeature}" CommandParameter="Showtime"
+                        Click="menuBtnMovie_Click">
                     <StackPanel Orientation="Horizontal">
                         <fa:IconImage Icon="ClockFour" Style="{StaticResource menuButtonIcon}"/>
                         <TextBlock Text="Showtime" Style="{StaticResource menuButtonText}"/>
                     </StackPanel>
                 </Button>
 
-                <Button Style="{StaticResource menuButton}" Command="{Binding NavigateToFeature}" CommandParameter="Voucher">
+                <Button Style="{StaticResource menuButton}" Command="{Binding NavigateToFeature}" CommandParameter="Voucher"
+                        Click="menuBtnMovie_Click">
                     <StackPanel Orientation="Horizontal">
                         <fa:IconImage Icon="Ticket" Style="{StaticResource menuButtonIcon}"/>
                         <TextBlock Text="Voucher" Style="{StaticResource menuButtonText}"/>
                     </StackPanel>
                 </Button>
 
-                <Button Style="{StaticResource menuButton}" Command="{Binding NavigateToFeature}" CommandParameter="Statistic">
+                <Button Style="{StaticResource menuButton}" Command="{Binding NavigateToFeature}" CommandParameter="Statistic"
+                        Click="menuBtnMovie_Click">
                     <StackPanel Orientation="Horizontal">
                         <fa:IconImage Icon="ChartBar" Style="{StaticResource menuButtonIcon}"/>
                         <TextBlock Text="Statistic" Style="{StaticResource menuButtonText}"/>
@@ -95,7 +117,7 @@
 
 
         <!--Main Section-->
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1" Grid.Row="1">
             <ContentControl Content="{Binding CurrentMainSection}"/>
         </Grid>
     </Grid>

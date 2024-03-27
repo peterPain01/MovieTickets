@@ -47,8 +47,49 @@
                                 <Separator Grid.Row="1" Grid.ColumnSpan="2" Height="0.7" Margin="-20 20 -20 20" Background="#E1E6EB"/>
 
                                 <!--Inputs-->
-                                <customcontrols:MyTextBox Grid.Column="0" Grid.Row="2" Caption="Movie Id" Text="{Binding Path=CurrentShowtime.MovieId, Mode=TwoWay}"/>
-                                <customcontrols:MyTextBox Grid.Column="1" Grid.Row="2" Caption="Cinema Id"  Text="{Binding Path=CurrentShowtime.CinemaId, Mode=TwoWay}"/>
+                                <StackPanel Orientation="Vertical"  Grid.Column="0" Grid.Row="2">
+                                    <Label Content="Movie" FontWeight="DemiBold" 
+                                           Margin="20,0,0,0"
+                                           />
+                                    <ComboBox  Height="40" FontSize="14" VerticalContentAlignment="Center"
+                                          Width="326"
+                                          ItemsSource="{Binding AllMovies}"
+                                          SelectedValuePath="MovieId"
+                                          SelectedValue="{Binding CurrentShowtime.MovieId}"
+                                          >
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding MovieId}"/>
+                                                    <TextBlock Text="-"/>
+                                                    <TextBlock Text="{Binding Title}"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2">
+                                    <Label Content="Cinema" FontWeight="DemiBold" 
+                                           Margin="20,0,0,0"
+                                           />
+                                    <ComboBox  Height="40" FontSize="14" VerticalContentAlignment="Center"
+                                          Width="326"
+                                               ItemsSource="{Binding AllCinema}"
+                                          SelectedValuePath="CinemaId"
+                                          SelectedValue="{Binding CurrentShowtime.CinemaId}"
+                                            >
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding CinemaId}"/>
+                                                    <TextBlock Text="-"/>
+                                                    <TextBlock Text="{Binding Name}"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </StackPanel>
                                 <wpfToolkit:DateTimePicker  Grid.Column="0" Grid.Row="3" Width="220" Height="45" HorizontalAlignment="Left"
                                                             Margin="20,20,0,0"
                                                             Value="{Binding Path=CurrentShowtime.ShowtimeDatetime, Mode=TwoWay}"

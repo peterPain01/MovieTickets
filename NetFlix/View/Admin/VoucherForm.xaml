@@ -27,7 +27,7 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="auto"/>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
@@ -50,7 +50,20 @@
 
                                 <!--Inputs-->
                                 <customcontrols:MyTextBox Grid.Column="0" Grid.Row="2" Caption="Code" Text="{Binding Path=CurrentVoucher.VoucherCode, Mode=TwoWay}"/>
-                                <customcontrols:MyTextBox Grid.Column="1" Grid.Row="2" Caption="Type"  Text="{Binding Path=CurrentVoucher.VoucherType, Mode=TwoWay}"/>
+                                <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2"  VerticalAlignment="Center" 
+                                            HorizontalAlignment="Center"
+                                            >
+                                    <Label Content="Voucher Type" />
+                                    <ComboBox  Height="40" FontSize="14" VerticalContentAlignment="Center"
+                                          Width="326"
+                                          SelectedValuePath="Content"
+                                          SelectedValue="{Binding CurrentVoucher.VoucherType}"
+                                          >
+                                        <ComboBoxItem Content="Fixed Amount">
+                                        </ComboBoxItem>
+                                        <ComboBoxItem Content="Percentage"/>
+                                    </ComboBox>
+                                </StackPanel>
                                 <customcontrols:MyTextBox Grid.Column="0" Grid.Row="3" Caption="Discount Value" Text="{Binding Path=CurrentVoucher.DiscountValue, Mode=TwoWay}"/>
                                 <customcontrols:MyTextBox Grid.Column="1" Grid.Row="3" Caption="Usage Limit" Text="{Binding Path=CurrentVoucher.UsageLimit, Mode=TwoWay}"/>
                                 <StackPanel  Grid.Column="0" Grid.Row="5" Margin="20,0,0,0" VerticalAlignment="Center">

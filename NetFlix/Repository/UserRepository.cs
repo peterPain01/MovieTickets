@@ -7,13 +7,16 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
+using System.Security;
 using System.Threading.Tasks;
 
 namespace NetFlix.Repository
-{
+{   
+    // Need access token to Authorticate cause This Repo have some important function
     public class UserRepository : RepositoryBase, IUserRepository
     {
         public static User CurrentUser { get; set; }
+
         public bool isLoggedIn()
         {
             return CurrentUser != null;
@@ -68,9 +71,41 @@ namespace NetFlix.Repository
             }
         }
 
-        public void Remove(User userModel)
+        public void Remove(User user)
         {
             throw new NotImplementedException();
+        }
+    
+        public void UpdateUserInfo(User newUser)
+        {
+            using(var context = new BookingMovieAppContext())
+            {
+                var user = context.Users.FirstOrDefault(user => user.Id == newUser.Id);
+                if(user != null)
+                {
+                    user.Email = newUser.Email; 
+                    user.FullName = newUser.FullName;
+                    user.BirthDate = newUser.BirthDate;
+                    user.Gender = newUser.Gender;
+                    context.SaveChanges(); 
+                }
+
+            }
+        }
+       
+        public void UpdateUserPassword(int Id, SecureString Password)
+        {
+            using (var context = new BookingMovieAppContext())
+            {
+                var user = context.Users.FirstOrDefault(user => user.Id == Id);
+                if (user != null)
+                {
+                    var credential = new NetworkCredential(null, Password); 
+                    user.Password = helper.HassPassword(credential.Password);
+                    context.SaveChanges();
+                }
+
+            }
         }
     }
 }

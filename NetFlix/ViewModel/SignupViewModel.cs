@@ -99,10 +99,33 @@ namespace NetFlix.ViewModel
         }
         private void ExecuteSignupCommand(object obj)
         {
+
+            if(Username.Length < 6)
+            {
+                ErrorMessage = "Username must have at least 6 character";
+                return; 
+            }
+            if (Password.Length < 6)
+            {
+                ErrorMessage = "Password must have at least 6 character";
+                return;
+            }
             if (helper.CompareSecureStrings(Password, Confirm_password) == false)
             {
                 ErrorMessage = "Confirm password must be matched";
                 return;
+            }
+
+            if(Dob == null || Dob > DateTime.Today)
+            {
+                ErrorMessage = "Please give us your correct birthday";
+                return; 
+            }
+
+            if(Gender == null)
+            {
+                ErrorMessage = "Please give us your correct gender";
+                return; 
             }
 
             var unhashed  = new System.Net.NetworkCredential(string.Empty, Password).Password;
@@ -123,7 +146,7 @@ namespace NetFlix.ViewModel
                 }
                 else
                 {
-                    _vm.ShowSuccess("Account succesfully created");
+                    MessageBox.Show("Create Account Success","Information",  MessageBoxButton.OK, MessageBoxImage.Information); 
                 }
               
             }

@@ -1,0 +1,109 @@
+﻿<UserControl x:Class="NetFlix.View.NowShowing"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetFlix.View"
+             mc:Ignorable="d" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             d:DesignHeight="450" d:DesignWidth="800"
+             xmlns:customcontrols="clr-namespace:NetFlix.CustomControls"
+             Background="Transparent"
+             xmlns:viewModel="clr-namespace:NetFlix.ViewModel" xmlns:i1="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic"
+             >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <customcontrols:WindowStyle Background="#202020"/>
+        <ScrollViewer CanContentScroll="True" Grid.Row="1">
+            <ScrollViewer.Style>
+                <Style TargetType="ScrollViewer">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ScrollViewer">
+                                <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                                    <ScrollContentPresenter/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ScrollViewer.Style>
+            <Border>
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                        <GradientStop Color="#434343" Offset="0"/>
+                        <GradientStop Color="#5A5C6A" Offset="0.25"/>
+                        <GradientStop Color="#202D3A" Offset="0.5"/>
+                        <GradientStop Color="#FF050312" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <StackPanel Orientation="Vertical" CanVerticallyScroll="True" HorizontalAlignment="Center">
+                    <!--btnClose_Click-->
+                    <!--Header-->
+                    <customcontrols:Header Margin="20,0,20,0" Foreground="#fdfcf0"/>
+
+                    <TextBlock Text="Movie Hot Trending" FontSize="32px" Foreground="#fdfcf0" 
+                           FontWeight="DemiBold"
+                            Typography.CapitalSpacing="True"
+                           HorizontalAlignment="Center" Margin="0,20,0,20"/>
+                    <StackPanel Orientation="Vertical">
+                        <ListView x:Name="lvResults" Background="Transparent" BorderThickness="0" 
+                                  ScrollViewer.CanContentScroll="True"
+                            HorizontalAlignment="Center"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                            Width="1000"
+                            ItemsSource="{Binding AllMovies}">
+
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" Background="Transparent" HorizontalAlignment="Center"></WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical" Background="Transparent" Margin="0,0,0,50" HorizontalAlignment="Center"
+                               >
+                                        <Border  BorderThickness="5" BorderBrush="Black"  Width="280" Height="440"  
+                                                  VerticalAlignment="Top"
+                                                  HorizontalAlignment="Left"
+                                                  Margin="20,0,20,0">
+                                            <Image Source="{Binding PosterVerticalUrl}" Stretch="UniformToFill"  Cursor="Hand"
+                                                   VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                       >
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseDown">
+                                                        <i:InvokeCommandAction 
+                                                        Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListView}}, 
+                                                        Path=DataContext.NavigateToMoviePage}" CommandParameter="{Binding MovieId}"/>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </Image>
+                                        </Border>
+                                        <TextBlock Text="{Binding Title}" Foreground="White" Typography.Capitals="AllPetiteCaps"
+                                       HorizontalAlignment="Center" FontSize="21"
+                                        FontWeight="DemiBold" Typography.CapitalSpacing="True"
+                                       Margin="0,12,0,0"
+                                       />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                        <!--Footer-->
+                        <TextBlock Text="21127011 - Trinh Xuan Bach" FontSize="12" FontFamily="Montserrat" Foreground="White" HorizontalAlignment="Center"/>
+                        <TextBlock Text="21127617 - Pham Hoang Gia Huy" FontSize="12" FontFamily="Montserrat" Foreground="White" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </ScrollViewer >
+    </Grid>
+
+
+</UserControl>

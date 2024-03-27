@@ -1,0 +1,140 @@
+﻿<UserControl x:Class="NetFlix.View.Admin.ManageStarDir"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetFlix.View.Admin"
+             mc:Ignorable="d" 
+             xmlns:customControls="clr-namespace:NetFlix.CustomControls"
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Border>
+        <Border.Background>
+            <SolidColorBrush Color="#f6f7fb"/>
+        </Border.Background>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock FontSize="24" Foreground="Black" Margin="50 35 0 20" Text="All Stars and Directors" 
+                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+
+            <StackPanel Orientation="Vertical" Grid.Row="1" >
+                <Label Content="Stars" Margin="40,0,0,0" FontWeight="DemiBold" FontSize="16"/>
+                <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" RowHeaderStyle="{DynamicResource DataGridRowHeaderStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"  
+                      ItemsSource="{Binding AllStars, UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True}" AutoGenerateColumns="False"  
+                      Margin="50,0,40,0" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding StarId}" Width="*" MinWidth="80"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" MinWidth="120"/>
+                        <DataGridTemplateColumn  Header="Operations" Width="*" MinWidth="60">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <!--Edit Movie Button-->
+                                        <Button Style="{StaticResource gridEditButton}"
+                                                Command="{Binding DataContext.OpenEditStarForm, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}"
+                                                >
+                                            <fa:IconImage Icon="Pencil" Style="{StaticResource gridButtonIcon}"/>
+                                        </Button>
+
+                                        <!--Remove Movie Button-->
+                                        <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}" Command="{Binding DataContext.RemoveStarCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                            CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}"
+                                                >
+                                            <fa:IconImage Icon="Trash" Style="{StaticResource gridButtonIcon}"/>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <!--Add Movie Button-->
+                <Button Content="Add New Star" Command="{Binding OpenAddBrandNewStarForm}" HorizontalAlignment="Center"
+                        Margin="0,30,0,0"
+                        Foreground="White"
+                        Background="#5B60C4"
+                        FontSize="16"
+                        FontFamily="Montserrat"
+                        Cursor="Hand"
+                        Width="160"
+                        Height="40"
+                        >
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border 
+                                    CornerRadius="4" 
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Grid.Row="2">
+                <!--Data Grid Movie-->
+                <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" RowHeaderStyle="{DynamicResource DataGridRowHeaderStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"  
+                      Grid.Row="2" ItemsSource="{Binding AllDirectors}" AutoGenerateColumns="False"  
+                      Margin="50,0,40,0" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding DirectorId}" Width="*" MinWidth="80"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" MinWidth="120"/>
+                        <DataGridTemplateColumn  Header="Operations" Width="*" MinWidth="60">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <!--Edit Movie Button-->
+                                        <Button Style="{StaticResource gridEditButton}"
+                                                Command="{Binding DataContext.OpenEditMovieForm, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}"
+                                                >
+                                            <fa:IconImage Icon="Pencil" Style="{StaticResource gridButtonIcon}"/>
+                                        </Button>
+                                        <!--Remove Movie Button-->
+                                        <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}" Command="{Binding DataContext.RemoveDirectorCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                            CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}"
+                                                >
+                                            <fa:IconImage Icon="Trash" Style="{StaticResource gridButtonIcon}"/>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!--Add Director Button-->
+                <Button Content="Add New Director" Command="{Binding OpenAddDirectorForm}" HorizontalAlignment="Center"
+                        
+                        Margin="0,30,0,0"
+                        Foreground="White"
+                        Background="#5B60C4"
+                        FontSize="16"
+                        FontFamily="Montserrat"
+                        Cursor="Hand"
+                        Width="160"
+                        Height="40"
+                        >
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border 
+                                    CornerRadius="4" 
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Border>
+
+</UserControl>

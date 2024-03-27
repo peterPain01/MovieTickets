@@ -56,9 +56,62 @@
             </Style>
 
             <BooleanToVisibilityConverter x:Key="bool2VisibilityConverter"/>
-            
+
             <SolidColorBrush x:Key="{x:Static DataGrid.FocusBorderBrushKey}" Color="#FF000000"/>
+
             
+            <!--Data Grid Cell-->
+            <Style x:Key="GridViewCell" TargetType="DataGridCell">
+                <Setter Property="Foreground" Value="WhiteSmoke"/>
+            </Style>
+            
+            <!--Search Box-->
+            <Style x:Key="SearchBox" TargetType="TextBox">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontWeight" Value="Medium"/>
+                <Setter Property="FontFamily" Value="Montserrat"/>
+                <Setter Property="Height" Value="28"/>
+                <Setter Property="Margin" Value="300,5,0,0"/>
+                <Setter Property="Padding" Value="40,0,0,0"/>
+                <Setter Property="CaretBrush" Value="#fdfcf0"/>
+                <Setter Property="BorderBrush" Value="DarkGray"/>
+                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                <Setter Property="Width" Value="200"/>
+                <Setter Property="Foreground" Value="#fdfcf0"/>
+            </Style>
+            
+            <!--Paging-->
+            <Style x:Key="paginateButtonIcon" TargetType="fa:IconImage">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Width" Value="10" />
+                <Setter Property="Height" Value="10" />
+            </Style>
+
+            <Style x:Key="paginateButton" TargetType="Button">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Foreground" Value="#6C7682" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="Margin" Value="1 0" />
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Template" >
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="5" Padding="10 5">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 1"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#3675ef" />
+                        <Setter Property="Foreground" Value="#ffffff" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
             <!--Edit Button-->
             <Style x:Key="gridEditButton" TargetType="Button">
                 <Setter Property="Background" Value="#3675ef" />
@@ -92,7 +145,7 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
-            
+
             <!--Upload Image Button-->
             <Style x:Key="uploadImage" TargetType="Button">
                 <Setter Property="Background" Value="#1c8bf7" />
@@ -118,34 +171,34 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
-            
-            
+
+
             <!-- Add Movie Button-->
             <Style x:Key="addMovieButton" TargetType="Button">
-            <Setter Property="Background" Value="#4880FF" />
-            <Setter Property="Foreground" Value="#ffffff" />
-            <Setter Property="FontSize" Value="16" />
-            <Setter Property="FontWeight" Value="Light" />
-            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-            <Setter Property="Width" Value="180" />
-            <Setter Property="Height" Value="40" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="7">
-                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 1"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
+                <Setter Property="Background" Value="#4880FF" />
+                <Setter Property="Foreground" Value="#ffffff" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontWeight" Value="Light" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="Width" Value="180" />
+                <Setter Property="Height" Value="40" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="7">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 1"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
 
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#3b6bd9" />
-                </Trigger>
-            </Style.Triggers>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#3b6bd9" />
+                    </Trigger>
+                </Style.Triggers>
             </Style>
-            
+
             <!--Cancel Add Movie Button-->
             <Style x:Key="cancelAddMovieButton" TargetType="Button" BasedOn="{StaticResource addMovieButton}">
                 <Setter Property="Background" Value="Transparent" />
@@ -169,7 +222,7 @@
             </Style>
 
             <!--region Data Grid-->
-            
+
             <Style x:Key="{ComponentResourceKey ResourceId=DataGridSelectAllButtonStyle, TypeInTargetAssembly={x:Type DataGrid}}" TargetType="{x:Type Button}">
                 <Setter Property="Template">
                     <Setter.Value>
@@ -363,7 +416,7 @@
                 <Setter Property="Cursor" Value="SizeWE"/>
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
-        
+
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Thumb}">
@@ -393,7 +446,7 @@
                 </Setter>
             </Style>
             <!--end Data Grid style-->
-            
+
             <Style x:Key="menuButtonActive" TargetType="Button">
                 <Setter Property="Background" >
                     <Setter.Value>
@@ -405,6 +458,7 @@
                 </Setter>
                 <Setter Property="Foreground" Value="White" />
                 <Setter Property="Tag" Value="White" />
+                <Setter Property="Cursor" Value="Hand" />
                 <Setter Property="Margin" Value="0 0 0 5" />
                 <Setter Property="Height" Value="45" />
                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -431,6 +485,11 @@
                 <Setter Property="Width" Value="23" />
                 <Setter Property="Height" Value="23" />
                 <Setter Property="Margin" Value="10 0 10 0" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Foreground" Value="Black" />
+                    </Trigger>
+                </Style.Triggers>
             </Style>
 
             <Style x:Key="menuButtonText" TargetType="TextBlock">

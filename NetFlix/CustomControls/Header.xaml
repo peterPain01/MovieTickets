@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:NetFlix.CustomControls"
              mc:Ignorable="d" 
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
              >
     <DockPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
@@ -15,34 +16,43 @@
                />
 
             <!-- Navigation Links -->
-            <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Movie" Background="Transparent" VerticalAlignment="Center" Cursor="Hand" 
+            <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Text="Movie" Background="Transparent" VerticalAlignment="Center" Cursor="Hand" 
           MouseDown="TextBlock_MouseDown"
          />
-            <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Now Showing" Background="Transparent" VerticalAlignment="Center" Cursor="Hand"/>
-            <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Account" Background="Transparent" VerticalAlignment="Center" Cursor="Hand" />
-            <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Foreground="#fdfcf0" Text="Voucher" Background="Transparent" VerticalAlignment="Center" Cursor="Hand"/>
+            <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Text="Now Showing" Background="Transparent" 
+                       MouseDown="NowShowingClick"
+                       VerticalAlignment="Center" Cursor="Hand"/>
+            <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Text="Account" Background="Transparent" 
+                       MouseDown="Account_MouseDown"
+                       VerticalAlignment="Center" Cursor="Hand" />
+            <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Text="Advance Search" Background="Transparent" VerticalAlignment="Center"
+                       MouseDown="AdvanceSearch_MouseDown"
+                       Cursor="Hand" Name="TextBlockName"/>
+            <TextBlock FontSize="14px" Margin="10" FontWeight="Bold" Text="Log out" Background="Transparent" VerticalAlignment="Center"
+                       MouseDown="Logout_MouseDown"
+                       Cursor="Hand" />
         </StackPanel>
         <!-- Search Bar -->
-        <TextBox x:Name="txtMovieName" 
-                        DockPanel.Dock="Right"
+        <StackPanel Orientation="Horizontal"  DockPanel.Dock="Right">
+            <TextBox x:Name="txtMovieName" 
                         FontSize="14"
                         FontWeight="Medium"
                         FontFamily="Montserrat" 
-                        Foreground="#fdfcf0" 
                         Height="28"
                         Margin="300,5,0,0"
                         Padding="40,0,0,0"
-                        CaretBrush="#fdfcf0"
+                        CaretBrush="{Binding ElementName=TextBlockName, Path=Foreground}"
                         BorderBrush="DarkGray"
                         BorderThickness="0,0,0,1"
                         Width="200px"
                         KeyDown="txtMovieName_KeyDown"
-                 >
-            <TextBox.Background>
-                <ImageBrush ImageSource="/Netflix;component/Images/search-icon-white.png" Stretch="None"
+                        Foreground="{Binding ElementName=TextBlockName, Path=Foreground}">
+                <TextBox.Background>
+                    <ImageBrush ImageSource="/Netflix;component/Images/search-icon-white.png" Stretch="None"
                     AlignmentX="Left" AlignmentY="Top"
                     />
-            </TextBox.Background>
-        </TextBox>
+                </TextBox.Background>
+            </TextBox>
+        </StackPanel>
     </DockPanel>
 </UserControl>

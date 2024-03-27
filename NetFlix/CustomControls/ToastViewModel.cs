@@ -64,7 +64,7 @@ namespace NetFlix.CustomControls
                 UnfreezeOnMouseLeave = true,
             }; 
             _notifier.ShowSuccess(message, opts);
-            Task.Delay(3000).ContinueWith((task) =>
+            Task.Delay(1000).ContinueWith((task) =>
             {
                 OnUnloaded();
             }, TaskScheduler.FromCurrentSynchronizationContext());

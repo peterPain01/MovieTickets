@@ -2,6 +2,7 @@
 using NetFlix.Repository;
 using System;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -37,6 +38,7 @@ namespace Netflix.Repository
 
             }
         }
+
 
         public ObservableCollection<Movie> GetTrendingMovie()
         {
@@ -153,6 +155,14 @@ namespace Netflix.Repository
             return total;
         }
 
+        public ObservableCollection<Movie> GetMovieforAdvanceSearch(string pattern)
+        {
+            using(var context = new BookingMovieAppContext())
+            {
+                var movies = context.Movies.Where(mv => mv.Title.Contains(pattern)).ToList();  
+                return new ObservableCollection<Movie>(movies); 
+            }
+        }
         public (ObservableCollection<Movie>, int) GetMovieByName(string title, int page = 1, string filter = "", string sort = "", string sort_type = "")
         {
             ObservableCollection<Movie> movies = new ObservableCollection<Movie>();
@@ -210,7 +220,12 @@ namespace Netflix.Repository
         {
             using (var context = new BookingMovieAppContext())
             {
-                Movie mv = context.Movies.FirstOrDefault(mv => mv.MovieId == id);
+                var stars = context.Stars.Where(s => s.Movies.Any(m => m.MovieId == id)).ToList();
+                var mv = context.Movies.Where(mv => mv.MovieId == id)
+                            .Include("Stars") // Why include not work 
+                            .FirstOrDefault();
+                if(stars != null && mv != null)
+                    mv.Stars = stars; 
                 return mv;
             }
         }
@@ -240,12 +255,16 @@ namespace Netflix.Repository
             }
         }
 
-        public void DeleteMovie(Movie movie)
+        public void DeleteMovie(Movie movieDelete)
         {
             using(var context = new BookingMovieAppContext())
             {
-                context.Remove(movie);
-                context.SaveChanges();
+                var movie = context.Movies.FirstOrDefault(mv => mv.MovieId == movieDelete.MovieId); 
+                if(movie != null)
+                {
+                    context.Remove(movie);
+                    context.SaveChanges();
+                }
             }
         }
 

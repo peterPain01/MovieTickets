@@ -20,6 +20,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="200"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
             <StackPanel x:Name="SpnTopMenu" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 30 20">
@@ -56,7 +57,7 @@
             </Grid>
 
             <!--Top Movie Trending-->
-            <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" RowHeaderStyle="{DynamicResource DataGridRowHeaderStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"  
+            <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource              DataGridCellStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" RowHeaderStyle="{DynamicResource DataGridRowHeaderStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"  
                       Grid.Row="2" ItemsSource="{Binding TrendingMovies}" AutoGenerateColumns="False"  
                       Margin="50,0,40,0" >
                 <DataGrid.Columns>
@@ -83,6 +84,10 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
+
+            <customcontrols:PaginateControl Grid.Row="3" HorizontalAlignment="Right"/>
         </Grid>
+        
+        
     </Border>
 </UserControl>

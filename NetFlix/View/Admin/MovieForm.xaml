@@ -10,6 +10,7 @@
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
         WindowStartupLocation="CenterScreen"
         Title="AddMovieForm" Width="631"
+        Loaded="AdminForm_Loaded"
         Unloaded="AdminForm_Unloaded"
         >
     <Border CornerRadius="5" Background="#ffffff" MouseDown="Grid_MouseDown" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
@@ -88,6 +89,11 @@
                                             <Label Content="Upload Image Vertical" Foreground="White"/>
                                         </StackPanel>
                                     </Button>
+
+                                    <TextBlock Text="{Binding CurrentMovie.PosterVerticalUrl, Mode=TwoWay}"
+                                               Visibility="Visible"
+                                               x:Name="PosterVerticalUrlSrcHidden"
+                                               />
                                     <Image x:Name="VerticalPreview" Stretch="Uniform" Source="{Binding CurrentMovie.PosterVerticalUrl}"/>
                                 </StackPanel>
 
@@ -100,7 +106,8 @@
                                             <Label Content="Upload Image Horizontal" Foreground="White"/>
                                         </StackPanel>
                                     </Button>
-                                    <Image x:Name="HorizontalPreview" Stretch="Uniform" Source="{Binding Path=CurrentMovie.PosterUrl}"/>
+                                    <TextBlock x:Name="PosterUrlSrcHidden" Text="{Binding CurrentMovie.PosteUrl, Mode=TwoWay}"/>
+                                    <Image x:Name="HorizontalPreview" Stretch="Uniform" Source="{Binding CurrentMovie.PosterUrl}"/>
                                 </StackPanel>
 
                                 <!--Form Bottom Background-->

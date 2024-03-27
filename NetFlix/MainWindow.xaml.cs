@@ -29,5 +29,8 @@ namespace NetFlix
                 DragMove();
             }
         }
+        private static void MinimizeWindow()
+        {
+        }
     }
 }

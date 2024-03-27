@@ -6,8 +6,9 @@
              xmlns:local="clr-namespace:NetFlix.View.Admin"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
              mc:Ignorable="d" 
+             xmlns:helpers="clr-namespace:NetFlix.Utils"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-             d:DesignHeight="450" d:DesignWidth="800">
+            d:DesignWidth="800">
     <Border CornerRadius="0 10 10 0" >
         <Border.Background>
             <SolidColorBrush Color="#f6f7fb"/>
@@ -17,17 +18,149 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-                <TextBlock FontSize="26" Foreground="Black" Margin="50 35 0 20" Text="Statistic" HorizontalAlignment="Left"/>
+            <TextBlock FontSize="26" Foreground="Black" Margin="50 35 0 20" Text="Statistic" HorizontalAlignment="Left"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Label Content="Revenue from" FontSize="14" FontWeight="DemiBold"/>
+                <ComboBox Width="80" Height="30"
+                          Margin="0,0,20,0"
+                          VerticalAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          FontSize="14"
+                          x:Name="cbRevenue"
+                          FontFamily="Roboto"
+                          SelectedValuePath="Content"
+                          SelectedValue="{Binding SelectedRevenueMode, Mode=TwoWay}"
+                          >
+                    <ComboBoxItem Content="All"></ComboBoxItem>
+                    <ComboBoxItem Content="Movie"></ComboBoxItem>
+                    <ComboBoxItem Content="Showtime" ></ComboBoxItem>
+                    <ComboBox.Resources>
+                        <Style TargetType="ComboBoxItem">
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="Padding" Value="6"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        </Style>
+                    </ComboBox.Resources>
+                </ComboBox>
 
-            <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Right" Grid.Row="1" Height="400">
+                <!--Movie-->
+                <ComboBox Width="160" Height="30"
+                          x:Name="cbRevenueMovie"
+                          Margin="0,0,20,0"
+                          VerticalAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          FontSize="14"
+                          FontFamily="Roboto"
+                          SelectedValuePath="MovieId"
+                          SelectedValue="{Binding SelectedRevenueMovie, Mode=TwoWay}"
+                          ItemsSource="{Binding Path=AllMovies}"
+                          >
+                    <ComboBox.Resources>
+                        <Style TargetType="ComboBoxItem">
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="Padding" Value="6"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        </Style>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=SelectedRevenueMode}" Value="Movie">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ComboBox.Resources>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Path=MovieId, StringFormat={}{0}}"/>
+                                <TextBlock Text=" - "/>
+                                <TextBlock Text="{Binding Path=Title}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <ComboBox Width="160" Height="30"
+                          x:Name="cbRevenueShowtime"
+                          Margin="0,0,20,0"
+                          VerticalAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          FontSize="14"
+                          FontFamily="Roboto"
+                          ItemsSource="{Binding AllShowtime}"
+                          SelectedValuePath="ShowtimeId"
+                          SelectedValue="{Binding SelectedRevenueShowtime, Mode=TwoWay}"
+                          >
+                    <ComboBox.Resources>
+                        <Style TargetType="ComboBoxItem">
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="Padding" Value="6"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        </Style>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=SelectedRevenueMode}" Value="Showtime">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ComboBox.Resources>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Path=ShowtimeDatetime}"/>
+                                <TextBlock Text=" - "/>
+                                <TextBlock Text="{Binding Path= Movie.Title}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+
+            <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Right" Grid.Row="1" Height="440">
                 <lvc:CartesianChart.AxisX>
                     <lvc:Axis Title="Booking Date" LabelFormatter="{Binding DateFormatter}"/>
                 </lvc:CartesianChart.AxisX>
                 <lvc:CartesianChart.AxisY>
                     <lvc:Axis Title="Total Price" LabelFormatter="{Binding ValueFormatter}"/>
                 </lvc:CartesianChart.AxisY>
-            </lvc:CartesianChart> 
+            </lvc:CartesianChart>
+
+            <StackPanel Orientation="Vertical" Grid.Row="2" Margin="0,20,0,0">
+                <!--Data Grid Movie-->
+                <ScrollViewer MaxHeight="500">
+                    <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" RowHeaderStyle="{DynamicResource DataGridRowHeaderStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"  
+                      Grid.Row="2" ItemsSource="{Binding AllBookings}" AutoGenerateColumns="False"  
+                      Margin="50,0,40,0" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding BookingId}" Width="*" MinWidth="80"/>
+                            <DataGridTextColumn Header="User Id" Binding="{Binding UserId}" Width="*" MinWidth="120"/>
+                            <DataGridTextColumn Header="Showtime Id" Binding="{Binding ShowtimeId}" Width="*" MinWidth="100"/>
+                            <DataGridTextColumn Header="Time" Binding="{Binding BookingDatetime}" MinWidth="60" Width="*"/>
+                            <DataGridTextColumn Header="Original Price" Binding="{Binding OriginalPrice}" MinWidth="60" Width="*"/>
+                            <DataGridTextColumn Header="Total Price" Binding="{Binding TotalPrice}" MinWidth="60" Width="*"/>
+                            <DataGridTemplateColumn  Header="Operations" Width="*" MinWidth="60">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <!--Remove Movie Button-->
+                                            <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}" Command="{Binding DataContext.DeleteShowtimeCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                            CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}"
+                                                >
+                                                <fa:IconImage Icon="Trash" Style="{StaticResource gridButtonIcon}"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+            </StackPanel>
         </Grid>
     </Border>
 </UserControl>

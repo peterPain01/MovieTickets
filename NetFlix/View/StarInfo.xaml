@@ -1,0 +1,87 @@
+﻿<UserControl x:Class="NetFlix.View.StarInfo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetFlix.View"
+             xmlns:customcontrols="clr-namespace:NetFlix.CustomControls" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+            mc:Ignorable="d"
+                xmlns:helper="clr-namespace:NetFlix.Utils">
+    <Border>
+        <Border 
+                BorderThickness="3"
+               >
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#FF504F54" Offset="0"/>
+                    <GradientStop Color="#FF170813" Offset="0.75"/>
+                    <GradientStop Color="#FF16031F" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+
+            <Border.Background >
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0" >
+                    <GradientStop Color="#FF1D1D22" Offset="0"/>
+                    <GradientStop Color="#FF20202E" Offset="0.5"/>
+                    <GradientStop Color="#FF100D1F" Offset="0.75"/>
+                    <GradientStop Color="#FF050312" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <customcontrols:WindowStyle Background="#FF504F54"/>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="1">
+                    <customcontrols:Header Margin="20,0,20,0" Grid.Column="1" Foreground="#fdfcf0"/>
+                    <Border CornerRadius="9" HorizontalAlignment="Left"
+                            BorderBrush="WhiteSmoke"  Margin="20,20,0,0"
+                            BorderThickness="2">
+                        <Button Content="Back to Movie"
+                            Background="Transparent" Foreground="WhiteSmoke"
+                            Command="{Binding BackToPrev}"
+                            Padding="10"
+                            BorderBrush="Transparent"
+                            >
+                        </Button>
+                    </Border>
+                    <Grid Margin="0,30,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--Poster-->
+                        <Image Source="/Images/star-murphy.jpg" Grid.Column="0" 
+                            Height="308"
+                            Width="280"
+                                   Margin="60,20,60,0"
+                            Stretch="Uniform" StretchDirection="DownOnly"
+                            VerticalAlignment="Center"
+                           />
+                        <StackPanel Orientation="Vertical" Grid.Column="1"
+                                VerticalAlignment="Top" Height="247" Margin="0,81,0,0">
+                            <!--Title-->
+                            <TextBlock Text="{Binding CurrentStar.Name}" FontSize="24" FontFamily="Montserrat" 
+                                   Foreground="#fdfcf0" HorizontalAlignment="Center" 
+                                   Margin="0,0,0,20"
+                                  />
+                            <Label Content="Main Role: Stars" Foreground="White" FontSize="14"/>
+                            <TextBlock Text="Cillian Murphy (/ˈkɪliən/ KILL-ee-ən;[1] born 25 May 1976) is an Irish actor. He made his professional debut in Enda Walsh's 1996 play Disco Pigs, a role he later reprised in the 2001 screen adaptation. His early film credits include the horror film 28 Days Later (2002), the dark comedy Intermission (2003), the thriller Red Eye (2005), the Irish war drama The Wind That Shakes the Barley (2006), and the science fiction thriller Sunshine (2007). He played a transgender Irish woman in the comedy-drama Breakfast on Pluto (2005), which earned him a Golden Globe Award nomination." Foreground="White"
+                                       TextWrapping="WrapWithOverflow"
+                                       Width="400"
+                                       LineHeight="22"
+                                       Margin="0,20,0,0"
+                                       />
+                            <Label Content="All movies: "/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+
+        </Border>
+    </Border>
+
+</UserControl>

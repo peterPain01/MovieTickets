@@ -26,6 +26,9 @@ namespace NetFlix.ViewModel
         private int selectedDay;
         private Movie movie;
         private decimal _totalPrice;
+        private decimal _originalPrice;
+
+
         public Movie Movie { get => movie; set { movie = value; OnPropertyChanged(nameof(Movie)); } }
         private ObservableCollection<Showtime> showtimes;
         private ObservableCollection<Showtime> showtimes_selected;
@@ -36,6 +39,8 @@ namespace NetFlix.ViewModel
         private ObservableCollection<Seat> _selectedSeats = new ObservableCollection<Seat>();
         private Voucher _voucher;
         private String _voucherMessage;
+        private int _totalChairs;
+        private int _remainingChairs;
 
         public bool IsSelectedShowTime
         {
@@ -58,11 +63,30 @@ namespace NetFlix.ViewModel
         {
             get { return id; }
             set { id = value; OnPropertyChanged(nameof(Id)); }
+        } 
+        
+        public int TotalChairs
+        {
+            get { return _totalChairs; }
+            set { _totalChairs = value; OnPropertyChanged(nameof(TotalChairs)); }
         }
+
+        public int RemainingChairs
+        {
+            get { return _remainingChairs; }
+            set { _remainingChairs = value; OnPropertyChanged(nameof(RemainingChairs)); }
+        }
+
         public decimal TotalPrice
         {
             get { return _totalPrice; }
             set { _totalPrice = value; OnPropertyChanged(nameof(TotalPrice)); }
+        }
+        
+        public decimal OriginalPrice
+        {
+            get { return _originalPrice; }
+            set { _originalPrice = value; OnPropertyChanged(nameof(OriginalPrice)); }
         }
 
         public int SelectedDay
@@ -133,6 +157,7 @@ namespace NetFlix.ViewModel
         public ICommand SeatClickedCommand { get; set; }
         public ICommand OpenVoucherForm { get; set; }
         public ICommand ApplyVoucherCommand { get; set; }
+        public ICommand NavigateToStarPage { get; set; }
 
         private MovieRepository movieRepo { get; set; }
         private ShowTimeRepo ShowTimeRepo { get; set; }
@@ -155,6 +180,7 @@ namespace NetFlix.ViewModel
             SeatClickedCommand = new ViewModelCommand(ExecuteSeatClickedCommand);
             OpenVoucherForm = new ViewModelCommand(ExecuteOpenVoucherForm);
             ApplyVoucherCommand = new ViewModelCommand(ExecuteApplyVoucherCommand);
+            NavigateToStarPage = new ViewModelCommand(ExeNavigateToStarPage);
 
             SeatOfSelectedShowtime = new ObservableCollection<Seat>();
 
@@ -162,6 +188,13 @@ namespace NetFlix.ViewModel
             FilterShowTimeByDay();
         }
 
+        private void ExeNavigateToStarPage(object parameter)
+        {
+            int StarId = (int)parameter;
+            SubMovieRepo subMovieRepo = new SubMovieRepo();
+            NavigationStore._navigationStore.PrevViewModel = this; 
+            NavigationStore._navigationStore.CurrentViewModel = new StarModel(StarId, subMovieRepo);
+        }
         private decimal DiscountAmount(Voucher voucher, decimal original_price)
         {
             decimal? discountedAmount = voucherRepo.DiscountAmount(voucher, original_price);
@@ -220,7 +253,10 @@ namespace NetFlix.ViewModel
                 TotalPrice = DiscountAmount(Voucher, SelectedSeats.Sum(s => s.Price.Value));
             }
             else
+            {
                 TotalPrice = SelectedSeats.Sum(s => s.Price.Value);
+                OriginalPrice = SelectedSeats.Sum(s => s.Price.Value);
+            }
             OnPropertyChanged(nameof(SelectedSeats));
         }
         private void ExecuteGetSeatsCommand(object parameter)
@@ -229,6 +265,8 @@ namespace NetFlix.ViewModel
             SelectedShowTime = ShowTimes.FirstOrDefault(s => s.ShowtimeId == ShowtimeId);
 
             SeatOfSelectedShowtime = ShowTimeRepo.GetSeatByShowtimeId(ShowtimeId);
+            TotalChairs = SeatOfSelectedShowtime.Count;
+            RemainingChairs = SeatOfSelectedShowtime.Where(s => s.Status.Equals("Available")).Count(); 
             if (SeatOfSelectedShowtime.Count > 0)
             {
                 IsSelectedShowTime = true;
@@ -241,8 +279,8 @@ namespace NetFlix.ViewModel
             {
                 ShowtimeId = SelectedShowTime.ShowtimeId,
                 UserId = UserRepository.CurrentUser.Id,
-                OriginalPrice = Convert.ToInt32(TotalPrice),
-                TotalPrice = Convert.ToInt32(TotalPrice)
+                OriginalPrice = Convert.ToInt32(OriginalPrice),
+                TotalPrice = Convert.ToInt32(TotalPrice),
             };
 
             BookingRepo.CreateBooking(newBooking, SelectedSeats);
@@ -265,9 +303,12 @@ namespace NetFlix.ViewModel
             DayHaveShowTimes = ShowTimes.GroupBy(showtime => showtime.ShowtimeDatetime.Value.Day) // ->>  need more constrant here 
                               .Select(grp => grp.First())
                                .ToList();
-            selectedDay = DayHaveShowTimes.ElementAt(0).ShowtimeDatetime.Value.Day;
-            ShowTimesSelected = new ObservableCollection<Showtime>(ShowTimes.Where(showtime => showtime.ShowtimeDatetime.Value.Day == selectedDay)
-                                .Select(showtime => showtime).ToList());
+            if(DayHaveShowTimes.Count > 0)
+            {
+                selectedDay = DayHaveShowTimes.ElementAt(0).ShowtimeDatetime.Value.Day;
+                ShowTimesSelected = new ObservableCollection<Showtime>(ShowTimes.Where(showtime => showtime.ShowtimeDatetime.Value.Day == selectedDay)
+                                    .Select(showtime => showtime).ToList());
+            }
         }
 
     }

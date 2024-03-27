@@ -27,8 +27,19 @@ namespace NetFlix.ViewModel
         private bool _isHovering = false;
         private DispatcherTimer _timer;
         private int _currentIndex = 0;
-        
-     
+        private ObservableCollection<Movie> _allMovies;
+
+
+        public ObservableCollection<Movie> AllMovies
+        {
+            get { return _allMovies; }
+            set
+            {
+                _allMovies = value;
+                OnPropertyChanged("AllMovies");
+            }
+        }
+
         public ObservableCollection<Movie> Items
         {
             get { return _carouselItems; }
@@ -62,8 +73,9 @@ namespace NetFlix.ViewModel
         {
             movieRepo = new MovieRepository();
             userRepo = new UserRepository(); 
-            _carouselItems = movieRepo.GetNowShowingMovie(); 
-            
+            _carouselItems = movieRepo.GetNowShowingMovie();
+            AllMovies = movieRepo.GetAllMovies();
+
             NextCommand = new ViewModelCommand(NextButton_Click);
             PreviousCommand = new ViewModelCommand(PreviousButton_Click);
 

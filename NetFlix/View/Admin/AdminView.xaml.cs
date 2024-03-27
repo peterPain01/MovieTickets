@@ -21,6 +21,8 @@ namespace NetFlix.View
         public AdminDashBoard()
         {
             InitializeComponent();
+            lastButton = menuBtnDashboard; 
+            lastButton.Style = (Style)FindResource("menuButtonActive");
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -29,8 +31,18 @@ namespace NetFlix.View
             {
                 //this.DragMove();
             }
-        }
+        }   
 
-       
+        Button lastButton; 
+        private void menuBtnMovie_Click(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+            if(lastButton != null && lastButton != button)
+            {
+                lastButton.Style = (Style)FindResource("menuButton"); 
+                button.Style = (Style)FindResource("menuButtonActive");
+                lastButton = button; 
+            }
+        }
     }
 }

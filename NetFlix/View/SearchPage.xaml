@@ -8,6 +8,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              Background="Transparent" 
              Loaded="UserControl_Loaded"
+             Unloaded="UserControl_Unloaded"
              >
     <Border CornerRadius="20">
         <Border.BorderBrush>
@@ -29,7 +30,9 @@
 
         <ScrollViewer>
             <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center">
-                <customcontrols:Header Margin="20,30,20,0" Height="81"/>
+                <customcontrols:Header Margin="20,30,20,0" Height="81" Foreground="#fdfcf0"
+                                       KeyDown="Header_KeyDown"
+                                       />
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label Content="Genre: " Foreground="White"  
@@ -49,6 +52,7 @@
                                 FontFamily="Roboto"
                                 SelectedValuePath="Tag"
                                 SelectedValue="{Binding SelectedGenreItem, Mode=TwoWay}"
+                                SelectionChanged="cbGenres_SelectionChanged"
                                 >
                         <ComboBox.Resources>
                             <Style TargetType="ComboBoxItem">
@@ -67,6 +71,7 @@
                           FontFamily="Roboto"
                           SelectedValuePath="Tag"
                           SelectedValue="{Binding SelectedItem, Mode=TwoWay}"
+                          SelectionChanged="cbGenres_SelectionChanged"
                           >
                         <ComboBox.Resources>
                             <Style TargetType="ComboBoxItem">

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:NetFlix.View.Admin"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
+             xmlns:customControls="clr-namespace:NetFlix.CustomControls"
              mc:Ignorable="d" 
               d:DesignHeight="450" d:DesignWidth="1000">
     <Border CornerRadius="0 10 10 0" >
@@ -27,7 +28,8 @@
                       Margin="50,0,40,0" >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Showtime Id" Binding="{Binding ShowtimeId}" Width="*" MinWidth="80"/>
-                        <DataGridTextColumn Header="Movie Id" Binding="{Binding MovieId}" Width="*" MinWidth="120"/>
+                        <DataGridTextColumn Header="Movie Id" Binding="{Binding MovieId}" Width="100" MinWidth="80"/>
+                        <DataGridTextColumn Header="Movie Name" Binding="{Binding Movie.Title}" Width="*" MinWidth="120"/>
                         <DataGridTextColumn Header="Cinema Id" Binding="{Binding CinemaId}" Width="*" MinWidth="100"/>
                         <DataGridTextColumn Header="Time" Binding="{Binding ShowtimeDatetime}" MinWidth="60" Width="*"/>
                         <DataGridTemplateColumn  Header="Operations" Width="*" MinWidth="60">
@@ -53,6 +55,8 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
+
+                <customControls:PaginateControl HorizontalAlignment="Right" />
 
                 <!--Add Movie Button-->
                 <Button Content="Add New Showtime" Command="{Binding OpenAddShowTimeForm}" HorizontalAlignment="Center"

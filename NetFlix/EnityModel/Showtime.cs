@@ -20,4 +20,6 @@ public partial class Showtime
     public virtual Movie? Movie { get; set; }
 
     public virtual ICollection<Seat> Seats { get; set; } = new List<Seat>();
+
+    public string CinemaName => Cinema?.Name; 
 }
